@@ -234,9 +234,7 @@ if test -n "$debug1devices"; then fail; fi
 # Return true if the machine is on AC power, or if we can't determine
 # whether it's on AC power.
 onACPower() {
-    ! test -d "/proc/acpi/battery" ||
-    ! ls /proc/acpi/battery/BAT[0-9]* > /dev/null 2>&1 ||
-    ! cat /proc/acpi/battery/BAT*/state | grep "^charging state" | grep -q "discharg"
+    ! grep -q Discharging /sys/class/power_supply/BAT[0-9]*/status >/dev/null
 }
 
 
