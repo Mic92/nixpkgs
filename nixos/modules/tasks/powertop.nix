@@ -17,7 +17,6 @@ in {
         wantedBy = [ "multi-user.target" ];
         after = [ "multi-user.target" ];
         description = "Powertop tunings";
-        path = [ pkgs.kmod ];
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = "yes";
