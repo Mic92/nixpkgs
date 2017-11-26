@@ -13928,6 +13928,22 @@ let
     };
   };
 
+  NetXMPP = buildPerlPackage rec {
+    name = "Net-XMPP-1.05";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/D/DA/DAPATRICK/${name}.tar.gz";
+      sha256 = "0qlkjh46idkaw46di6j9y7jhy05zaahzm6x0cfhkbcn2fw2j00jc";
+    };
+    buildInputs = [ ModuleBuild ];
+    doCheck = false;
+    propagatedBuildInputs = [ YAMLTiny LWPOnline XMLStream DigestHMAC DigestSHA1 ];
+    meta = with stdenv.lib; {
+      description = "Library for Extensible Messaging and Presence Protocol (XMPP)";
+      license = [ licenses.lgp21 ];
+      maintainers = [ maintainers.mic92 ];
+    };
+  };
+
   NumberCompare = buildPerlPackage {
     pname = "Number-Compare";
     version = "0.03";
