@@ -20986,6 +20986,26 @@ let
     propagatedBuildInputs = [ XMLSAXExpat ];
   };
 
+  XMLStream = buildPerlPackage rec {
+    name = "XML-Stream-1.24";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/D/DA/DAPATRICK/${name}.tar.gz";
+      sha256 = "0p0xv63k5n5f350crh092d9511isrvzbrg0397lvcg6zvpsc9rdw";
+    };
+    patches = [
+      (pkgs.fetchpatch {
+        url = "https://patch-diff.githubusercontent.com/raw/dap/XML-Stream/pull/16.patch";
+        sha256 = "02vy9b4bqijwf62mx4di0i9ddgpc32ljkpfagdawsf3acix3w08y";
+      })
+    ];
+    propagatedBuildInputs = [ AuthenSASL ];
+    meta = with stdenv.lib; {
+      description = "Creates and XML Stream connection and parses return data";
+      license = [ licenses.artistic1 ];
+      maintainers = [ maintainers.mic92 ];
+    };
+  };
+
   XMLTokeParser = buildPerlPackage {
     pname = "XML-TokeParser";
     version = "0.05";
