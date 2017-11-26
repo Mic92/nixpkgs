@@ -10701,6 +10701,20 @@ let
     buildInputs = [ TestFatal ];
   };
 
+  LWPOnline = buildPerlPackage rec {
+    name = "LWP-Online-1.08";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/A/AD/ADAMK/${name}.tar.gz";
+      sha256 = "176f6vbk1018i0y7xj9d406ndbjgwzan2j9nihxnsahzg2vr2vz2";
+    };
+    propagatedBuildInputs = [ URI LWP ];
+    meta = with stdenv.lib; {
+      description = "Library to check if process has access to the web";
+      license = [ licenses.lgp21 ];
+      maintainers = [ maintainers.mic92 ];
+    };
+  };
+
   LWPProtocolConnect = buildPerlPackage {
     pname = "LWP-Protocol-connect";
     version = "6.09";
