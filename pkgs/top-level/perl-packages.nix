@@ -10710,7 +10710,7 @@ let
     propagatedBuildInputs = [ URI LWP ];
     meta = with stdenv.lib; {
       description = "Library to check if process has access to the web";
-      license = [ licenses.lgp21 ];
+      license = [ licenses.lgpl21 ];
       maintainers = [ maintainers.mic92 ];
     };
   };
@@ -13939,7 +13939,7 @@ let
     propagatedBuildInputs = [ YAMLTiny LWPOnline XMLStream DigestHMAC DigestSHA1 ];
     meta = with stdenv.lib; {
       description = "Library for Extensible Messaging and Presence Protocol (XMPP)";
-      license = [ licenses.lgp21 ];
+      license = [ licenses.lgpl21 ];
       maintainers = [ maintainers.mic92 ];
     };
   };
