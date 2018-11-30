@@ -3,7 +3,7 @@
 { stdenv, buildPackages, fetchurl, perl, xz
 
 # we are a dependency of gcc, this simplifies bootstraping
-, interactive ? false, ncurses, procps
+, interactive ? false, ncurses, procps, autoreconfHook, help2man
 }:
 
 with stdenv.lib;
@@ -17,22 +17,39 @@ stdenv.mkDerivation rec {
     inherit sha256;
   };
 
-  patches = optional (version == "6.5") ./perl.patch;
+  patches = optionals (version == "6.5") [ ./perl.patch ./texinfo-cross.patch ];
+
+  # help2man tries to executed `--help` on the programs, which fails during cross-compilation
+  preBuild = optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+    for page in ${buildPackages.texinfo}/share/man/man1/*; do
+      zcat "$page" > "man/$(basename $page .gz)"
+    done
+  '';
 
   # We need a native compiler to build perl XS extensions
   # when cross-compiling.
   depsBuildBuild = [ buildPackages.stdenv.cc perl ];
+  nativeBuildInputs = [ autoreconfHook help2man ]
+    ++ optional interactive [ ncurses ];
 
   buildInputs = [ xz.bin ]
     ++ optionals stdenv.isSunOS [ libiconv gawk ]
     ++ optional interactive ncurses;
 
   configureFlags = [ "PERL=${buildPackages.perl}/bin/perl" ]
-    ++ stdenv.lib.optional stdenv.isSunOS "AWK=${gawk}/bin/awk";
+    ++ stdenv.lib.optional stdenv.isSunOS "AWK=${buildPackages.gawk}/bin/awk"
+    # perl extension is currently built for wrong system
+    ++ stdenv.lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "--disable-perl-xs";
 
   preInstall = ''
     installFlags="TEXMF=$out/texmf-dist";
     installTargets="install install-tex";
+  '';
+
+  postFixup = optionals (stdenv.hostPlatform != stdenv.buildPlatform) ''
+    # fixup broken shebang
+    sed -i -e 's!${buildPackages.perl}!${perl}!' \
+      $out/bin/{pod2texi,texi2any,makeinfo}
   '';
 
   checkInputs = [ procps ];
