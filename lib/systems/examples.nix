@@ -84,6 +84,12 @@ rec {
     config = "armv6l-unknown-linux-musleabihf";
   };
 
+  freebsd = {
+    config = "x86_64-pc-freebsd11.2";
+    platform = {};
+    libc = "freebsd-libc";
+  };
+
   aarch64-multiplatform-musl = aarch64-multiplatform // {
     config = "aarch64-unknown-linux-musl";
   };

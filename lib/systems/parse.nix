@@ -389,7 +389,7 @@ rec {
         then { cpu = elemAt l 0; vendor = elemAt l 1; kernel = "windows";                    }
       else if (elemAt l 2 == "wasi")
         then { cpu = elemAt l 0; vendor = elemAt l 1; kernel = "wasi";                       }
-      else if hasPrefix "netbsd" (elemAt l 2)
+      else if hasPrefix "netbsd" (elemAt l 2) || hasPrefix "freebsd" (elemAt l 2)
         then { cpu = elemAt l 0; vendor = elemAt l 1;    kernel = elemAt l 2;                }
       else if (elem (elemAt l 2) ["eabi" "eabihf" "elf"])
         then { cpu = elemAt l 0; vendor = "unknown"; kernel = elemAt l 1; abi = elemAt l 2; }

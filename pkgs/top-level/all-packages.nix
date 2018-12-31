@@ -10970,6 +10970,8 @@ in
   bionic = assert stdenv.hostPlatform.useAndroidPrebuilt;
     pkgs."androidndkPkgs_${stdenv.hostPlatform.ndkVer}".libraries;
 
+  freebsd-libc = buildPackages.callPackage ../os-specific/bsd/freebsd-libc {};
+
   bobcat = callPackage ../development/libraries/bobcat { };
 
   boehmgc = callPackage ../development/libraries/boehm-gc { };
@@ -11583,6 +11585,7 @@ in
     # hack fixes the hack, *sigh*.
     /**/ if name == "glibc" then targetPackages.glibcCross or glibcCross
     else if name == "bionic" then targetPackages.bionic or bionic
+    else if name == "freebsd-libc" then targetPackages.freebsd-libc or freebsd-libc
     else if name == "uclibc" then targetPackages.uclibcCross or uclibcCross
     else if name == "avrlibc" then targetPackages.avrlibcCross or avrlibcCross
     else if name == "newlib" && stdenv.targetPlatform.isMsp430 then targetPackages.msp430NewlibCross or msp430NewlibCross
