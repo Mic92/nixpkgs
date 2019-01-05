@@ -19215,7 +19215,9 @@ in
   firefox-esr-68 = wrapFirefox firefox-esr-68-unwrapped { };
   firefox-esr = firefox-esr-68;
 
-  firefox-bin-unwrapped = callPackage ../applications/networking/browsers/firefox-bin {
+  firefox-bin-unwrapped = if (stdenv.system == "aarch64-linux") then
+    callPackage ../applications/networking/browsers/firefox-bin/aarch64.nix {}
+  else callPackage ../applications/networking/browsers/firefox-bin {
     channel = "release";
     generated = import ../applications/networking/browsers/firefox-bin/release_sources.nix;
     gconf = pkgs.gnome2.GConf;
