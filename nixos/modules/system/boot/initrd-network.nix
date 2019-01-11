@@ -102,6 +102,7 @@ in
               ;;
           esac
         done
+        hasNetwork=1
       ''
 
       # Otherwise, use DHCP.
