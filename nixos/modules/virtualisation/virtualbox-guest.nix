@@ -46,6 +46,8 @@ in
 
     users.groups.vboxsf.gid = config.ids.gids.vboxsf;
 
+    security.rngd.enable = false;
+
     systemd.services.virtualbox =
       { description = "VirtualBox Guest Services";
 
