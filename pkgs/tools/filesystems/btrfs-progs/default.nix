@@ -15,15 +15,23 @@ stdenv.mkDerivation rec {
     pkgconfig asciidoc xmlto docbook_xml_dtd_45 docbook_xsl libxslt python3 python3Packages.setuptools
   ];
 
-  buildInputs = [ attr acl zlib libuuid e2fsprogs lzo zstd ];
+  buildInputs = [ attr acl zlib libuuid e2fsprogs lzo zstd python3 ];
 
   # gcc bug with -O1 on ARM with gcc 4.8
   # This should be fine on all platforms so apply universally
   postPatch = "sed -i s/-O1/-O2/ configure";
 
+  # for python cross-compiling
+  _PYTHON_HOST_PLATFORM = stdenv.hostPlatform.config;
+  postConfigure = ''
+    export LDSHARED="$LD -shared"
+  '';
+
   postInstall = ''
     install -v -m 444 -D btrfs-completion $out/etc/bash_completion.d/btrfs
   '';
+
+  enableParallelBuilding = true;
 
   configureFlags = stdenv.lib.optional stdenv.hostPlatform.isMusl "--disable-backtrace";
 
