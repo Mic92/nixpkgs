@@ -33,6 +33,9 @@ in {
     extraCommands = "mkdir -p proc sys dev";
   };
 
+  # In the common case we cannot access the random generator
+  security.rngd.enable = false;
+
   boot.isContainer = true;
   boot.postBootCommands =
     ''
