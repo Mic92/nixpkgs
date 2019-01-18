@@ -42,6 +42,7 @@ in
       # rngd may have to start early to avoid entropy starvation during boot with encrypted swap
       unitConfig.DefaultDependencies = false;
       serviceConfig = {
+        ConditionVirtualization = false;
         ExecStart = "${pkgs.rng-tools}/sbin/rngd -f"
           + optionalString cfg.debug " -d";
         # PrivateTmp would introduce a circular dependency if /tmp is on tmpfs and swap is encrypted,
