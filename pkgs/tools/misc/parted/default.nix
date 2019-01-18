@@ -27,6 +27,8 @@ stdenv.mkDerivation rec {
     patchShebangs tests
   '';
 
+  enableParallelBuilding = true;
+
   buildInputs = [ libuuid ]
     ++ stdenv.lib.optional (readline != null) readline
     ++ stdenv.lib.optional (gettext != null) gettext
