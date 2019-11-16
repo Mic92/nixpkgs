@@ -9,6 +9,7 @@
 , setuptools_scm
 , toml
 , filelock
+, setuptools
 }:
 
 buildPythonPackage rec {
@@ -16,7 +17,7 @@ buildPythonPackage rec {
   version = "3.14.3";
 
   buildInputs = [ setuptools_scm ];
-  propagatedBuildInputs = [ packaging pluggy py six virtualenv toml filelock ];
+  propagatedBuildInputs = [ packaging pluggy py six virtualenv toml filelock setuptools ];
 
   doCheck = false;
 
