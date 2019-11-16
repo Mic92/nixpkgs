@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   name = "kmod-debian-aliases-${version}.conf";
-  version = "22-1.1";
+  version = "26-3";
 
   src = fetchurl {
-    url = "https://snapshot.debian.org/archive/debian/20160404T220610Z/pool/main/k/kmod/kmod_${version}.debian.tar.xz";
-    sha256 = "0daap2n4bvjqcnksaayy6csmdb1px4r02w3xp36bcp6w3lbnqamh";
+    url = "https://snapshot.debian.org/archive/debian/20190918T030259Z/pool/main/k/kmod/kmod_${version}.debian.tar.xz";
+    sha256 = "0gfdbn6qv03s9pp8wp4rgikqrlz6dry36h39cx95clpvplxjsrnc";
   };
 
   installPhase = ''
