@@ -595,10 +595,14 @@ in
 
   albert = libsForQt5.callPackage ../applications/misc/albert {};
 
-  alacritty = callPackage ../applications/misc/alacritty {
+  /* Give alacritty a higher priority to override any `terminfo/a/alacritty*`
+     files provided by `ncurses` with the ones freshly compiled with `tic`.
+     Relevant issue: https://github.com/NixOS/nixpkgs/issues/71300
+  */
+  alacritty = hiPrio (callPackage ../applications/misc/alacritty {
     inherit (xorg) libXcursor libXxf86vm libXi;
     inherit (darwin.apple_sdk.frameworks) AppKit CoreGraphics CoreServices CoreText Foundation OpenGL;
-  };
+  });
 
   aldo = callPackage ../applications/radio/aldo { };
 
