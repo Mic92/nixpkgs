@@ -23,11 +23,14 @@ let
 
     # extra interpreters needed for shebangs, based on 2015 schemes "medium" and "tetex"
     # (omitted tk needed in pname == "epspdf", bin/epspdftk)
-    pkgNeedsPython = pkg: pkg.tlType == "run" && lib.elem pkg.pname
-      [ "de-macro" "pythontex" "dviasm" "texliveonfly" ];
+    pkgNeedsPython2 = pkg: (pkg.tlType == "run" && lib.elem pkg.pname
+      [ "de-macro" "dviasm" "latex-papersize" ]);
+    pkgNeedsPython3 = pkg: pkg.tlType == "run" && lib.elem pkg.pname
+      [ "pythontex" "texliveonfly" ];
     pkgNeedsRuby = pkg: pkg.tlType == "run" && pkg.pname == "match-parens";
     extraInputs =
-      lib.optional (lib.any pkgNeedsPython splitBin.wrong) python
+      lib.optional (lib.any pkgNeedsPython2 splitBin.wrong) python2
+      ++ lib.optional (lib.any pkgNeedsPython3 splitBin.wrong) python3
       ++ lib.optional (lib.any pkgNeedsRuby splitBin.wrong) ruby;
   };
 
