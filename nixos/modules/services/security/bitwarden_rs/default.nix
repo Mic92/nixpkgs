@@ -101,7 +101,7 @@ in {
       serviceConfig = {
         User = user;
         Group = group;
-        EnvironmentFile = configFile;
+        EnvironmentFile = [ configFile ];
         ExecStart = "${bitwarden_rs}/bin/bitwarden_rs";
         LimitNOFILE = "1048576";
         LimitNPROC = "64";
