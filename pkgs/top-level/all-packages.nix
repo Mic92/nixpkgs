@@ -8785,6 +8785,9 @@ in
   inherit (rustPackages) cargo clippy rustc rustPlatform;
   inherit (rust) makeRustPlatform;
 
+  rust-nightly = callPackage ../development/compilers/rust/nightly.nix {};
+  rustNightlyPlatform = recurseIntoAttrs (makeRustPlatform rust-nightly);
+
   buildRustCrate = callPackage ../build-support/rust/build-rust-crate { };
   buildRustCrateHelpers = callPackage ../build-support/rust/build-rust-crate/helpers.nix { };
   buildRustCrateTests = recurseIntoAttrs (callPackage ../build-support/rust/build-rust-crate/test { });
