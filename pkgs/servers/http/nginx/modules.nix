@@ -267,6 +267,16 @@ in
     };
   };
 
+  ldap-auth = {
+    src = fetchFromGitHub {
+      owner = "kvspb";
+      repo = "nginx-auth-ldap";
+      rev = "e2081531c1eadd0afd9252e538c06f82c60db7f6";
+      sha256 = "1nyl60rm7d1s507r8zvvq82h1f585nhn09n53996b87v1m4hyf2w";
+    };
+    inputs = [ pkgs.openldap ];
+  };
+
   push-stream ={
     src = fetchFromGitHub {
       owner = "wandenberg";
