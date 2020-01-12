@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, openssl, cyrus_sasl, db, groff, libtool }:
+{ stdenv, fetchurl, openssl, cyrus_sasl, db, groff, libtool
+, nixosTests }:
 
 stdenv.mkDerivation rec {
   name = "openldap-2.4.49";
@@ -20,6 +21,8 @@ stdenv.mkDerivation rec {
   # Disable install stripping as it breaks cross-compiling.
   # We strip binaries anyway in fixupPhase.
   makeFlags= [ "STRIP=" ];
+
+  passthru.tests.openldap = nixosTests.openldap;
 
   configureFlags = [
     "--enable-overlays"
