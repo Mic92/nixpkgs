@@ -1503,6 +1503,8 @@ in {
 
   WazeRouteCalculator = callPackage ../development/python-modules/WazeRouteCalculator { };
 
+  xandikos = callPackage ../development/python-modules/xandikos { };
+
   yarg = callPackage ../development/python-modules/yarg { };
 
   yt = callPackage ../development/python-modules/yt { };
