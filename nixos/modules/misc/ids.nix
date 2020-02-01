@@ -235,7 +235,7 @@ in
       gitit = 202;
       riemanntools = 203;
       subsonic = 204;
-      riak = 205;
+      # riak = 205; # unused, removed 2020-01-31
       shout = 206;
       gateone = 207;
       namecoin = 208;
@@ -292,7 +292,7 @@ in
       leaps = 260;
       ipfs  = 261;
       stanchion = 262;
-      riak-cs = 263;
+      # riak-cs = 263; # unused, removed 2020-01-31
       infinoted = 264;
       sickbeard = 265;
       headphones = 266;
@@ -545,7 +545,7 @@ in
       gitit = 202;
       riemanntools = 203;
       subsonic = 204;
-      riak = 205;
+      # riak = 205; # unused, removed 2020-01-31
       #shout = 206; #unused
       gateone = 207;
       namecoin = 208;
@@ -594,7 +594,7 @@ in
       leaps = 260;
       ipfs = 261;
       stanchion = 262;
-      riak-cs = 263;
+      # riak-cs = 263; # unused, removed 2020-01-31
       infinoted = 264;
       sickbeard = 265;
       headphones = 266;
