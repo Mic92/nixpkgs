@@ -23,6 +23,7 @@ let
 
       dnscrypt-wrapper --gen-cert-file \
         --crypt-secretkey-file=${cfg.providerName}.key \
+        --provider-name=${cfg.providerName} \
         --provider-cert-file=${cfg.providerName}.crt \
         --provider-publickey-file=public.key \
         --provider-secretkey-file=secret.key \
