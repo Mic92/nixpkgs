@@ -44,6 +44,11 @@ let
     ${optionalString (cfg.wifi.powersave != null)
       ''wifi.powersave=${if cfg.wifi.powersave then "3" else "2"}''}
 
+    ${optionalString (cfg.enableConnectivityCheck) ''
+      [connectivity]
+      uri=http://network-test.debian.org/nm
+    ''}
+
     [device]
     wifi.scan-rand-mac-address=${if cfg.wifi.scanRandMacAddress then "yes" else "no"}
     wifi.backend=${cfg.wifi.backend}
@@ -331,6 +336,17 @@ in {
           <literal>networkmanager_strongswan</literal> plugin will be added to
           the <option>networking.networkmanager.packages</option> option
           so you don't need to to that yourself.
+        '';
+      };
+
+      enableConnectivityCheck = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Enable internet connectivity check.
+          Networkmanager will attempt to download http://network-test.debian.org/nm.
+          This is useful to detect wifi portals.
+          Disable this option if you wish not to submit a request to debian.org.
         '';
       };
     };
