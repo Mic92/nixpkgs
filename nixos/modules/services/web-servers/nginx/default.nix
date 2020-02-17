@@ -23,6 +23,9 @@ let
       sslCertificate = "${certs.${vhostConfig.useACMEHost}.directory}/fullchain.pem";
       sslCertificateKey = "${certs.${vhostConfig.useACMEHost}.directory}/key.pem";
       sslTrustedCertificate = "${certs.${vhostConfig.useACMEHost}.directory}/fullchain.pem";
+    }) // (optionalAttrs (vhostConfig.useACMEHost != null) {
+      legacySslCertificate = if certs ? "legacy-${vhostConfig.useACMEHost}" then "${certs."legacy-${vhostConfig.useACMEHost}".directory}/fullchain.pem" else null;
+      legacySslCertificateKey = if certs ? "legacy-${vhostConfig.useACMEHost}" then "${certs."legacy-${vhostConfig.useACMEHost}".directory}/key.pem" else null;
     })
   ) cfg.virtualHosts;
   enableIPv6 = config.networking.enableIPv6;
@@ -248,6 +251,10 @@ let
           ${optionalString hasSSL ''
             ssl_certificate ${vhost.sslCertificate};
             ssl_certificate_key ${vhost.sslCertificateKey};
+          ''}
+          ${optionalString (vhost.legacySslCertificate != null) ''
+            ssl_certificate ${vhost.legacySslCertificate};
+            ssl_certificate_key ${vhost.legacySslCertificateKey};
           ''}
           ${optionalString (hasSSL && vhost.sslTrustedCertificate != null) ''
             ssl_trusted_certificate ${vhost.sslTrustedCertificate};

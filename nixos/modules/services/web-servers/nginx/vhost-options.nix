@@ -118,10 +118,24 @@ with lib;
       '';
     };
 
+    legacySslCertificate = mkOption {
+      type = types.nullOr types.path;
+      example = "/var/host.cert";
+      default = null;
+      description = "Path to legacy RSA server SSL certificate.";
+    };
+
     sslCertificate = mkOption {
       type = types.path;
       example = "/var/host.cert";
       description = "Path to server SSL certificate.";
+    };
+
+    legacySslCertificateKey = mkOption {
+      type = types.nullOr types.path;
+      example = "/var/host.key";
+      default = null;
+      description = "Path to legacy RSA server SSL certificate key.";
     };
 
     sslCertificateKey = mkOption {
