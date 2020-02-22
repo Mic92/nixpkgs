@@ -67,7 +67,7 @@ in
       port = mkOption {
         type = types.int;
         default = 6379;
-        description = "The port for Redis to listen to.";
+        description = "The port for Redis to listen to. Set it to 0 to not listen to TCP.";
       };
 
       vmOverCommit = mkOption {
@@ -218,7 +218,9 @@ in
     users.users.redis = {
       description = "Redis database user";
       isSystemUser = true;
+      group = "redis";
     };
+    users.groups.redis = {};
 
     environment.systemPackages = [ cfg.package ];
 
