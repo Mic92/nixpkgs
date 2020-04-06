@@ -1,5 +1,6 @@
 { stdenv, lib, fetchurl, fetchpatch, pkgconfig, flex, bison, libxslt, autoconf, autoreconfHook
 , graphviz, glib, libiconv, libintl, libtool, expat, substituteAll
+, buildPackages
 }:
 
 let
@@ -64,8 +65,15 @@ let
     # configure flag. We also need to override the path to the valac compiler
     # so that it can be used to regenerate documentation.
     patches        = lib.optionals disableGraphviz [ graphvizPatch ./gvc-compat.patch ];
-    configureFlags = lib.optional  disableGraphviz "--disable-graphviz";
-    preBuild       = lib.optional  disableGraphviz "buildFlagsArray+=(\"VALAC=$(pwd)/compiler/valac\")";
+    configureFlags = lib.optional disableGraphviz "--disable-graphviz";
+    preBuild = let
+      valac = if stdenv.hostPlatform == stdenv.buildPlatform then
+        "$(pwd)/compiler/valac"
+      else
+        "${buildPackages.vala}/bin/valac";
+    in lib.optionalString disableGraphviz ''
+      buildFlagsArray+=("VALAC=${valac}")
+    '';
 
     outputs = [ "out" "devdoc" ];
 
