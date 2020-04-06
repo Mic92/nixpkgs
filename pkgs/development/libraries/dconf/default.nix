@@ -18,15 +18,35 @@ stdenv.mkDerivation rec {
     patchShebangs meson_post_install.py
     patchShebangs tests/test-dconf.py
   '';
+  outputs = [ "out" "lib" "dev" ] ++ stdenv.lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc";
 
-  outputs = [ "out" "lib" "dev" "devdoc" ];
+  strictDeps = true;
 
-  nativeBuildInputs = [ meson ninja vala pkgconfig python3 libxslt libxml2 glib gtk-doc docbook_xsl docbook_xml_dtd_42 ];
-  buildInputs = [ glib bash-completion dbus ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    vala
+    pkgconfig
+    python3
+    libxslt
+    libxml2
+    gtk-doc
+    docbook_xsl
+    docbook_xml_dtd_42
+    glib # for gdbus-codegen
+  ];
+
+  buildInputs = [
+    glib
+    bash-completion
+    dbus
+    vala # for vapigen.pc
+  ];
 
   mesonFlags = [
     "--sysconfdir=/etc"
-    "-Dgtk_doc=true"
+    # dconf-scan is not build with BUILD_CC
+    "-Dgtk_doc=${if stdenv.hostPlatform == stdenv.buildPlatform then "true" else "false"}"
   ];
 
   doCheck = !stdenv.isAarch32 && !stdenv.isAarch64 && !stdenv.isDarwin;
