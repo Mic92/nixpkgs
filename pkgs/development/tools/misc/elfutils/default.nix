@@ -21,10 +21,10 @@ stdenv.mkDerivation rec {
 
   propagatedNativeBuildInputs = [ setupDebugInfoDirs ];
 
-  configureFlags =
-    [ "--program-prefix=eu-" # prevent collisions with binutils
-      "--enable-deterministic-archives"
-    ];
+  configureFlags = [
+    "--program-prefix=eu-" # prevent collisions with binutils
+    "--enable-deterministic-archives"
+  ];
 
   enableParallelBuilding = true;
 
