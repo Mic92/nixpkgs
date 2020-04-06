@@ -131,8 +131,7 @@ self: super:
     configureFlags = lib.optional isDarwin "CFLAGS=-O0";
   });
 
-  libXxf86vm = super.libXxf86vm.overrideAttrs (attrs: {
-    outputs = [ "out" "dev" ];
+  libXScrnSaver = super.libXScrnSaver.overrideAttrs (attrs: {
     configureFlags = attrs.configureFlags or []
       ++ malloc0ReturnsNullCrossFlag;
   });
@@ -150,6 +149,12 @@ self: super:
     depsBuildBuild = [ buildPackages.stdenv.cc ];
     CPP = if stdenv.isDarwin then "clang -E -" else "${stdenv.cc.targetPrefix}cc -E -";
     outputs = [ "out" "dev" "devdoc" ];
+  });
+
+  libXxf86vm = super.libXxf86vm.overrideAttrs (attrs: {
+    outputs = [ "out" "dev" ];
+    configureFlags = attrs.configureFlags or []
+      ++ malloc0ReturnsNullCrossFlag;
   });
 
   luit = super.luit.overrideAttrs (attrs: {
