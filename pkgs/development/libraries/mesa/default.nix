@@ -3,7 +3,7 @@
 , file, flex, bison, expat, libdrm, xorg, wayland, wayland-protocols, openssl
 , llvmPackages, libffi, libomxil-bellagio, libva-minimal
 , libelf, libvdpau, python3Packages
-, libglvnd
+, libglvnd, buildPackages
 , enableRadv ? true
 , galliumDrivers ? ["auto"]
 , driDrivers ? ["auto"]
@@ -29,9 +29,7 @@ with stdenv.lib;
 let
   version = "20.0.2";
   branch  = versions.major version;
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "mesa";
   inherit version;
 
@@ -45,7 +43,37 @@ stdenv.mkDerivation {
     sha256 = "0vz8k07d23qdwy67fnna9y0ynnni0m8lgswcmdm60l4mcv5z2m5a";
   };
 
-  prePatch = "patchShebangs .";
+  prePatch = let
+    nativePkgConfigPath = "${lib.getDev buildPackages.wayland}/lib/pkgconfig";
+  in ''
+    patchShebangs .
+  '' + optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+    mkdir -p bin
+
+    cat > bin/pkg-config <<EOF
+    #!${stdenv.shell}
+    if [[ -z \$PKG_CONFIG_PATH ]]; then
+      export PKG_CONFIG_PATH="${nativePkgConfigPath}"
+    fi
+    ${buildPackages.pkgconfig}/bin/pkg-config "\$@"
+    EOF
+
+    cat > bin/llvm-config <<EOF
+    #!${stdenv.shell}
+    ${buildPackages.llvmPackages_9.llvm}/bin/llvm-config "\$@" \
+      | sed -e 's!${buildPackages.llvmPackages_9.llvm}!${llvmPackages.llvm}!'
+    EOF
+
+    chmod +x bin/pkg-config bin/llvm-config
+    export PATH=$(pwd)/bin:$PATH
+
+    cat > llvm-config.txt <<EOF
+    [binaries]
+    llvm-config = "llvm-config"
+    EOF
+    mesonFlags="$mesonFlags --cross-file $(pwd)/llvm-config.txt"
+    llvm-config --version
+  '';
 
   # TODO:
   #  revive ./dricore-gallium.patch when it gets ported (from Ubuntu), as it saved
@@ -103,6 +131,8 @@ stdenv.mkDerivation {
     "-Dgallium-nine=true" # Direct3D in Wine
   ];
 
+  strictDeps = true;
+
   buildInputs = with xorg; [
     expat llvmPackages.llvm libglvnd xorgproto
     libX11 libXext libxcb libXt libXfixes libxshmfence libXrandr
@@ -115,7 +145,8 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     pkgconfig meson ninja
     intltool bison flex file
-    python3Packages.python python3Packages.Mako
+    python3Packages.python
+    python3Packages.Mako
   ];
 
   propagatedBuildInputs = with xorg; [
