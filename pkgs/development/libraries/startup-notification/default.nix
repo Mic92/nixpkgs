@@ -11,6 +11,10 @@ stdenv.mkDerivation {
     sha256 = "3c391f7e930c583095045cd2d10eb73a64f085c7fde9d260f2652c7cb3cfbe4a";
   };
 
+  configureFlags = stdenv.lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) [
+    "lf_cv_sane_realloc=yes"
+  ];
+
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ libX11 libxcb xcbutil ];
 
