@@ -4,6 +4,7 @@
 , libxml2
 , llvm
 , version
+, buildPackages
 }:
 
 stdenv.mkDerivation {
@@ -13,7 +14,11 @@ stdenv.mkDerivation {
   src = fetch "lld" "0rsqb7zcnij5r5ipfhr129j7skr5n9pyr388kjpqwh091952f3x1";
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ llvm libxml2 ];
+  buildInputs = [ libxml2 llvm ];
+
+  cmakeFlags = [
+    "-DLLVM_CONFIG_PATH=${buildPackages.llvm}/bin/llvm-config"
+  ];
 
   outputs = [ "out" "dev" ];
 
