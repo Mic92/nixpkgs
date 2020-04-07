@@ -16,6 +16,8 @@ stdenv.mkDerivation rec {
 
   outputs = [ "bin" "dev" "out" "man" "doc" ] ++ stdenv.lib.optional pythonSupport "py";
 
+  enableParallelBuilding = true;
+
   buildInputs = [ libxml2.dev ]
     ++ stdenv.lib.optionals pythonSupport [ libxml2.py python ]
     ++ stdenv.lib.optionals cryptoSupport [ libgcrypt ];
