@@ -1,13 +1,11 @@
 # shellcheck shell=bash
 gappsWrapperArgs=()
 
-find_gio_modules() {
-    if [ -d "$1/lib/gio/modules" ] && [ -n "$(ls -A "$1/lib/gio/modules")" ] ; then
-        gappsWrapperArgs+=(--prefix GIO_EXTRA_MODULES : "$1/lib/gio/modules")
-    fi
+add_gio_modules() {
+    addToSearchPathWithCustomDelimiter : GIO_EXTRA_MODULES "$1/lib/gio/modules"
 }
 
-addEnvHooks "${targetOffset:?}" find_gio_modules
+addEnvHooks "${targetOffset:?}" add_gio_modules
 
 gappsWrapperArgsHook() {
     if [ -n "$GDK_PIXBUF_MODULE_FILE" ]; then
@@ -20,6 +18,10 @@ gappsWrapperArgsHook() {
 
     if [ -n "$GSETTINGS_SCHEMAS_PATH" ]; then
         gappsWrapperArgs+=(--prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH")
+    fi
+
+    if [ -n "$GIO_EXTRA_MODULES" ]; then
+        gappsWrapperArgs+=(--prefix GIO_EXTRA_MODULES : "$GIO_EXTRA_MODULES")
     fi
 
     # Check for prefix as well
