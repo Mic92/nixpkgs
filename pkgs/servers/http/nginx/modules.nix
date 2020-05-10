@@ -208,6 +208,17 @@ in
     };
   };
 
+  auth-ldap = {
+    # https://github.com/kvspb/nginx-auth-ldap
+    src = fetchFromGitHub {
+      owner = "kvspb";
+      repo = "nginx-auth-ldap";
+      rev = "83c059b73566c2ee9cbda920d91b66657cf120b7";
+      sha256 = "023zmdir7w92dnb508ggskkc7kmd7k71hc597sb7i4xfgpwxzq1s";
+    };
+    inputs = [ pkgs.openldap ];
+  };
+
   opentracing = {
     src =
       let src' = fetchFromGitHub {
