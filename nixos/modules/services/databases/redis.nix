@@ -239,6 +239,8 @@ in
         ExecStart = "${cfg.package}/bin/redis-server /run/redis/redis.conf";
         RuntimeDirectory = "redis";
         StateDirectory = "redis";
+        TimeoutStartSec = "infinity";
+        TimeoutStopSec = "infinity";
         Type = "notify";
         User = "redis";
         Group = "redis";
