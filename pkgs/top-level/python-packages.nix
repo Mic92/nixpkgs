@@ -5993,6 +5993,8 @@ in {
 
   seabreeze = callPackage ../development/python-modules/seabreeze { };
 
+  segments = callPackage ../development/python-modules/segments { };
+
   selenium = callPackage ../development/python-modules/selenium { };
 
   serpy = callPackage ../development/python-modules/serpy { };
