@@ -5248,6 +5248,8 @@ in {
 
   periodictable = callPackage ../development/python-modules/periodictable { };
 
+  phonemizer = callPackage ../development/python-modules/phonemizer { };
+
   pgcli = callPackage ../development/tools/database/pgcli {};
 
   pg8000 = callPackage ../development/python-modules/pg8000 { };
