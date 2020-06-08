@@ -629,6 +629,8 @@ in {
 
   crc32c = callPackage ../development/python-modules/crc32c { };
 
+  csvw = callPackage ../development/python-modules/csvw { };
+
   curio = callPackage ../development/python-modules/curio { };
 
   dendropy = callPackage ../development/python-modules/dendropy { };
