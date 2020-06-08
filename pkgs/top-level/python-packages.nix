@@ -6208,6 +6208,8 @@ in {
 
   transaction = callPackage ../development/python-modules/transaction { };
 
+  tts = callPackage ../development/python-modules/tts { };
+
   TurboCheetah = callPackage ../development/python-modules/TurboCheetah { };
 
   tweepy = callPackage ../development/python-modules/tweepy { };
