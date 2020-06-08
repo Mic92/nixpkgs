@@ -7028,6 +7028,8 @@ in {
 
   pypeg2 = callPackage ../development/python-modules/pypeg2 { };
 
+  torchfile = callPackage ../development/python-modules/torchfile { };
+
   torchvision = callPackage ../development/python-modules/torchvision { };
 
   torchgpipe = callPackage ../development/python-modules/torchgpipe { };
