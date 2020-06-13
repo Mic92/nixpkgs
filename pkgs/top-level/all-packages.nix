@@ -1870,6 +1870,8 @@ in
 
   fdroidserver = python3Packages.callPackage ../development/tools/fdroidserver { };
 
+  festival = callPackage ../applications/audio/festival { };
+
   filebench = callPackage ../tools/misc/filebench { };
 
   fileshare = callPackage ../servers/fileshare {};
