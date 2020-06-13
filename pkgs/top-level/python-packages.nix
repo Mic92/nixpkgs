@@ -5141,6 +5141,8 @@ in {
 
   parsedatetime = callPackage ../development/python-modules/parsedatetime { };
 
+  parallel-wavegan = callPackage ../development/python-modules/parallel-wavegan { };
+
   param = callPackage ../development/python-modules/param { };
 
   paramiko = callPackage ../development/python-modules/paramiko { };
