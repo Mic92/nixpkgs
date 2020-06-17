@@ -2,7 +2,7 @@
 , texlive
 , zlib, libiconv, libpng, libX11
 , freetype, gd, libXaw, icu, ghostscript, libXpm, libXmu, libXext
-, perl, perlPackages, python2Packages, pkgconfig, autoreconfHook
+, perl, perlPackages, python3Packages, pkgconfig, autoreconfHook
 , poppler, libpaper, graphite2, zziplib, harfbuzz, potrace, gmp, mpfr
 , cairo, pixman, xorg, clisp, biber, xxHash
 , makeWrapper, shortenPerlShebang
@@ -374,14 +374,48 @@ latexindent = perlPackages.buildPerlPackage rec {
   '';
 };
 
+# lilyglyphs comes with optional python2-only scripts
+# they are only required for creating new creating new commands
+# the actual package can be used without it:
+# https://ctan.org/tex-archive/macros/luatex/latex/lilyglyphs
+# To avoid python2 we just don't install them.
+lilyglyphs = stdenv.mkDerivation {
+  pname = "lilyglyphs";
+  inherit version;
 
-pygmentex = python2Packages.buildPythonApplication rec {
+  dontUnpack = true;
+
+  installPhase = ''
+    mkdir -p $out/bin
+  '';
+};
+
+ebong = stdenv.mkDerivation {
+  pname = "ebong";
+  inherit version;
+
+  inherit (common) src;
+
+  dontConfigure = true;
+  dontBuild = true;
+
+  buildInputs = [
+    python3Packages.python
+  ];
+
+  installPhase = ''
+    install -D -m755 ./texk/texlive/linked_scripts/ebong/ebong.py $out/bin/ebong
+    2to3 --write --nobackup $out/bin/ebong
+  '';
+};
+
+pygmentex = python3Packages.buildPythonApplication rec {
   pname = "pygmentex";
   inherit (src) version;
 
   src = stdenv.lib.head (builtins.filter (p: p.tlType == "run") texlive.pygmentex.pkgs);
 
-  propagatedBuildInputs = with python2Packages; [ pygments chardet ];
+  propagatedBuildInputs = with python3Packages; [ pygments chardet ];
 
   dontBuild = true;
 
