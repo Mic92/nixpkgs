@@ -1,13 +1,13 @@
 { stdenv
 , lib
-, fetchurl
+, fetchFromGitLab
 , substituteAll
 , autoreconfHook
 , pkgconfig
 , intltool
 , babl
 , gegl
-, gtk2
+, gtk3
 , glib
 , gdk-pixbuf
 , isocodes
@@ -29,7 +29,7 @@
 , ghostscript
 , aalib
 , shared-mime-info
-, python2
+, python3
 , libexif
 , gettext
 , makeWrapper
@@ -46,20 +46,45 @@
 , AppKit
 , Cocoa
 , gtk-mac-integration-gtk2
+, meson
+, ninja
+, appstream-glib
+, libarchive
+, libXmu
+, vala
+, webkitgtk
+, alsaLib
+, gjs
+, luajit
+, libxslt
+, xvfb_run
+, dbus
+, gobject-introspection
+, gtk-doc
+, docbook_xml_dtd_412
+, docbook_xsl
+, wrapGAppsHook
 }:
 
 let
-  python = python2.withPackages (pp: [ pp.pygtk ]);
+  python = python3.withPackages (pp: [ pp.pygobject3 ]);
 in stdenv.mkDerivation rec {
   pname = "gimp";
-  version = "2.10.20";
+  version = "2.99";
 
   outputs = [ "out" "dev" ];
 
-  src = fetchurl {
-    url = "http://download.gimp.org/pub/gimp/v${lib.versions.majorMinor version}/${pname}-${version}.tar.bz2";
-    sha256 = "4S+fh0saAHxCd7YKqB4LZzML5+YVPldJ6tg5uQL8ezw=";
+  src = fetchFromGitLab {
+    domain = "gitlab.gnome.org";
+    owner = "GNOME";
+    repo = "gimp";
+    rev = "74d09904566a284c4f3cdee4530a050f6fa6a0d5";
+    sha256 = "0n8v324xsn248qwf7fzsz843r1ag80fvl7q6x3hpks5cvx5ij9rb";
   };
+  #src = fetchurl {
+  #  url = "http://download.gimp.org/pub/gimp/v${lib.versions.majorMinor version}/${pname}-${version}.tar.bz2";
+  #  sha256 = "4S+fh0saAHxCd7YKqB4LZzML5+YVPldJ6tg5uQL8ezw=";
+  #};
 
   patches = [
     # to remove compiler from the runtime closure, reference was retained via
@@ -75,17 +100,33 @@ in stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [
-    autoreconfHook # hardcode-plugin-interpreters.patch changes Makefile.am
     pkgconfig
     intltool
     gettext
     makeWrapper
+    meson
+    vala
+    libxslt
+    ninja
+    wrapGAppsHook
   ];
 
   buildInputs = [
+    docbook_xml_dtd_412 docbook_xsl
+    xvfb_run
+    appstream-glib
+    gobject-introspection
+    webkitgtk
+    gtk-doc
+    dbus
+    gjs
+    luajit
+    alsaLib
+    libarchive
+    libXmu
     babl
     gegl
-    gtk2
+    gtk3
     glib
     gdk-pixbuf
     pango
@@ -139,6 +180,10 @@ in stdenv.mkDerivation rec {
     export GIO_EXTRA_MODULES="${glib-networking}/lib/gio/modules:$GIO_EXTRA_MODULES"
   '';
 
+  postPatch = ''
+    patchShebangs ./tools/
+  '';
+
   postFixup = ''
     wrapProgram $out/bin/gimp-${lib.versions.majorMinor version} \
       --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE"
@@ -152,7 +197,7 @@ in stdenv.mkDerivation rec {
     targetScriptDir = "share/gimp/${majorVersion}/scripts";
 
     # probably its a good idea to use the same gtk in plugins ?
-    gtk = gtk2;
+    gtk = gtk3;
   };
 
   configureFlags = [
@@ -166,7 +211,7 @@ in stdenv.mkDerivation rec {
 
   # on Darwin,
   # test-eevl.c:64:36: error: initializer element is not a compile-time constant
-  doCheck = !stdenv.isDarwin;
+  doCheck = false;
 
   enableParallelBuilding = true;
 
