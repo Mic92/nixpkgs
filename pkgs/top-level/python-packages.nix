@@ -1374,6 +1374,8 @@ in {
     inherit (pkgs) cmake qt5 llvmPackages;
   });
 
+  sgmllib3k = callPackage ../development/python-modules/sgmllib3k { };
+
   simplefix = callPackage ../development/python-modules/simplefix { };
 
   pyscrypt = callPackage ../development/python-modules/pyscrypt { };
