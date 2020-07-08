@@ -12,8 +12,8 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "msteen";
     repo = "nix-prefetch";
-    rev = version;
-    sha256 = "15h6f743nn6sdq8l771sjxh92cyzqznkcs7szrc7nm066xvx8rd4";
+    rev = "be08d90ea645c2cbe7ad74c751627a43357107c8";
+    sha256 = "1y9i188jsqbchd7yk9w3gcw187g3qc76bkb18qvl5fcmf7qjpk5z";
     # the stat call has to be in a subshell or we get the current date
     extraPostFetch = ''
       echo $(stat -c %Y $out) > $out/.timestamp
