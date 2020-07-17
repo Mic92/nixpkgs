@@ -2270,6 +2270,8 @@ in
 
   socklog = callPackage ../tools/system/socklog { };
 
+  spacevim = callPackage ../applications/editors/spacevim { };
+
   stagit = callPackage ../development/tools/stagit { };
 
   statserial = callPackage ../tools/misc/statserial { };
