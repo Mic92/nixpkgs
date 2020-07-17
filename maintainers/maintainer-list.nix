@@ -9251,4 +9251,10 @@
     github = "deifactor";
     githubId = 30192992;
   };
+  fzakaria = {
+    name = "Farid Zakaria";
+    email = "farid.m.zakaria@gmail.com";
+    github = "fzakaria";
+    githubId = 605070;
+  };
 }
