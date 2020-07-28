@@ -16031,9 +16031,7 @@ in
 
   hiawatha = callPackage ../servers/http/hiawatha {};
 
-  home-assistant = callPackage ../servers/home-assistant {
-    python3 = python37;
-  };
+  home-assistant = callPackage ../servers/home-assistant {};
 
   home-assistant-cli = callPackage ../servers/home-assistant/cli.nix { };
 
