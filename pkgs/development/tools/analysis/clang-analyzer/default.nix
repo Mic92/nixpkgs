@@ -1,26 +1,26 @@
-{ stdenv, fetchurl, clang, llvmPackages, perl, makeWrapper }:
+{ stdenv, fetchurl, clang, llvmPackages, perl, makeWrapper, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "clang-analyzer";
-  version = "3.4";
+  version = llvmPackages.clang-unwrapped.version;
 
-  src = fetchurl {
-    url    = "http://llvm.org/releases/${version}/clang-${version}.src.tar.gz";
-    sha256 = "06rb4j1ifbznl3gfhl98s7ilj0ns01p7y7zap4p7ynmqnc6pia92";
-  };
+  src = llvmPackages.clang-unwrapped.src;
 
   patches = [ ./0001-Fix-scan-build-to-use-NIX_CFLAGS_COMPILE.patch ];
-  buildInputs = [ clang llvmPackages.clang perl makeWrapper ];
+  buildInputs = [ clang llvmPackages.clang perl python3 ];
+  nativeBuildInputs = [ makeWrapper ];
 
   dontBuild = true;
 
   installPhase = ''
-    mkdir -p $out/bin $out/libexec
-    cp -R tools/scan-view  $out/libexec
-    cp -R tools/scan-build $out/libexec
+    mkdir -p $out/share/scan-view $out/bin
+    cp -R tools/scan-view/share/* $out/share/scan-view
+    cp -R tools/scan-view/bin/* $out/bin/scan-view
+    cp -R tools/scan-build/* $out
 
-    makeWrapper $out/libexec/scan-view/scan-view $out/bin/scan-view
-    makeWrapper $out/libexec/scan-build/scan-build $out/bin/scan-build \
+    rm $out/bin/*.bat $out/libexec/*.bat $out/CMakeLists.txt
+
+    wrapProgram $out/bin/scan-build \
       --add-flags "--use-cc=${clang}/bin/clang" \
       --add-flags "--use-c++=${clang}/bin/clang++" \
       --add-flags "--use-analyzer='${llvmPackages.clang}/bin/clang'"
