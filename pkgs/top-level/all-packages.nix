@@ -3419,7 +3419,7 @@ in
 
   f2fs-tools = callPackage ../tools/filesystems/f2fs-tools { };
 
-  Fabric = python2Packages.Fabric;
+  Fabric = python3Packages.toPythonApplication python3Packages.Fabric;
 
   fail2ban = callPackage ../tools/security/fail2ban { };
 
