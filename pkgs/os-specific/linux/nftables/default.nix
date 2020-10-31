@@ -10,12 +10,12 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  version = "0.9.6";
+  version = "0.9.7";
   pname = "nftables";
 
   src = fetchurl {
     url = "https://netfilter.org/projects/nftables/files/${pname}-${version}.tar.bz2";
-    sha256 = "0vmn6xwqa1nq6crfxshh049b199d0aj6hfgin7k068xhibzgvmk8";
+    sha256 = "1c1c2475nifncv0ng8z77h2dpanlsx0bhqm15k00jb3a6a68lszy";
   };
 
   nativeBuildInputs = [
@@ -45,5 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://netfilter.org/projects/nftables/";
     license = licenses.gpl2;
     platforms = platforms.linux;
+    maintainers = with maintainers; [ izorkin ];
   };
 }
