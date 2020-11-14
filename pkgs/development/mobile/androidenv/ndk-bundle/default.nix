@@ -16,7 +16,7 @@ deployAndroidPackage {
 
   '' + lib.optionalString (builtins.compareVersions (lib.getVersion package) "21" > 0) ''
     patch -p1 \
-      --no-backup-if-mismatch < ${./make_standalone_toolchain.py_18.patch}
+      --no-backup-if-mismatch < ${./make_standalone_toolchain.py_18.patch} || true
     wrapProgram $(pwd)/build/tools/make_standalone_toolchain.py --prefix PATH : "${runtime_paths}"
   '' + ''
 
