@@ -93,6 +93,7 @@ stdenv.mkDerivation {
     homepage = "https://www.openafs.org";
     license = licenses.ipl10;
     platforms = platforms.linux;
+    broken = with kernel; kernelOlder "3.18" || isHardened;
     maintainers = [ maintainers.maggesi maintainers.spacefrogg ];
   };
 }
