@@ -86,6 +86,10 @@
    </arg>
 
    <arg>
+     <option>--generation</option> <replaceable>generation</replaceable>
+   </arg>
+
+   <arg>
     <option>--builders</option> <replaceable>builder-spec</replaceable>
    </arg>
 
@@ -503,6 +507,21 @@
       previous configuration. (The previous configuration is defined as the one
       before the “current” generation of the Nix profile
       <filename>/nix/var/nix/profiles/system</filename>.)
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term>
+     <option>--generation</option> <replaceable>generation</replaceable>
+    </term>
+    <listitem>
+     <para>
+      Instead of building a new configuration as specified by
+      <filename>/etc/nixos/configuration.nix</filename>, switch to a
+      specified <replaceable>generation</replaceable> number. A list of
+      generations can be found using
+      <command>nixos-rebuild list-generations</command>.
      </para>
     </listitem>
    </varlistentry>

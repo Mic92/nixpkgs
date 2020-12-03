@@ -25,6 +25,7 @@ action=
 buildNix=1
 fast=
 rollback=
+generation=
 upgrade=
 upgrade_all=
 profile=/nix/var/nix/profiles/system
@@ -67,6 +68,14 @@ while [ "$#" -gt 0 ]; do
         ;;
       --rollback)
         rollback=1
+        ;;
+      --generation)
+        if [ $# -eq 0 ]; then
+            log "Must provide a generation number" >&2
+            log "Usage: \`$(basename "$0") ${action:-switch} --generation <NUMBER>'" >&2
+            exit 1
+        fi
+        generation="$1"; shift 1
         ;;
       --upgrade)
         upgrade=1
@@ -434,7 +443,7 @@ SSHOPTS="$NIX_SSHOPTS -o ControlMaster=auto -o ControlPath=$tmpDir/ssh-%n -o Con
 
 # First build Nix, since NixOS may require a newer version than the
 # current one.
-if [[ -n "$rollback" || "$action" = dry-build ]]; then
+if [[ "$action" = dry-build ]]; then
     buildNix=
 fi
 
@@ -605,7 +614,7 @@ fi
 # Either upgrade the configuration in the system profile (for "switch"
 # or "boot"), or just build it and create a symlink "result" in the
 # current directory (for "build" and "test").
-if [ -z "$rollback" ]; then
+if [ -z "$rollback" ] && [ -z "$generation" ]; then
     log "building the system configuration..."
     if [[ "$action" = switch || "$action" = boot ]]; then
         if [[ -z $flake ]]; then
@@ -640,7 +649,7 @@ if [ -z "$rollback" ]; then
     if ! [[ "$action" = switch || "$action" = boot ]]; then
         copyToTarget "$pathToConfig"
     fi
-else # [ -n "$rollback" ]
+elif [[ -n "$rollback" ]]; then
     if [[ "$action" = switch || "$action" = boot ]]; then
         targetHostCmd nix-env --rollback -p "$profile"
         pathToConfig="$profile"
@@ -650,6 +659,22 @@ else # [ -n "$rollback" ]
             sed -n '/current/ {g; p;}; s/ *\([0-9]*\).*/\1/; h'
         )
         pathToConfig="$profile"-${systemNumber}-link
+        if [ -z "$targetHost" ]; then
+            ln -sT "$pathToConfig" ./result
+        fi
+    else
+        showSyntax
+    fi
+else # [ -n "$generation" ]
+    if [ ! -L "$profile-$generation-link" ]; then
+        log "Cannot find generation \`$generation'. Run 'nixos-rebuild list-generations' to find available generations." >&2
+        exit 1
+    fi
+    if [ "$action" = switch ] || [ "$action" = boot ]; then
+        targetHostCmd nix-env --switch-generation "$generation" -p "$profile"
+        pathToConfig="$profile"
+    elif [ "$action" = test ] || [ "$action" = build ]; then
+        pathToConfig="$profile"-${generation}-link
         if [ -z "$targetHost" ]; then
             ln -sT "$pathToConfig" ./result
         fi
