@@ -7,6 +7,7 @@
 , bash
 , installShellFiles
 , nftablesSupport ? false
+, nixosTests
 }:
 
 let
@@ -57,6 +58,8 @@ buildGoPackage rec {
 
     installShellCompletion --bash go/src/github.com/lxc/lxd/scripts/bash/lxd-client
   '';
+
+  passthru.tests.lxd = nixosTests.lxd;
 
   nativeBuildInputs = [ installShellFiles pkgconfig makeWrapper ];
   buildInputs = [ lxc acl libcap libco-canonical.dev dqlite.dev
