@@ -19,7 +19,7 @@
 #include <nix/store-api.hh>        // for openStore
 #include <nix/symbol-table.hh>     // for Symbol, SymbolTable
 #include <nix/types.hh>            // for Error, Path, Strings, PathSet
-#include <nix/util.hh>             // for absPath, baseNameOf
+#include <nix/util.hh>             // for absPath, baseNameOf, readLink
 #include <nix/value.hh>            // for Value, Value::(anonymous), Value:...
 #include <string>                  // for string, operator+, operator==
 #include <utility>                 // for move
@@ -584,7 +584,8 @@ void printOne(Context & ctx, Out & out, const std::string & path)
 int main(int argc, char ** argv)
 {
     bool recursive = false;
-    std::string path = ".";
+    Path path = ".";
+    std::string flake = "";
     std::string optionsExpr = "(import <nixpkgs/nixos> {}).options";
     std::string configExpr = "(import <nixpkgs/nixos> {}).config";
     std::vector<std::string> args;
@@ -603,6 +604,8 @@ int main(int argc, char ** argv)
             recursive = true;
         } else if (*arg == "--path") {
             path = nix::getArg(*arg, arg, end);
+        } else if (*arg == "--flake") {
+            flake = nix::getArg(*arg, arg, end);
         } else if (*arg == "--options_expr") {
             optionsExpr = nix::getArg(*arg, arg, end);
         } else if (*arg == "--config_expr") {
@@ -622,6 +625,13 @@ int main(int argc, char ** argv)
     nix::settings.readOnlyMode = true;
     auto store = nix::openStore();
     auto state = std::make_unique<EvalState>(myArgs.searchPath, store);
+
+    if (flake == "") {
+        flake = readLink("/etc/nixos/flake.nix");
+    }
+
+    Path readLink("/etc/nixos/flake.nix");
+    readLink(const char *pathname, char *buf, size_t bufsiz);
 
     Value optionsRoot = parseAndEval(*state, optionsExpr, path);
     Value configRoot = parseAndEval(*state, configExpr, path);
