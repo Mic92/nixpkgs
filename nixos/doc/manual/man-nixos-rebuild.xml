@@ -51,6 +51,10 @@
    <arg choice='plain'>
     <option>build-vm-with-bootloader</option>
    </arg>
+
+   <arg choice='plain'>
+    <option>list-generations</option>
+   </arg>
     </group>
     <sbr />
 
@@ -395,8 +399,24 @@
       </para>
      </listitem>
     </varlistentry>
-   </variablelist>
-  </para>
+
+    <varlistentry>
+     <term>
+      <option>list-generations</option> <optional>--json</optional>
+     </term>
+     <listitem>
+      <para>
+       List the available generations in a similar manner to the boot loader
+       menu. It shows the generation number, build date and time, NixOS version,
+       kernel version and the configuration revision. This is useful to get
+       information e.g. for which generation to roll back to with
+       <command>nixos-rebuild switch --generation <replaceable>N</replaceable></command>.
+       There is also a json version of output available.
+      </para>
+    </listitem>
+   </varlistentry>
+  </variablelist>
+ </para>
  </refsection>
 
  <refsection>
