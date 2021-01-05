@@ -13,9 +13,11 @@ let
   optimizedKeymap = pkgs.runCommand "keymap" {
     nativeBuildInputs = [ pkgs.buildPackages.kbd ];
     LOADKEYS_KEYMAP_PATH = "${consoleEnv}/share/keymaps/**";
+    passAsFile = [ "keyMapOverrides" ];
+    inherit (cfg) keyMapOverrides;
     preferLocalBuild = true;
   } ''
-    loadkeys -b ${optionalString isUnicode "-u"} "${cfg.keyMap}" > $out
+    loadkeys -b ${optionalString isUnicode "-u"} "${cfg.keyMap}" "$keyMapOverridesPath" > $out
   '';
 
   # Sadly, systemd-vconsole-setup doesn't support binary keymaps.
@@ -60,6 +62,18 @@ in
       example = "fr";
       description = ''
         The keyboard mapping table for the virtual consoles.
+      '';
+    };
+
+    keyMapOverrides = mkOption {
+      type = types.lines;
+      default = "";
+      example = ''
+        keycode 58 = Return
+      '';
+      description = ''
+        Additional mappings for virtual consoles to load that overrides
+        mappings set by <literal>console.keyMap</literal>
       '';
     };
 
