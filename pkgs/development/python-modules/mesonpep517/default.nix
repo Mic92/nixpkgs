@@ -12,12 +12,12 @@
 
 buildPythonPackage rec {
   pname = "mesonpep517";
-  version = "0.1.9999994";
+  version = "0.1.9999996";
   format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "b5bcca61024164c4a51d29e6921ea1f756d54197c8f052e4c66a2b8399aa9349";
+    sha256 = "sha256-Czow+/DCDdT1F97dT6Gmk8KvLDXaojrtoaGkn6Kl2LQ=";
   };
 
   nativeBuildInputs = [ intreehooks  ];
