@@ -11,35 +11,31 @@
 , libuuid
 , numactl
 , openssl
+, yasm
+, autoconf
+, automake
+, libtool
 }:
 
-let
-  dpdk-compat-patch = fetchurl {
-    url = "https://review.spdk.io/gerrit/plugins/gitiles/spdk/spdk/+/6acb9a58755856fb9316baf9dbbb7239dc6b9446%5E%21/?format=TEXT";
-    sha256 = "18q0956fkjw19r29hp16x4pygkfv01alj9cld2wlqqyfgp41nhn0";
-  };
-in stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "spdk";
-  version = "20.04.1";
+  version = "20.10";
 
   src = fetchFromGitHub {
     owner = "spdk";
     repo = "spdk";
     rev = "v${version}";
-    sha256 = "ApMyGamPrMalzZLbVkJlcwatiB8dOJmoxesdjkWZElk=";
+    sha256 = "sha256-TVQU1FV0BvYkqpYbxNtqkE6pfkO3vhaK5CHSfbqh99Y=";
+    fetchSubmodules = true;
   };
-
-  patches = [
-    ./spdk-dpdk-meson.patch
-    # https://review.spdk.io/gerrit/c/spdk/spdk/+/3134
-    (fetchpatch {
-      url = "https://github.com/spdk/spdk/commit/c954b5b722c5c163774d3598458ff726c48852ab.patch";
-      sha256 = "1n149hva5qxmpr0nmav10nya7zklafxi136f809clv8pag84g698";
-    })
-  ];
 
   nativeBuildInputs = [
     python3
+    yasm
+    autoconf
+    automake
+    libtool
+    libbsd
   ];
 
   buildInputs = [
@@ -48,12 +44,16 @@ in stdenv.mkDerivation rec {
 
   postPatch = ''
     patchShebangs .
-    base64 -d ${dpdk-compat-patch} | patch -p1
   '';
 
   configureFlags = [ "--with-dpdk=${dpdk}" ];
 
-  NIX_CFLAGS_COMPILE = "-mssse3"; # Necessary to compile.
+  NIX_CFLAGS_COMPILE = [
+    # Necessary to compile.
+    "-mssse3"
+    # somehow it depends on strlcpy
+    "-lbsd"
+  ];
 
   enableParallelBuilding = true;
 
