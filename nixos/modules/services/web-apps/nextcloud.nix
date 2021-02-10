@@ -711,7 +711,7 @@ in {
           before = [ "phpfpm-nextcloud.service" ];
           path = [ occ ];
           script = ''
-            chmod og+x ${cfg.home}
+            install -m750 --owner nextcloud --group nextcloud -d ${cfg.home}
 
             ${optionalString (c.dbpassFile != null) ''
               if [ ! -r "${c.dbpassFile}" ]; then
@@ -805,7 +805,6 @@ in {
       users.users.nextcloud = {
         home = "${cfg.home}";
         group = "nextcloud";
-        createHome = true;
         isSystemUser = true;
       };
       users.groups.nextcloud.members = [ "nextcloud" config.services.nginx.user ];
