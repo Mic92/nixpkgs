@@ -1,12 +1,18 @@
 { lib, stdenv
 , fetchFromGitHub
-, python3Packages
+, buildPythonApplication
 , glibcLocales
 , coreutils
 , git
+, pytest
+, pytest-rerunfailures
+, ply
+, prompt_toolkit
+, pygments
+, pip
 }:
 
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "xonsh";
   version = "0.9.27";
 
@@ -39,9 +45,9 @@ python3Packages.buildPythonApplication rec {
     HOME=$TMPDIR pytest -k 'test_ptk_highlight'
   '';
 
-  checkInputs = [ python3Packages.pytest python3Packages.pytest-rerunfailures glibcLocales git ];
+  checkInputs = [ pytest pytest-rerunfailures glibcLocales git ];
 
-  propagatedBuildInputs = with python3Packages; [ ply prompt_toolkit pygments ];
+  propagatedBuildInputs = [ ply prompt_toolkit pygments pip ];
 
   meta = with lib; {
     description = "A Python-ish, BASHwards-compatible shell";
