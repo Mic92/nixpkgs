@@ -9536,7 +9536,7 @@ in
 
   rush = callPackage ../shells/rush { };
 
-  xonsh = callPackage ../shells/xonsh { };
+  xonsh = python3Packages.callPackage ../shells/xonsh { };
 
   zsh = callPackage ../shells/zsh { };
 
