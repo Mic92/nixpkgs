@@ -34,7 +34,7 @@ buildPythonApplication rec {
     owner = "errbotio";
     repo = "errbot";
     rev = version;
-    sha256 = "02h44qd3d91zy657hyqsw3gskgxg31848pw6zpb8dhd1x84z5y77";
+    sha256 = "sha256-5/jyCeqhwYbW/YZfRFAYr7+p3+Aae3iK8T+kNhomBAo=";
   };
 
   LC_ALL = "en_US.utf8";
