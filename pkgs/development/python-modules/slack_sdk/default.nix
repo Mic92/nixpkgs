@@ -18,8 +18,8 @@
 }:
 
 buildPythonPackage rec {
-  pname = "python-slackclient";
-  version = "2.9.3";
+  pname = "slack_sdk";
+  version = "3.3.2";
 
   disabled = !isPy3k;
 
@@ -57,7 +57,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A client for Slack, which supports the Slack Web API and Real Time Messaging (RTM) API";
-    homepage = "https://github.com/slackapi/python-slackclient";
+    homepage = "https://github.com/slackapi/python-slack-sdk";
     license = licenses.mit;
     maintainers = with maintainers; [ flokli psyanticy ];
   };
