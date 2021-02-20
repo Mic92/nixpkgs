@@ -42,43 +42,24 @@ buildPythonApplication rec {
   buildInputs = [ glibcLocales ];
 
   propagatedBuildInputs = [
-    ansi
-    colorlog
-    daemonize
-    deepmerge
-    dulwich
-    flask
-    hypchat
-    irc
-    jinja2
-    markdown
-    pyasn1
-    pyasn1-modules
-    pygments
-    pygments-markdown-lexer
-    pyopenssl
-    requests
-    slackclient
-    sleekxmpp
-    telegram
-    webtest
+    webtest requests jinja2 flask dulwich deepmerge
+    pyopenssl colorlog markdown ansi pygments
+    daemonize pygments-markdown-lexer telegram irc slack_sdk
+
+    sleekxmpp pyasn1 pyasn1-modules hypchat
   ];
 
-  checkInputs = [
-    mock
-    pytestCheckHook
-  ];
-
-  # Slack backend test has an import issue
-  pytestFlagsArray = [ "--ignore=tests/backend_tests/slack_test.py" ];
+  checkInputs = [ mock pytestCheckHook ];
 
   disabledTests = [
+    # touches network
     "backup"
     "broken_plugin"
     "plugin_cycle"
   ];
 
-  pythonImportsCheck = [ "errbot" ];
+  # we provide slack_sdk instead of the old slackclient
+  pytestFlagsArray = [ "--ignore=tests/backend_tests/slack_test.py" ];
 
   meta = with lib; {
     description = "Chatbot designed to be simple to extend with plugins written in Python";
