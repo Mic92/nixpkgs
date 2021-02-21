@@ -27,6 +27,10 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-lklG8DqG04LKJY93z2axeYhW8gtpbRG41o9ow2gJjuA=";
   };
 
+  patches = [
+    ./0001-server-listen-to-ipv6.patch
+  ];
+
   preBuild = ''
     # numba jit tries to write to its cache directory
     export HOME=$TMPDIR
