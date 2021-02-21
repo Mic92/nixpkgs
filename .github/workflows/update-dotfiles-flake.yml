@@ -1,0 +1,15 @@
+name: Remote Dispatch Action Initiator
+
+on:
+  push:
+    branches: [ master ]
+jobs:
+  ping-pong:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update dotfiles flakes
+        run: |
+          curl -X POST https://api.github.com/repos/Mic92/dotfiles/dispatches \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          -u ${{ secrets.ACCESS_TOKEN }} \
+          --data '{"event_type": "update-flakes", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
