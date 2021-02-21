@@ -1,0 +1,29 @@
+From 7b32510e167590400f7b305eb687daf2f9765965 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=B6rg=20Thalheim?= <joerg@thalheim.io>
+Date: Sun, 21 Feb 2021 10:46:21 +0100
+Subject: [PATCH] server: listen to ipv6
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Jörg Thalheim <joerg@thalheim.io>
+---
+ TTS/server/server.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/TTS/server/server.py b/TTS/server/server.py
+index 7cf9839..11917c2 100644
+--- a/TTS/server/server.py
++++ b/TTS/server/server.py
+@@ -110,7 +110,7 @@ def tts():
+ 
+ 
+ def main():
+-    app.run(debug=args.debug, host='0.0.0.0', port=args.port)
++    app.run(debug=args.debug, host='::', port=args.port)
+ 
+ 
+ if __name__ == '__main__':
+-- 
+2.30.0
+
