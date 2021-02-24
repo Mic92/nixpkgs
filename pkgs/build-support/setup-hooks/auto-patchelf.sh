@@ -137,11 +137,17 @@ autoPatchelfFile() {
 
     # If the file is not a dynamic executable, ldd/sed will fail,
     # in which case we return, since there is nothing left to do.
+    # matches both glibc's ldd i.e.:
+    # libsane.so.1 => not found
+    # and messages from musl's ldd i.e.:
+    # Error loading shared library libgcc_s.so.1: No such file or directory (needed by /nix/store/4ci82fib4is56xsh3cslrp73pqb5g3wl-rustc-bootstrap-1.48.0/lib/libchalk_derive-a0e16dec9aebd798.so)
     local missing
     missing="$(
-        ldd "$toPatch" 2> /dev/null | \
-            sed -n -e 's/^[\t ]*\([^ ]\+\) => not found.*/\1/p'
-    )" || return 0
+        ldd "$toPatch" 2>&1 | \
+            sed -n -e 's/^\([\t ]*\([^ ]\+\) => not found.*\|Error loading shared library \([^:]\+\): .*\)/\2\3/p'
+    )" || true
+
+    [[ -z "$missing" ]] && return 0
 
     # This ensures that we get the output of all missing dependencies instead
     # of failing at the first one, because it's more useful when working on a
