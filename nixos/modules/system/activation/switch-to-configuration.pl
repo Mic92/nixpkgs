@@ -439,7 +439,10 @@ if (scalar(keys %unitsToReload) > 0) {
 # than stopped and started).
 if (scalar(keys %unitsToRestart) > 0) {
     print STDERR "restarting the following units: ", join(", ", sort(keys %unitsToRestart)), "\n";
-    system("@systemd@/bin/systemctl", "restart", "--", sort(keys %unitsToRestart)) == 0 or $res = 4;
+    for my $unit (sort(keys %unitsToRestart)) {
+        print STDERR "restarting the unit ", $unit, "\n";
+        system("@systemd@/bin/systemctl", "restart", "--", $unit) == 0 or $res = 4;
+    }
     unlink($restartListFile);
 }
 
