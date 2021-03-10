@@ -19864,7 +19864,7 @@ in
     # udev is the same package as systemd which depends on cryptsetup
     # which depends on lvm2 again.  But we only need the libudev part
     # which does not depend on cryptsetup.
-    udev = systemdMinimal;
+    udev = if stdenv.hostPlatform.isMusl then null else systemdMinimal;
   };
   lvm2_dmeventd = callPackage ../os-specific/linux/lvm2 {
     enableDmeventd = true;
