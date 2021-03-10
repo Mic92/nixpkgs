@@ -20378,8 +20378,11 @@ in
 
   usermount = callPackage ../os-specific/linux/usermount { };
 
-  util-linux = if stdenv.isLinux then callPackage ../os-specific/linux/util-linux { }
-              else unixtools.util-linux;
+  util-linux = if stdenv.isLinux then
+    callPackage ../os-specific/linux/util-linux {
+      systemd = if stdenv.hostPlatform.isMusl then null else pkgs.systemd;
+    }
+  else unixtools.util-linux;
 
   util-linuxCurses = util-linux;
 
