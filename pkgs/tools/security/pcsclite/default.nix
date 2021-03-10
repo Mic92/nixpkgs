@@ -1,4 +1,5 @@
 { lib, stdenv, fetchurl, pkg-config, udev, dbus, perl, python3
+, libusb
 , IOKit ? null }:
 
 stdenv.mkDerivation rec {
@@ -20,8 +21,11 @@ stdenv.mkDerivation rec {
     "--enable-confdir=/etc"
   ] ++ lib.optional stdenv.isLinux
          "--with-systemdsystemunitdir=\${out}/etc/systemd/system"
-    ++ lib.optional (!stdenv.isLinux)
-         "--disable-libsystemd";
+    ++ lib.optional (!stdenv.isLinux || stdenv.hostPlatform.isMusl)
+      "--disable-libsystemd"
+    ++ lib.optional (stdenv.hostPlatform.isMusl)
+      "--disable-libudev"
+  ;
 
   postConfigure = ''
     sed -i -re '/^#define *PCSCLITE_HP_DROPDIR */ {
@@ -35,7 +39,9 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config perl ];
-  buildInputs = [ python3 ] ++ lib.optionals stdenv.isLinux [ udev dbus ]
+  buildInputs = [ python3 libusb ]
+             ++ [(if stdenv.hostPlatform.isMusl then libusb else udev)]
+             ++ lib.optionals stdenv.isLinux [ dbus ]
              ++ lib.optionals stdenv.isDarwin [ IOKit ];
 
   meta = with lib; {
