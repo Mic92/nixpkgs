@@ -51,8 +51,12 @@ in
 
     docker = mkOption {
       type = types.bool;
-      default = false;
-      description = "Use docker to run containers rather than the built-in containerd.";
+      default = config.boot.zfs.enabled;
+      defaultText = "config.boot.zfs.enabled";
+      description = ''
+        Use docker to run containers rather than the built-in containerd.
+        If zfs is used k3s defaults to docker k3s's containerd does not support zfs.
+      '';
     };
 
     extraFlags = mkOption {
