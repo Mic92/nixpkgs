@@ -3,8 +3,8 @@
 
 stdenv.mkDerivation rec {
   pname = "lkl";
-  version = "2019-10-04";
-  rev  = "06ca3ddb74dc5b84fa54fa1746737f2df502e047";
+  version = "2020-08-28";
+  rev = "1844b34b193086ff9457b3cde119692d5be6a1cb";
 
   outputs = [ "dev" "lib" "out" ];
 
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     inherit rev;
     owner  = "lkl";
     repo   = "linux";
-    sha256 = "0qjp0r338bwgrqdsvy5mkdh7ryas23m47yvxfwdknfyl0k3ylq62";
+    sha256 = "sha256-icsNH0+ZeuYi4iqzMZomiwgDkD8PknSwaIE0t5Rfx10=";
   };
 
   # Fix a /usr/bin/env reference in here that breaks sandboxed builds
