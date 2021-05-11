@@ -1,6 +1,7 @@
 { stdenv, lib
 , kernel
 , fetchurl
+, fetchpatch
 , pkg-config, meson, ninja
 , libbsd, numactl, libbpf, zlib, libelf, jansson, openssl, libpcap
 , doxygen, python3
