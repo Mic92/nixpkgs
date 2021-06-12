@@ -105,6 +105,10 @@ rustPlatform.buildRustPackage rec {
     ln -s $out/bin/{wezterm,wezterm-mux-server,wezterm-gui,strip-ansi-escapes} "$OUT_APP"
   '';
 
+  shellHook = ''
+    export LD_LIBRARY_PATH=${lib.makeLibraryPath runtimeDeps}
+  '';
+
   # prevent further changes to the RPATH
   dontPatchELF = true;
 
