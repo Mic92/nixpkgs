@@ -238,6 +238,7 @@
   ./security/polkit.nix
   ./security/rngd.nix
   ./security/rtkit.nix
+  ./security/sgx.nix
   ./security/wrappers/default.nix
   ./security/sudo.nix
   ./security/doas.nix
