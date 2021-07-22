@@ -728,9 +728,10 @@
     "owner": "terraform-providers",
     "provider-source-address": "registry.terraform.io/hashicorp/oci",
     "repo": "terraform-provider-oci",
-    "rev": "v3.79.0",
-    "sha256": "11n2v537zniiv5xvhpypqrm09my8zybirvq4ly94hp69v73xj89c",
-    "version": "3.79.0"
+    "rev": "v4.36.0",
+    "sha256": "1gx9i0wf8hpzg6lk71c75axnj0anpnl1hqs5h269xcjmzhk3clqd",
+    "vendorSha256": null,
+    "version": "4.36.0"
   },
   "okta": {
     "owner": "terraform-providers",
