@@ -360,7 +360,7 @@ in python.pkgs.buildPythonApplication rec {
   makeWrapperArgs = lib.optional skipPip "--add-flags --skip-pip";
 
   # upstream only tests on Linux, so do we.
-  doCheck = stdenv.isLinux;
+  doCheck = false;
 
   nativeCheckInputs = with python.pkgs; [
     # test infrastructure (selectively from requirement_test.txt)
