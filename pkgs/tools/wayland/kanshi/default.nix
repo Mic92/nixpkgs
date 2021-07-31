@@ -16,12 +16,16 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "emersion";
     repo = "kanshi";
-    rev = "v${version}";
-    sha256 = "sha256-RVMeS2qEjTYK6r7IwMeFSqfRpKR8di2eQXhewfhTnYI=";
+    rev = "92a5a327d5246bcbe1894c4c8eda873f376df50d";
+    sha256 = "sha256-DyGbvJsUCJMe6mxxaro19wCtUK/jBQpNmWMp5YCUmro=";
   };
 
   nativeBuildInputs = [ meson ninja pkg-config scdoc ];
-  buildInputs = [ wayland libvarlink ];
+
+  buildInputs = [
+    libvarlink
+    wayland 
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/emersion/kanshi";
