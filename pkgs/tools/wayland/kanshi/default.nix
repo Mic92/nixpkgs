@@ -6,6 +6,7 @@
 , pkg-config
 , scdoc
 , wayland
+, libvarlink
 }:
 
 stdenv.mkDerivation rec {
@@ -20,7 +21,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ meson ninja pkg-config scdoc ];
-  buildInputs = [ wayland ];
+  buildInputs = [ wayland libvarlink ];
 
   meta = with lib; {
     homepage = "https://github.com/emersion/kanshi";
