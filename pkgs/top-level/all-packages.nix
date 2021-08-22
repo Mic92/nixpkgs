@@ -9070,8 +9070,6 @@ with pkgs;
 
   socat = callPackage ../tools/networking/socat { };
 
-  socat2pre = lowPrio (callPackage ../tools/networking/socat/2.x.nix { });
-
   sockperf = callPackage ../tools/networking/sockperf { };
 
   solaar = callPackage ../applications/misc/solaar {};
