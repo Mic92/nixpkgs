@@ -29113,10 +29113,6 @@ with pkgs;
 
   beret = callPackage ../games/beret { };
 
-  bitsnbots = callPackage ../games/bitsnbots {
-    lua = lua5;
-  };
-
   black-hole-solver = callPackage ../games/black-hole-solver {
     inherit (perlPackages) PathTiny;
   };
