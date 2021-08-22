@@ -1,13 +1,15 @@
-{ lib, stdenv, fetchurl, zlib, openssl, libre, librem, pkg-config, gst_all_1
+{ lib, stdenv, fetchFromGitHub, zlib, openssl, libre, librem, pkg-config, gst_all_1
 , cairo, mpg123, alsa-lib, SDL, libv4l, celt, libsndfile, srtp, ffmpeg
 , gsm, speex, portaudio, spandsp, libuuid, libvpx
 }:
 stdenv.mkDerivation rec {
   version = "0.6.5";
   pname = "baresip";
-  src=fetchurl {
-    url = "http://www.creytiv.com/pub/baresip-${version}.tar.gz";
-    sha256 = "13di0ycdcr2q2a20mjvyaqfmvk5xldwqaxklqsz7470jnbc5n0rb";
+  src = fetchFromGitHub {
+    owner = "baresip";
+    repo = "baresip";
+    rev = "v${version}";
+    sha256 = "sha256-VhKCQvr3R0n3zmYdClqbO7XKdvMgCHRHYsAONOYwrak=";
   };
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [zlib openssl libre librem cairo mpg123
@@ -41,11 +43,10 @@ stdenv.mkDerivation rec {
     -DHAVE_INTTYPES_H -D__GLIBC__
     -D__need_timeval -D__need_timespec -D__need_time_t '';
   meta = {
-    homepage = "http://www.creytiv.com/baresip.html";
+    homepage = "https://github.com/baresip/baresip";
     platforms = with lib.platforms; linux;
     maintainers = with lib.maintainers; [raskin];
     license = lib.licenses.bsd3;
-    downloadPage = "http://www.creytiv.com/pub/";
     updateWalker = true;
     downloadURLRegexp = "/baresip-.*[.]tar[.].*";
   };
