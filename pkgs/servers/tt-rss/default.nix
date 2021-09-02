@@ -3,14 +3,14 @@
 stdenv.mkDerivation rec {
   pname = "tt-rss";
   year = "21";
-  month = "06";
-  day = "21";
+  month = "09";
+  day = "02";
   version = "20${year}-${month}-${day}";
-  rev = "cd26dbe64c9b14418f0b2d826a38a35c6bf8a270";
+  rev = "b8f82ca12f2b445c2eb74f1f3d0c12cb33b8e87f";
 
   src = fetchurl {
     url = "https://git.tt-rss.org/fox/tt-rss/archive/${rev}.tar.gz";
-    sha256 = "1dpmzi7hknv5rk2g1iw13r8zcxcwrhkd5hhf292ml0dw3cwki0gm";
+    sha256 = "sha256-E5wNEryW+P/O3qMj4uj3Lbh7UqPi4R97sJCG1lqrrtw=";
   };
 
   installPhase = ''
