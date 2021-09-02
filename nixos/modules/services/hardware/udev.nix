@@ -54,7 +54,7 @@ let
 
       # Fix some paths in the standard udev rules.  Hacky.
       for i in $out/*.rules; do
-        substituteInPlace $i \
+        substituteInPlace $i 2>/dev/null \
           --replace \"/sbin/modprobe \"${pkgs.kmod}/bin/modprobe \
           --replace \"/sbin/mdadm \"${pkgs.mdadm}/sbin/mdadm \
           --replace \"/sbin/blkid \"${pkgs.util-linux}/sbin/blkid \
