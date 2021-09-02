@@ -347,7 +347,6 @@ EOF
     my $prevSystemd = abs_path("/proc/1/exe") // "/unknown";
     my $newSystemd = abs_path("@systemd@/lib/systemd/systemd") or die;
     my $restartSystemd = $prevSystemd ne $newSystemd;
-    my $startNscd = delete $unitsToStart{"nscd.service"};
 
     my @unitsToStopFiltered = filterUnits(\%unitsToFilter, \%unitsToStop);
     my @unitsToStartFiltered = filterUnits(\%unitsToFilter, \%unitsToStart);
@@ -361,7 +360,6 @@ EOF
         print STDERR "would restart systemd\n" if $restartSystemd;
         print STDERR "would restart the following units: ", join(", ", sort(keys %unitsToRestart)), "\n"
             if scalar(keys %unitsToRestart) > 0;
-        print STDERR "would start nscd\n" if $startNscd;
         print STDERR "would start the following units: ", join(", ", @unitsToStartFiltered), "\n"
             if scalar @unitsToStartFiltered;
         print STDERR "would reload the following units: ", join(", ", sort(keys %unitsToReload)), "\n"
@@ -390,7 +388,7 @@ EOF
     # Restart systemd if necessary. Note that this is done using the
     # current version of systemd, just in case the new one has trouble
     # communicating with the running pid 1.
-    if ($restartSystemd) {
+    if ($restartSystemd && 0) {
         print STDERR "restarting systemd...\n";
         system("$curSystemd/systemctl", "daemon-reexec") == 0 or $res = 2;
     }
@@ -419,13 +417,6 @@ EOF
     # Set the new tmpfiles
     print STDERR "setting up tmpfiles\n";
     system("@systemd@/bin/systemd-tmpfiles", "--create", "--remove", "--exclude-prefix=/dev") == 0 or $res = 3;
-
-    # We need to start nscd before any other service, since they might need
-    # to resolve users/groups only exposed by nss modules (i.e. DynamicUser via nss_systemd)
-    if ($startNscd) {
-        print STDERR "starting nscd\n";
-        system("@systemd@/bin/systemctl", "start", "nscd.service") == 0 or $res = 4;
-    }
 
     # Reload units that need it. This includes remounting changed mount
     # units.
