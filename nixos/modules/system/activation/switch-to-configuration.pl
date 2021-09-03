@@ -71,8 +71,8 @@ sub recordUnit {
 sub pathToUnitName {
     my ($curSystemd, $path) = @_;
     # Use current version of systemctl binary before daemon is reexeced.
-    open my $cmd, "-|", "$curSystemd/systemd-escape", "--suffix=mount", "-p", $path
-        or die "Unable to escape $path!\n";
+    open(my $cmd, "-|", "$curSystemd/systemd-escape", "--suffix=mount", "-p", $path)
+        or die "Unable to escape $path: $!\n";
     my $escaped = join "", <$cmd>;
     chomp $escaped;
     close $cmd or die;
