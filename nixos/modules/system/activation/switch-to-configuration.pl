@@ -79,17 +79,6 @@ sub pathToUnitName {
     return $escaped;
 }
 
-sub unique {
-    my %seen;
-    my @res;
-    foreach my $name (@_) {
-        next if $seen{$name};
-        $seen{$name} = 1;
-        push @res, $name;
-    }
-    return @res;
-}
-
 sub filterUnits {
     my ($unitsToFilter, $units) = @_;
     my @res;
