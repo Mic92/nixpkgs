@@ -97,7 +97,7 @@ sub fingerprintUnit {
 }
 
 sub main {
-    my $action = shift @ARGV;
+    my $action = shift;
 
     # FIXME: maybe we should use /proc/1/exe to get the current systemd.
     my $curSystemd = abs_path("/run/current-system/sw/bin");
@@ -478,4 +478,4 @@ EOF
     exit $res;
 }
 
-main
+main(@ARGV);
