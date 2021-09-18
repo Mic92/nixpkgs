@@ -111,12 +111,16 @@ let
       copy_bin_and_libs ${pkgs.util-linux}/sbin/blkid
 
       # Copy dmsetup and lvm.
-      copy_bin_and_libs ${getBin pkgs.lvm2}/bin/dmsetup
-      copy_bin_and_libs ${getBin pkgs.lvm2}/bin/lvm
+      ${lib.optionalString config.boot.initrd.lvm.enable ''
+        copy_bin_and_libs ${getBin pkgs.lvm2}/bin/dmsetup
+        copy_bin_and_libs ${getBin pkgs.lvm2}/bin/lvm
+      ''}
 
       # Add RAID mdadm tool.
-      copy_bin_and_libs ${pkgs.mdadm}/sbin/mdadm
-      copy_bin_and_libs ${pkgs.mdadm}/sbin/mdmon
+      ${lib.optionalString config.boot.initrd.mdadm.enable ''
+        copy_bin_and_libs ${pkgs.mdadm}/sbin/mdadm
+        copy_bin_and_libs ${pkgs.mdadm}/sbin/mdmon
+      ''}
 
       # Copy udev.
       copy_bin_and_libs ${udev}/bin/udevadm
@@ -196,9 +200,13 @@ let
       $out/bin/mount --help 2>&1 | grep -q "BusyBox"
       $out/bin/blkid -V 2>&1 | grep -q 'libblkid'
       $out/bin/udevadm --version
-      $out/bin/dmsetup --version 2>&1 | tee -a log | grep -q "version:"
-      LVM_SYSTEM_DIR=$out $out/bin/lvm version 2>&1 | tee -a log | grep -q "LVM"
-      $out/bin/mdadm --version
+      ${lib.optionalString config.boot.initrd.lvm.enable ''
+        $out/bin/dmsetup --version 2>&1 | tee -a log | grep -q "version:"
+        LVM_SYSTEM_DIR=$out $out/bin/lvm version 2>&1 | tee -a log | grep -q "LVM"
+      ''}
+      ${lib.optionalString config.boot.initrd.mdadm.enable ''
+        $out/bin/mdadm --version
+      ''}
 
       ${config.boot.initrd.extraUtilsCommandsTest}
       fi
@@ -440,6 +448,22 @@ in
       type = types.lines;
       description = ''
         Contents of <filename>/etc/mdadm.conf</filename> in stage 1.
+      '';
+    };
+
+    boot.initrd.mdadm.enable = mkOption {
+      default = true;
+      type = types.bool;
+      description = ''
+        Whether to enable mdadm support in initrd
+      '';
+    };
+
+    boot.initrd.lvm.enable = mkOption {
+      default = true;
+      type = types.bool;
+      description = ''
+        Whether to enable lvm support in initrd
       '';
     };
 
