@@ -16,6 +16,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
+
   buildInputs = [ lua ]
     ++ lib.optional withSystemd systemd
     ++ lib.optionals tlsSupport [ openssl ];
@@ -26,7 +27,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=${placeholder "out"}" ]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "AR=${stdenv.cc.targetPrefix}ar" "RANLIB=${stdenv.cc.targetPrefix}ranlib" "MALLOC=libc" ]
     ++ lib.optional withSystemd [ "USE_SYSTEMD=yes" ]
-    ++ lib.optionals tlsSupport [ "BUILD_TLS=yes" ];
+    ++ lib.optionals (tlsSupport) [ "BUILD_TLS=yes" ];
 
   enableParallelBuilding = true;
 
