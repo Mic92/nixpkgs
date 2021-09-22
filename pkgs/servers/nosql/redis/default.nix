@@ -16,6 +16,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
+
   buildInputs = [ lua ]
     ++ lib.optional withSystemd systemd
     ++ lib.optionals tlsSupport [ openssl ];
@@ -25,8 +26,8 @@ stdenv.mkDerivation rec {
   # It's weird that the build isn't failing because of failure to compile dependencies, it's from failure to link them!
   makeFlags = [ "PREFIX=${placeholder "out"}" ]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "AR=${stdenv.cc.targetPrefix}ar" "RANLIB=${stdenv.cc.targetPrefix}ranlib" "MALLOC=libc" ]
-    ++ lib.optionals withSystemd [ "USE_SYSTEMD=yes" ]
-    ++ lib.optionals tlsSupport [ "BUILD_TLS=yes" ];
+    ++ lib.optional withSystemd [ "USE_SYSTEMD=yes" ]
+    ++ lib.optionals (tlsSupport) [ "BUILD_TLS=yes" ];
 
   enableParallelBuilding = true;
 
