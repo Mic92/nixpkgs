@@ -58,6 +58,7 @@ python3Packages.buildPythonApplication rec {
     pyinotify
     python-Levenshtein
     pyxdg
+    pycairo
     requests
     websocket-client
   ];
@@ -105,7 +106,11 @@ python3Packages.buildPythonApplication rec {
   # do not double wrap
   dontWrapGApps = true;
   preFixup = ''
-    makeWrapperArgs+=("''${gappsWrapperArgs[@]}" --prefix PATH : "${lib.makeBinPath [ wmctrl ]}")
+    makeWrapperArgs+=(
+     "''${gappsWrapperArgs[@]}"
+     --prefix PATH : "${lib.makeBinPath [ wmctrl ]}"
+     --set GDK_PIXBUF_MODULE_FILE ${librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+    )
   '';
 
   passthru = {
