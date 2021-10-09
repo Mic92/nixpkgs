@@ -68,6 +68,10 @@ in
         ExecStopPost = "${pkgs.waydroid}/bin/waydroid session stop";
       };
     };
+
+    systemd.tmpfiles.rules = [
+      "d /var/lib/misc 0755 root root -" # for dnsmasq.leases
+    ];
   };
 
 }
