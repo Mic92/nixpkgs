@@ -444,7 +444,7 @@ $unitsToReload{$_} = 1 foreach
 # Restart systemd if necessary. Note that this is done using the
 # current version of systemd, just in case the new one has trouble
 # communicating with the running pid 1.
-if ($restartSystemd) {
+if (0 && $restartSystemd) {
     print STDERR "restarting systemd...\n";
     system("$curSystemd/systemctl", "daemon-reexec") == 0 or $res = 2;
 }
