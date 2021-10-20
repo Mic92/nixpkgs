@@ -818,7 +818,7 @@ unlink($reload_by_activation_file);
 # Restart systemd if necessary. Note that this is done using the
 # current version of systemd, just in case the new one has trouble
 # communicating with the running pid 1.
-if ($restart_systemd) {
+if (0 && $restart_systemd) {
     print STDERR "restarting systemd...\n";
     system("$cur_systemd/systemctl", "daemon-reexec") == 0 or $res = 2;
 }
