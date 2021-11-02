@@ -14,7 +14,7 @@ common =
   , pkg-config, boehmgc, libsodium, brotli, boost, editline, nlohmann_json
   , autoreconfHook, autoconf-archive, bison, flex
   , jq, libarchive, libcpuid
-  , lowdown-0-9, mdbook
+  , lowdown, mdbook
   # Used by tests
   , gtest
   , busybox-sandbox-shell
@@ -24,6 +24,8 @@ common =
   , withLibseccomp ? lib.meta.availableOn stdenv.hostPlatform libseccomp, libseccomp
   , withAWS ? !enableStatic && (stdenv.isLinux || stdenv.isDarwin), aws-sdk-cpp
   , enableStatic ? stdenv.hostPlatform.isStatic
+  , enableDocumentation ? lib.versionOlder version "2.4pre" ||
+                          stdenv.hostPlatform == stdenv.buildPlatform
   , pname, version, suffix ? "", src
   , patches ? [ ]
   }:
@@ -36,26 +38,31 @@ common =
 
       VERSION_SUFFIX = suffix;
 
-      outputs = [ "out" "dev" "man" "doc" ];
+      outputs =
+        [ "out" "dev" ]
+        ++ lib.optionals enableDocumentation [ "man" "doc" ];
+
+      hardeningEnable = [ "pie" ];
 
       nativeBuildInputs =
         [ pkg-config ]
         ++ lib.optionals stdenv.isLinux [ util-linuxMinimal ]
+        ++ lib.optionals (is24 && enableDocumentation) [
+          (lib.getBin lowdown) mdbook
+        ]
         ++ lib.optionals is24
           [ autoreconfHook
             autoconf-archive
             bison flex
-            (lib.getBin lowdown-0-9) mdbook
             jq
            ];
 
       buildInputs =
-        [ curl openssl sqlite xz bzip2 nlohmann_json
+        [ curl libsodium openssl sqlite xz bzip2 nlohmann_json
           brotli boost editline
         ]
         ++ lib.optionals stdenv.isDarwin [ Security ]
-        ++ lib.optional (stdenv.isLinux || stdenv.isDarwin) libsodium
-        ++ lib.optionals is24 [ libarchive gtest lowdown-0-9 ]
+        ++ lib.optionals is24 [ libarchive gtest lowdown ]
         ++ lib.optional (is24 && stdenv.isx86_64) libcpuid
         ++ lib.optional withLibseccomp libseccomp
         ++ lib.optional withAWS
@@ -94,14 +101,12 @@ common =
             patchelf --set-rpath $out/lib:${stdenv.cc.cc.lib}/lib $out/lib/libboost_thread.so.*
           ''}
         '' +
-        # On all versions before c9f51e87057652db0013289a95deffba495b35e7,
-        # released with 2.3.8, we need to patch around an issue where the Nix
-        # configure step pulls in the build system's bash and other utilities
-        # when cross-compiling.
+        # On all versions before c9f51e87057652db0013289a95deffba495b35e7, which
+        # removes config.nix entirely and is not present in 2.3.x, we need to
+        # patch around an issue where the Nix configure step pulls in the build
+        # system's bash and other utilities when cross-compiling.
         lib.optionalString (
-          stdenv.buildPlatform != stdenv.hostPlatform &&
-          (lib.versionOlder "2.3.8" version && !is24)
-          # The additional is24 condition is required as versionOlder doesn't understand nixUnstable version strings
+          stdenv.buildPlatform != stdenv.hostPlatform && !is24
         ) ''
           mkdir tmp/
           substitute corepkgs/config.nix.in tmp/config.nix.in \
@@ -121,6 +126,7 @@ common =
           "--sysconfdir=${confDir}"
           "--enable-gc"
         ]
+        ++ lib.optional (!enableDocumentation) "--disable-doc-gen"
         ++ lib.optionals (!is24) [
           # option was removed in 2.4
           "--disable-init-state"
@@ -163,7 +169,7 @@ common =
         license = lib.licenses.lgpl2Plus;
         maintainers = [ lib.maintainers.eelco ];
         platforms = lib.platforms.unix;
-        outputsToInstall = [ "out" "man" ];
+        outputsToInstall = [ "out" ] ++ lib.optional enableDocumentation "man";
       };
 
       passthru = {
@@ -202,7 +208,7 @@ common =
     patches = (drv.patches or []) ++ [
       # Part of the GC solution in https://github.com/NixOS/nix/pull/4944
       (fetchpatch {
-        url = https://github.com/hercules-ci/nix/raw/5c58d84a76d96f269e3ff1e72c9c9ba5f68576af/boehmgc-coroutine-sp-fallback.diff;
+        url = "https://github.com/hercules-ci/nix/raw/5c58d84a76d96f269e3ff1e72c9c9ba5f68576af/boehmgc-coroutine-sp-fallback.diff";
         sha256 = "sha256-JvnWVTlkltmQUs/0qApv/LPZ690UX1/2hEP+LYRwKbI=";
       })
     ];
@@ -227,16 +233,32 @@ in rec {
     inherit storeDir stateDir confDir;
   });
 
-  nixUnstable = lib.lowPrio (callPackage common rec {
+  nix_2_4 = callPackage common (rec {
     pname = "nix";
-    version = "2.4${suffix}";
-    suffix = "pre20211006_${lib.substring 0 7 src.rev}";
+    version = "2.4";
 
     src = fetchFromGitHub {
       owner = "NixOS";
       repo = "nix";
-      rev = "53e479428958b39a126ce15de85d7397fdcfe2e1";
-      sha256 = "18mm3f0n964msj5bha6wpnwckg5lwjwdm6r7frrwdj75v10jiyb7";
+      rev = version;
+      sha256 = "sha256-op48CCDgLHK0qV1Batz4Ln5FqBiRjlE6qHTiZgt3b6k=";
+    };
+
+    boehmgc = boehmgc_nixUnstable;
+
+    inherit storeDir stateDir confDir;
+  });
+
+  nixUnstable = lib.lowPrio (callPackage common rec {
+    pname = "nix";
+    version = "2.5${suffix}";
+    suffix = "pre20211007_${lib.substring 0 7 src.rev}";
+
+    src = fetchFromGitHub {
+      owner = "NixOS";
+      repo = "nix";
+      rev = "844dd901a7debe8b03ec93a7f717b6c4038dc572";
+      sha256 = "sha256-fe1B4lXkS6/UfpO0rJHwLC06zhOPrdSh4s9PmQ1JgPo=";
     };
 
     boehmgc = boehmgc_nixUnstable;
