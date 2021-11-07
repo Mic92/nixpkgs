@@ -6,7 +6,10 @@ let
   inherit (utils.systemdUtils.lib) mkPathSafeName;
 in {
   options.systemd.services = lib.mkOption {
-    type = types.attrsOf (types.submodule ({ name, config, ... }: {
+    type = types.attrsOf (types.submodule ({ name, config, ... }:
+      let
+        pathSafeName = mkPathSafeName name;
+      in {
       options.confinement.enable = lib.mkOption {
         type = types.bool;
         default = false;
@@ -98,12 +101,13 @@ in {
       };
 
       config = let
-        rootName = "${mkPathSafeName name}-chroot";
+        rootName = "${pathSafeName}-chroot";
         inherit (config.confinement) binSh fullUnit;
         wantsAPIVFS = lib.mkDefault (config.confinement.mode == "full-apivfs");
       in lib.mkIf config.confinement.enable {
         serviceConfig = {
-          RootDirectory = "/var/empty";
+          RootDirectory = "/run/${pathSafeName}";
+          RuntimeDirectory = [ pathSafeName ];
           TemporaryFileSystem = "/";
           PrivateMounts = lib.mkDefault true;
 
