@@ -1,0 +1,18 @@
+name: Rebase Upstream
+on:
+  schedule:
+    - cron: "10 20 * * 0" # run once a week
+  workflow_dispatch:      # run manually
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 50  # greater than the number of commits you made
+        ref: release-21.05-backports
+    - uses: imba-tjd/rebase-upstream-action@0.5
+      with:  # all args are optional
+         upstream: NixOS/nixpkgs
+         branch: release-21.05
