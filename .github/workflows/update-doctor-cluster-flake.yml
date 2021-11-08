@@ -1,0 +1,15 @@
+name: Update doctor-cluster-config flakes
+
+on:
+  push:
+    branches: [ release-21.05-backports ]
+jobs:
+  ping-pong:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update doctor-cluster-config flakes
+        run: |
+          curl -X POST https://api.github.com/repos/Mic92/doctor-cluster-config/dispatches \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          -u ${{ secrets.ACCESS_TOKEN }} \
+          --data '{"event_type": "update-flakes", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
