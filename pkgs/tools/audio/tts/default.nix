@@ -24,6 +24,14 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-8a68iFbqqKwtZvufu1Vnv6hGHIQ3HU34wjuQsmr1NUA=";
   };
 
+  # https://github.com/coqui-ai/TTS/pull/893
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/coqui-ai/TTS/commit/374ccb7eec839780e6a174c3bbdfee002302e302.patch";
+      sha256 = "sha256-hJr6/5GeO74wnB4AhO3NleoJOszrEe5vSuP7ydnzf8Q=";
+    })
+  ];
+
   postPatch = ''
     sed -i requirements.txt \
       -e 's!librosa==[^"]*!librosa!' \
