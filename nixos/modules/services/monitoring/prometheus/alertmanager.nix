@@ -31,6 +31,7 @@ let
       "--config.file /tmp/alert-manager-substituted.yaml"
       "--web.listen-address ${cfg.listenAddress}:${toString cfg.port}"
       "--log.level ${cfg.logLevel}"
+      "--cluster.listen-address= "
       "--storage.path /var/lib/alertmanager"
       (toString (map (peer: "--cluster.peer ${peer}:9094") cfg.clusterPeers))
     ]
