@@ -20,6 +20,7 @@ let
   cmdlineArgs = cfg.extraFlags ++ [
     "--config.file /tmp/alert-manager-substituted.yaml"
     "--web.listen-address ${cfg.listenAddress}:${toString cfg.port}"
+    "--cluster.listen-address= "
     "--log.level ${cfg.logLevel}"
     "--storage.path /var/lib/alertmanager"
     (toString (map (peer: "--cluster.peer ${peer}:9094") cfg.clusterPeers))
