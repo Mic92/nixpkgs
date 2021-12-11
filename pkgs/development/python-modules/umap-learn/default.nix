@@ -52,6 +52,8 @@ buildPythonPackage rec {
 
     # Flaky test. Fails with AssertionError sometimes.
     "test_sparse_hellinger"
+
+    "test_save_load"
   ];
 
   meta = with lib; {
