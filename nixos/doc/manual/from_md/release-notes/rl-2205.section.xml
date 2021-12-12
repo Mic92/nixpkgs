@@ -42,6 +42,11 @@
           upgrade notes</link>.
         </para>
       </listitem>
+      <listitem>
+        <para>
+          Systemd has been upgraded to the version 250.
+        </para>
+      </listitem>
     </itemizedlist>
   </section>
   <section xml:id="sec-release-22.05-new-services">
