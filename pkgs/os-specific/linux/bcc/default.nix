@@ -71,6 +71,10 @@ python.pkgs.buildPythonApplication rec {
     done
 
     sed -i -e "s!lib=.*!lib=$out/bin!" $out/bin/{java,ruby,node,python}gc
+   '' + lib.optionalString (stdenv.hostPlatform.system != "x86_64-linux") ''
+    for bin in $out/bin/*; do
+      wrapProgram "$bin" --prefix PATH : ${lib.makeBinPath [ audit ]}
+    done
   '';
 
   postFixup = ''
