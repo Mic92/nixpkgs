@@ -24,6 +24,10 @@ buildLinux (args // {
 
   structuredExtraConfig = with lib.kernel; {
     ZEN_INTERACTIVE = yes;
+    ANDROID = yes;
+    ANDROID_BINDER_IPC = yes;
+    ANDROID_BINDERFS = yes;
+    ASHMEM = yes;
   };
 
   extraMeta = {
