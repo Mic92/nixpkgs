@@ -87,6 +87,10 @@ in stdenv.mkDerivation rec {
     "${setBuild}.cxx=${cxxForBuild}"
     "${setHost}.cxx=${cxxForHost}"
     "${setTarget}.cxx=${cxxForTarget}"
+
+    "${setBuild}.crt-static=${lib.boolToString stdenv.buildPlatform.isStatic}"
+    "${setHost}.crt-static=${lib.boolToString stdenv.buildPlatform.isStatic}"
+    "${setTarget}.crt-static=${lib.boolToString stdenv.buildPlatform.isStatic}"
   ] ++ optionals (!withBundledLLVM) [
     "--enable-llvm-link-shared"
     "${setBuild}.llvm-config=${llvmSharedForBuild.dev}/bin/llvm-config"
@@ -97,6 +101,8 @@ in stdenv.mkDerivation rec {
   ] ++ optionals stdenv.buildPlatform.isMusl [
     "${setBuild}.musl-root=${pkgsBuildBuild.targetPackages.stdenv.cc.libc}"
   ] ++ optionals stdenv.hostPlatform.isMusl [
+    # build scripts seem to crash without it.
+    "--set rust.jemalloc"
     "${setHost}.musl-root=${pkgsBuildHost.targetPackages.stdenv.cc.libc}"
   ] ++ optionals stdenv.targetPlatform.isMusl [
     "${setTarget}.musl-root=${pkgsBuildTarget.targetPackages.stdenv.cc.libc}"
