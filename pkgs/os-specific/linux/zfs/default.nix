@@ -215,7 +215,7 @@ in {
   # to be adapted
   zfsStable = common {
     # check the release notes for compatible kernels
-    kernelCompatible = kernel.kernelAtLeast "3.10" && kernel.kernelOlder "5.16";
+    kernelCompatible = kernel.kernelAtLeast "3.10" && kernel.kernelOlder "5.17";
     latestCompatibleLinuxPackages = linuxPackages_5_15;
 
     # this package should point to the latest release.
@@ -226,7 +226,7 @@ in {
 
   zfsUnstable = common {
     # check the release notes for compatible kernels
-    kernelCompatible = kernel.kernelAtLeast "3.10" && kernel.kernelOlder "5.16";
+    kernelCompatible = kernel.kernelAtLeast "3.10" && kernel.kernelOlder "5.17";
     latestCompatibleLinuxPackages = linuxPackages_5_15;
 
     # this package should point to a version / git revision compatible with the latest kernel release
