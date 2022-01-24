@@ -686,6 +686,6 @@ stdenv.mkDerivation {
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
     priority = 10;
-    maintainers = with maintainers; [ eelco flokli kloenk ];
+    maintainers = with maintainers; [ eelco flokli kloenk mic92 ];
   };
 }
