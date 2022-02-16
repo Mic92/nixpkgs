@@ -357,6 +357,17 @@ in {
       type = types.bool;
       description = lib.mdDoc "Whether to open the firewall for the specified port.";
     };
+
+    pythonScripts = mkOption {
+      #default = [];
+      #type = types.listOf types.path;
+      default = null;
+      type = types.nullOr types.path;
+      description = ''
+        List of python scripts to use in the <literal>python_scripts</literal> integration.
+        Also see in the <link xlink:href="https://www.home-assistant.io/integrations/python_script">Homeassistant documentation</link>
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -379,6 +390,12 @@ in {
         "home-assistant/ui-lovelace.yaml".source = lovelaceConfigFile;
       })
     ];
+
+    systemd.tmpfiles.rules = mkIf (cfg.pythonScripts != null) [
+      "L+ ${cfg.configDir}/python_scripts - - - - ${cfg.pythonScripts}"
+    ];
+
+    services.home-assistant.config.python_script = mkIf (cfg.pythonScripts != null) {};
 
     systemd.services.home-assistant = {
       description = "Home Assistant";
