@@ -22,11 +22,11 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
 
   testScript = { nodes, ... }: ''
     node1.wait_for_unit("multi-user.target")
-    node1.succeed('kexec --load /run/current-system/kernel --initrd /run/current-system/initrd --command-line "$(</proc/cmdline)"')
-    node1.execute("systemctl kexec >&2 &", check_return=False)
-    node1.connected = False
-    node1.connect()
-    node1.wait_for_unit("multi-user.target")
+    #node1.succeed('kexec --load /run/current-system/kernel --initrd /run/current-system/initrd --command-line "$(</proc/cmdline)"')
+    #node1.execute("systemctl kexec >&2 &", check_return=False)
+    #node1.connected = False
+    #node1.connect()
+    #node1.wait_for_unit("multi-user.target")
 
 
     # Check the machine with kexec-boot.nix profile boots up
