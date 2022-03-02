@@ -557,10 +557,13 @@ class Machine:
         self.log("Terminal is ready (there is no initial prompt):")
 
         assert self.shell
-        subprocess.run(
-            ["socat", "READLINE,prompt=$ ", f"FD:{self.shell.fileno()}"],
-            pass_fds=[self.shell.fileno()],
-        )
+        try:
+            subprocess.run(
+                ["socat", "READLINE,prompt=$ ", f"FD:{self.shell.fileno()}"],
+                pass_fds=[self.shell.fileno()],
+            )
+        except KeyboardInterrupt:
+            pass
 
     def console_interact(self) -> None:
         """Allows you to interact with QEMU's stdin
