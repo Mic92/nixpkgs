@@ -553,10 +553,13 @@ class Machine:
         self.log("Terminal is ready (there is no initial prompt):")
 
         assert self.shell
-        subprocess.run(
-            ["socat", "READLINE,prompt=$ ", f"FD:{self.shell.fileno()}"],
-            pass_fds=[self.shell.fileno()],
-        )
+        try:
+            subprocess.run(
+                ["socat", "READLINE,prompt=$ ", f"FD:{self.shell.fileno()}"],
+                pass_fds=[self.shell.fileno()],
+            )
+        except KeyboardInterrupt:
+            pass
 
     def succeed(self, *commands: str, timeout: Optional[int] = None) -> str:
         """Execute each command and check that it succeeds."""
