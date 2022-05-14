@@ -156,12 +156,12 @@ let
                 none )
                   ;;
                 prompt )
-                  tries=3
+                  attempt=6
                   success=false
-                  while [[ $success != true ]] && [[ $tries -gt 0 ]]; do
-                    ${systemd}/bin/systemd-ask-password "Enter key for $ds:" | ${cfgZfs.package}/sbin/zfs load-key "$ds" \
+                  while [[ $success != true ]] && [[ $attempt -le 6 ]]; do
+                    ${systemd}/bin/systemd-ask-password "Enter key for $ds: (attempt $attempt/6)" | ${cfgZfs.package}/sbin/zfs load-key "$ds" \
                       && success=true \
-                      || tries=$((tries - 1))
+                      || attempt=$((attempt + 1))
                   done
                   [[ $success = true ]]
                   ;;
