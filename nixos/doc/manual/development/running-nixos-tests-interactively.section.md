@@ -24,6 +24,38 @@ back into the test driver command line upon its completion. This allows
 you to inspect the state of the VMs after the test (e.g. to debug the
 test script).
 
+## Shell access
+
+The function `<yourmachine>.shell_interact()` gives access to a shell running
+inside the guest. Replace `<yourmachine` with the name of a virtual machine
+defined in the the test i.e. `machine`:
+
+```py
+>>> machine.shell_interact()
+machine: Terminal is ready (there is no initial prompt):
+$ hostname
+machine
+```
+
+Note that this shell will not have the correct terminal size set due to running inside an interactive python repl and output of the nixos machines will overwrite
+user input. An alternative is to proxy the guest shell to a local tcp server
+that takes its input from an otherwise unused terminal.
+
+For that first start a TCP server in one terminal:
+
+```ShellSession
+$ socat 'READLINE,PROMPT=$ ' tcp-listen:4444,reuseaddr
+```
+
+In the terminal that runs the nixos test driver, you can than connect to this
+server like this:
+
+```py
+>>> machine.shell_interact("tcp:127.0.0.1:4444")
+```
+
+After connecting you should be able to type into commands in the terminal `socat` that runs socat.
+
 ## Reuse VM state {#sec-nixos-test-reuse-vm-state}
 
 You can re-use the VM states coming from a previous run by setting the
