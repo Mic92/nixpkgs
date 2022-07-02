@@ -206,11 +206,10 @@ let
       {
         nativeBuildInputs = [ pkgs.makeWrapper ];
       }
-
       ''
         makeWrapper "${original}" "$out/bin/${name}" \
           ${lib.concatStringsSep " \\\n " (
-            lib.mapAttrsToList (name: value: ''--set ${name} "${value}"'') set
+            lib.mapAttrsToList (name: value: "--set ${name} ${lib.escapeShellArg value}") set
           )}
       '';
 
