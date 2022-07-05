@@ -135,8 +135,10 @@ in
           done
         fi
 
-        # We can't use Environment=HOSTNAME=%H, as it doesn't include the domain part.
-        export HOSTNAME=$(< /proc/sys/kernel/hostname)
+        # We do not use Environment=HOSTNAME=%H by default, as it doesn't include the domain part.
+        if [[ -z "$HOSTNAME" ]]; then
+          export HOSTNAME=$(< /proc/sys/kernel/hostname)
+        fi
 
         exec ${cfg.package}/bin/agent -config.expand-env -config.file ${configFile}
       '';
