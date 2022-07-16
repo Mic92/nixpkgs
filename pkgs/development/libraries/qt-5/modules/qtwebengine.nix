@@ -9,6 +9,7 @@
 , zlib, minizip, libjpeg, libpng, libtiff, libwebp, libopus
 , jsoncpp, protobuf, libvpx, srtp, snappy, nss, libevent
 , alsa-lib
+, bash
 , libcap
 , pciutils
 , systemd
