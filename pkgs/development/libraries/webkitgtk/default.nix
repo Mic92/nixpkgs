@@ -16,8 +16,10 @@
 , gnutls
 , libgcrypt
 , libgpg-error
-, gtk3
+, gtk4
+, atk
 , wayland
+, wayland-protocols
 , libwebp
 , libwpe
 , libwpe-fdo
@@ -122,6 +124,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     at-spi2-core
+    atk
     enchant2
     libepoxy
     gnutls
@@ -154,6 +157,7 @@ stdenv.mkDerivation rec {
     libXdmcp
     libXt
     libXtst
+    libXcomposite
   ]) ++ lib.optionals stdenv.isDarwin [
     libedit
     readline
@@ -170,6 +174,7 @@ stdenv.mkDerivation rec {
     libseccomp
     libmanette
     wayland
+    wayland-protocols
     libwpe
     libwpe-fdo
     xdg-dbus-proxy
@@ -182,7 +187,7 @@ stdenv.mkDerivation rec {
   ];
 
   propagatedBuildInputs = [
-    gtk3
+    gtk4
     libsoup
   ];
 
@@ -191,6 +196,7 @@ stdenv.mkDerivation rec {
   in [
     "-DENABLE_INTROSPECTION=ON"
     "-DPORT=GTK"
+    "-DUSE_GTK4=ON"
     "-DUSE_LIBHYPHEN=OFF"
     "-DUSE_SOUP2=${cmakeBool (lib.versions.major libsoup.version == "2")}"
     "-DUSE_LIBSECRET=${cmakeBool withLibsecret}"
