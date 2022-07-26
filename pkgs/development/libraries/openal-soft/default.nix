@@ -25,6 +25,13 @@ stdenv.mkDerivation rec {
       --replace "@OUT@" $out
   '';
 
+  postInstall = ''
+    # the pc file contains the nix store path twice
+    substituteInPlace $out/lib/pkgconfig/openal.pc \
+      --replace "libdir=\''${exec_prefix}/$out/lib" "libdir=\''${exec_prefix}/lib" \
+      --replace "includedir=\''${prefix}/$out/include" "includedir=\''${prefix}/include"
+  '';
+
   strictDeps = true;
 
   nativeBuildInputs = [ cmake pkg-config ];
