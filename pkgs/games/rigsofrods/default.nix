@@ -1,30 +1,37 @@
 { fetchFromGitHub, lib, stdenv, wxGTK30, freeimage, cmake, zziplib, libGLU, libGL, boost,
   pkg-config, libuuid, openal, ogre, ois, curl, gtk2, mygui, unzip,
-  angelscript, ogrepaged, mysocketw, libxcb
+  angelscript, ogrepaged, mysocketw, libxcb, fmt, rapidjson, makeWrapper
   }:
 
 stdenv.mkDerivation rec {
-  version = "0.4.7.0";
+  version = "2022.04";
   pname = "rigsofrods";
 
   src = fetchFromGitHub {
     owner = "RigsOfRods";
     repo = "rigs-of-rods";
     rev = version;
-    sha256 = "0cb1il7qm45kfhh6h6jwfpxvjlh2dmg8z1yz9kj4d6098myf2lg4";
+    sha256 = "sha256-QExh7ujPvKL9UOByNKvhKgmhpmAOt+OsoZeH50Brww0=";
   };
 
-  installPhase = ''
-    sed -e "s@/usr/local/lib/OGRE@${ogre}/lib/OGRE@" -i ../tools/linux/binaries/plugins.cfg
-    mkdir -p $out/share/rigsofrods
-    cp -r bin/* $out/share/rigsofrods
-    cp ../tools/linux/binaries/plugins.cfg $out/share/rigsofrods
-    mkdir -p $out/bin
-    ln -s $out/share/rigsofrods/{RoR,RoRConfig} $out/bin
+  NIX_CFLAGS_COMPILE = [ "-Wno-format-security" ];
+
+  # FIXME, we get this error from RunRoR:
+  # InvalidParametersException: Parameter called worldViewProj does not exist.
+  # in GpuProgramParameters::_findNamedConstantDefinition at /build/source/OgreMain/src/OgreGpuProgramParams.cpp (line 1673)
+  postInstall = ''
+     substituteInPlace $out/plugins.cfg \
+       --replace "PluginFolder=lib" "PluginFolder=${ogre}/lib/OGRE"
+     mkdir rigsofrods
+     mv $out/* rigsofrods
+     mkdir -p $out/{lib,bin}
+     mv rigsofrods $out/lib
+     makeWrapper $out/lib/rigsofrods/RunRoR $out/bin/RunRoR \
+       --chdir "$out/lib/rigsofrods"
   '';
 
-  nativeBuildInputs = [ cmake pkg-config unzip ];
-  buildInputs = [ wxGTK30 freeimage zziplib libGLU libGL boost
+  nativeBuildInputs = [ cmake pkg-config unzip makeWrapper ];
+  buildInputs = [ fmt rapidjson wxGTK30 freeimage zziplib libGLU libGL boost
     libuuid openal ogre ois curl gtk2 mygui angelscript
     ogrepaged mysocketw libxcb ];
 

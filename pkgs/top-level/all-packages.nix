@@ -32866,10 +32866,7 @@ with pkgs;
   rftg = callPackage ../games/rftg { };
 
   rigsofrods = callPackage ../games/rigsofrods {
-    angelscript = angelscript_2_22;
-    mygui = mygui.override {
-      withOgre = true;
-    };
+    mygui = mygui.override { withOgre = true; };
   };
 
   riko4 = callPackage ../games/riko4 { };
