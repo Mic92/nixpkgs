@@ -20189,9 +20189,7 @@ with pkgs;
 
   mygpoclient = with python3.pkgs; toPythonApplication mygpoclient;
 
-  mygui = callPackage ../development/libraries/mygui {
-    ogre = ogre1_9;
-  };
+  mygui = callPackage ../development/libraries/mygui {};
 
   mysocketw = callPackage ../development/libraries/mysocketw { };
 
@@ -32869,10 +32867,6 @@ with pkgs;
 
   rigsofrods = callPackage ../games/rigsofrods {
     angelscript = angelscript_2_22;
-    ogre = ogre1_9;
-    ogrepaged = ogrepaged.override {
-      ogre = ogre1_9;
-    };
     mygui = mygui.override {
       withOgre = true;
     };
@@ -33016,7 +33010,7 @@ with pkgs;
   stt = callPackage ../tools/audio/stt { };
 
   stuntrally = callPackage ../games/stuntrally
-    { ogre = ogre1_9; mygui = mygui.override { withOgre = true; }; };
+    { mygui = mygui.override { withOgre = true; }; };
 
   superTux = callPackage ../games/supertux { };
 
