@@ -62,6 +62,7 @@ in {
         ForceCommand ${config.nix.package.out}/bin/${command}
       Match All
     '';
+    nix.settings.allowed-users = [ "nix-ssh" ];
 
     users.users.nix-ssh.openssh.authorizedKeys.keys = cfg.keys;
 
