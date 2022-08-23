@@ -824,6 +824,7 @@ in
 
       recommendedTlsSettings = true;
       recommendedOptimisation = true;
+      recommendedBrotliSettings = true;
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
 
