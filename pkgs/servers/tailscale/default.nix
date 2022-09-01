@@ -16,7 +16,7 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  subPackages = [ "cmd/tailscale" "cmd/tailscaled" ];
+  subPackages = [ "cmd/tailscale" "cmd/tailscaled" "cmd/derper" ];
 
   ldflags = [
     "-w"
