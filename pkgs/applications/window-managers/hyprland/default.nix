@@ -18,14 +18,14 @@
 
 stdenv.mkDerivation rec {
   pname = "hyprland";
-  version = "0.6.1beta";
+  version = "0.12.1beta";
 
   # When updating Hyprland, the overridden wlroots commit must be bumped to match the commit upstream uses.
   src = fetchFromGitHub {
     owner = "hyprwm";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-0Msqe2ErAJvnO1zHoB2k6TkDhTYnHRGkvJrfSG12dTU=";
+    sha256 = "sha256-4HIrqoeM2SGHfBfB4mOmACHRhlwEPKXr915gjr66Ldg=";
   };
 
   nativeBuildInputs = [
