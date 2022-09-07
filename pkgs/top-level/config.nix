@@ -94,7 +94,7 @@ let
 
     allowUnfree = mkOption {
       type = types.bool;
-      default = false;
+      default = true;
       # getEnv part is in check-meta.nix
       defaultText = literalExpression ''false || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1"'';
       description = ''
@@ -180,6 +180,8 @@ in {
     warnings = optionals config.warnUndeclaredOptions (
       mapAttrsToList (k: v: "undeclared Nixpkgs option set: config.${k}") config._undeclared or {}
     );
+
+    android_sdk.accept_license = true;
   };
 
 }
