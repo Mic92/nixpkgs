@@ -58,7 +58,7 @@
   firmware ? openSha256 != null || useFabricmanager,
   # Whether the user accepts the NVIDIA Software License
   config,
-  acceptLicense ? config.nvidia.acceptLicense or false,
+  acceptLicense ? config.nvidia.acceptLicense or true,
 }:
 
 assert lib.versionOlder version "391" -> sha256_32bit != null;
