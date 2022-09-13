@@ -88,7 +88,7 @@ let
   doPgo = allowPgo && (stdenv.hostPlatform == stdenv.buildPlatform)
     && compilerName != "unknown";
 
-  terminfoDir = "${placeholder "terminfo"}/share/terminfo";
+  #terminfoDir = "${placeholder "terminfo"}/share/terminfo";
 in
 stdenv.mkDerivation rec {
   pname = "foot";
@@ -152,7 +152,7 @@ stdenv.mkDerivation rec {
     # Ensure TERM=foot is used
     "-Ddefault-terminfo=foot"
     # Tell foot to set TERMINFO and where to install the terminfo files
-    "-Dcustom-terminfo-install-location=${terminfoDir}"
+    #"-Dcustom-terminfo-install-location=${terminfoDir}"
     # Install systemd user units for foot-server
     "-Dsystemd-units-dir=${placeholder "out"}/lib/systemd/user"
   ];
@@ -177,6 +177,7 @@ stdenv.mkDerivation rec {
   # directive to a separate output to save a bit of space
   postInstall = ''
     moveToOutput share/foot/themes "$themes"
+    moveToOutput share/terminfo "$terminfo"
   '';
 
   outputs = [ "out" "terminfo" "themes" ];
