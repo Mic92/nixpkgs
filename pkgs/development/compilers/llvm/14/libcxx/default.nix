@@ -34,6 +34,7 @@ stdenv.mkDerivation rec {
   sourceRoot = "${src.name}/${basename}";
 
   outputs = [ "out" ] ++ lib.optional (!headersOnly) "dev";
+  dontStrip = true;
 
   patches = [
     ./gnu-install-dirs.patch
