@@ -70,10 +70,14 @@ in stdenv.mkDerivation rec {
     "--enable-vendor"
     "--build=${rust.toRustTargetSpec stdenv.buildPlatform}"
     "--host=${rust.toRustTargetSpec stdenv.hostPlatform}"
+    # FIXME: are docs broken on wasm target?
+    "--disable-docs"
     # std is built for all platforms in --target. When building a cross-compiler
     # we need to add the host platform as well so rustc can compile build.rs
     # scripts.
     "--target=${concatStringsSep "," ([
+      # build the wasm backend by default
+      "wasm32-unknown-unknown"
       (rust.toRustTargetSpec stdenv.targetPlatform)
     ] ++ optionals (stdenv.hostPlatform != stdenv.targetPlatform) [
       (rust.toRustTargetSpec stdenv.hostPlatform)
