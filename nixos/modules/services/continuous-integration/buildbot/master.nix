@@ -9,6 +9,8 @@ let
 
   escapeStr = lib.escape [ "'" ];
 
+  isAtLeast2211 = lib.versionAtLeast config.system.stateVersion "21.11";
+
   defaultMasterCfg = pkgs.writeText "master.cfg" ''
     from buildbot.plugins import *
     ${cfg.extraImports}
@@ -161,7 +163,7 @@ in {
       };
 
       home = lib.mkOption {
-        default = "/home/buildbot";
+        default = if (isAtLeast2211) then "/var/lib/buildbot" else "/home/buildbot";
         type = lib.types.path;
         description = "Buildbot home directory.";
       };
@@ -254,7 +256,8 @@ in {
     users.users = lib.optionalAttrs (cfg.user == "buildbot") {
       buildbot = {
         description = "Buildbot User.";
-        isNormalUser = true;
+        isSystemUser = isAtLeast2211;
+        isNormalUser = !isAtLeast2211;
         createHome = true;
         inherit (cfg) home group extraGroups;
         useDefaultShell = true;
