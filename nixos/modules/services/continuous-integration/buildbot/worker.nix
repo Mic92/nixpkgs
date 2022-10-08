@@ -10,6 +10,7 @@ let
   cfg = config.services.buildbot-worker;
   opt = options.services.buildbot-worker;
 
+  isAtLeast2211 = lib.versionAtLeast config.system.stateVersion "21.11";
   package = pkgs.python3.pkgs.toPythonModule cfg.package;
   python = package.pythonModule;
 
@@ -75,7 +76,7 @@ in
       };
 
       home = lib.mkOption {
-        default = "/home/bbworker";
+        default = if (isAtLeast2211) then "/var/lib/buildbot" else "/home/bbworker";
         type = lib.types.path;
         description = "Buildbot home directory.";
       };
@@ -154,7 +155,8 @@ in
     users.users = lib.optionalAttrs (cfg.user == "bbworker") {
       bbworker = {
         description = "Buildbot Worker User.";
-        isNormalUser = true;
+        isSystemUser = isAtLeast2211;
+        isNormalUser = !isAtLeast2211;
         createHome = true;
         home = cfg.home;
         group = cfg.group;
