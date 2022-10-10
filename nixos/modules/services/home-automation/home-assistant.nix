@@ -460,13 +460,19 @@ in {
     };
 
     pythonScripts = mkOption {
-      #default = [];
-      #type = types.listOf types.path;
       default = null;
       type = types.nullOr types.path;
       description = ''
         List of python scripts to use in the <literal>python_scripts</literal> integration.
         Also see in the <link xlink:href="https://www.home-assistant.io/integrations/python_script">Homeassistant documentation</link>
+      '';
+    };
+
+    customCards = mkOption {
+      default = {};
+      type = types.attrsOf types.path;
+      description = ''
+        List of custom cards to install.
       '';
     };
   };
@@ -492,9 +498,13 @@ in {
       })
     ];
 
-    systemd.tmpfiles.rules = mkIf (cfg.pythonScripts != null) [
-      "L+ ${cfg.configDir}/python_scripts - - - - ${cfg.pythonScripts}"
-    ];
+    systemd.tmpfiles.rules = []
+                             ++ lib.optional (cfg.pythonScripts != null) "L+ ${cfg.configDir}/python_scripts - - - - ${cfg.pythonScripts}"
+                             ++ lib.optional (cfg.customCards != {}) "L+ ${cfg.configDir}/www - - - - ${pkgs.runCommand "www" {} ''
+                               for p in ${toString (builtins.attrValues cfg.customCards)}; do
+                                 install -D -m 644 "$p" "$out/$p"
+                               done
+                             ''}";
 
     services.home-assistant.config.python_script = mkIf (cfg.pythonScripts != null) {};
 
