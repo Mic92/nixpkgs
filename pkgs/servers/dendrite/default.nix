@@ -12,6 +12,26 @@ buildGoModule rec {
     sha256 = "sha256-BqaL3UbwjwaLA4qeL8hTw1pgOzZHdQiHmkFYmUnysSk=";
   };
 
+  subPackages = [
+    # The server as a monolith: https://github.com/matrix-org/dendrite/blob/main/docs/installation/5_install_monolith.md
+    "cmd/dendrite-monolith-server"
+    # The server as a polylith: https://github.com/matrix-org/dendrite/blob/main/docs/installation/6_install_polylith.md
+    "cmd/dendrite-polylith-multi"
+    # admin tools
+    "cmd/create-account"
+    "cmd/generate-config"
+    "cmd/generate-keys"
+    "cmd/resolve-state"
+    ## seems to be a debugging tool, do we need this?
+    # "cmd/furl"
+    ## an internal tool
+    # "cmd/dendrite-upgrade-tests"
+    ## tech demos
+    # "cmd/dendrite-demo-pinecone"
+    # "cmd/dendrite-demo-yggdrasil"
+    # "cmd/dendritejs-pinecone"
+  ];
+
   vendorSha256 = "sha256-+BdVXRl+6RtEAeX0MLxd+upB39I2F2bGuiaO1WQbfxw=";
 
   # some tests are racy, re-enable once upstream has fixed them
