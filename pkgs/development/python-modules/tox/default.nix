@@ -8,7 +8,10 @@
 , virtualenv
 , setuptools-scm
 , toml
+, tomli
 , filelock
+, pythonAtLeast
+, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -16,7 +19,9 @@ buildPythonPackage rec {
   version = "3.26.0";
 
   buildInputs = [ setuptools-scm ];
-  propagatedBuildInputs = [ packaging pluggy py six virtualenv toml filelock ];
+  propagatedBuildInputs = [ packaging pluggy py six virtualenv filelock ]
+                          ++ lib.optional (pythonAtLeast "3.7" && pythonOlder "3.11") tomli
+                          ++ lib.optional (pythonOlder "3.7") toml;
 
   doCheck = false;
 
