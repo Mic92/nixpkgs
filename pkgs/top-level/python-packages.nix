@@ -2198,6 +2198,8 @@ in {
 
   dependency-injector = callPackage ../development/python-modules/dependency-injector { };
 
+  deploykit = callPackage ../development/python-modules/deploykit { };
+
   deprecated = callPackage ../development/python-modules/deprecated { };
 
   deprecation = callPackage ../development/python-modules/deprecation { };
