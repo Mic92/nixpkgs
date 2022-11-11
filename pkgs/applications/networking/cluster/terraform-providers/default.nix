@@ -82,6 +82,7 @@ let
       b2 = removed "b2" "2022/06";
       checkpoint = removed "checkpoint" "2022/11";
       dome9 = removed "dome9" "2022/08";
+      gitlab = removed "gitlab" "2022/11";
       ncloud = removed "ncloud" "2022/08";
       opc = archived "opc" "2022/05";
       oraclepaas = archived "oraclepaas" "2022/05";
