@@ -70,6 +70,9 @@ let
       tencentcloud = automated-providers.tencentcloud.overrideAttrs (_: { meta.broken = stdenv.isDarwin; });
       # mkisofs needed to create ISOs holding cloud-init data and wrapped to terraform via deecb4c1aab780047d79978c636eeb879dd68630
       libvirt = automated-providers.libvirt.overrideAttrs (_: { propagatedBuildInputs = [ cdrtools ]; });
+      gitlab = callPackage ./gitlab.nix {
+        inherit mkProvider;
+      };
     };
 
   # Put all the providers we not longer support in this list.
@@ -82,7 +85,6 @@ let
       b2 = removed "b2" "2022/06";
       checkpoint = removed "checkpoint" "2022/11";
       dome9 = removed "dome9" "2022/08";
-      gitlab = removed "gitlab" "2022/11";
       ncloud = removed "ncloud" "2022/08";
       opc = archived "opc" "2022/05";
       oraclepaas = archived "oraclepaas" "2022/05";

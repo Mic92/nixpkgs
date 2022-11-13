@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -i bash -p jq
+#! nix-shell -i bash -p jq -p nix-update
 # shellcheck shell=bash
 
 # Update all providers which have specified provider source address
@@ -23,3 +23,5 @@ EOF
 for provider in "${providers[@]}"; do
   ./update-provider "$@" "${provider}"
 done
+
+(cd "$(git rev-parse --show-toplevel)" && nix-update --build --commit terraform-providers.gitlab)
