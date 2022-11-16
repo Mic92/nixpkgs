@@ -1,7 +1,9 @@
-/* Create tests that run in the nix sandbox but get access to the host hardware
+/* Create tests that run in the nix sandbox with additional access to selected host paths
 
-  The tests get access to /sys and optionally more, which lets them depend on hardware that is
-  accessible to the host like GPUs.
+  This is for example useful for testing hardware where a tests needs access to
+  /sys and optionally more.
+
+  The following example shows a test that access the GPU:
 
   Example:
     makeImpureTest {
@@ -15,10 +17,12 @@
       testScript = "...";
     }
 
-  Add to a package:
+  Save as `test.nix` next to a package and add reference it from the package:
     passthru.impureTests = { opencl = callPackage ./test.nix {}; };
 
-  Run by building the run script, then executing it:
+  `makeImpureTest` will return here a script that contains the actual nix-build command including all necessary sandbox flags.
+
+  It can be executed like this:
     $(nix-build -A mypackage.impureTests)
 
   Rerun an already cached test:
