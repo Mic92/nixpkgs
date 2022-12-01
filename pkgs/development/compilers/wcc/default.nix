@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation {
   pname = "wcc-unstable";
-  version = "2018-04-05";
+  version = "2022-11-06";
 
   src = fetchFromGitHub {
     owner = "endrazine";
     repo = "wcc";
-    rev = "f141963ff193d7e1931d41acde36d20d7221e74f";
-    sha256 = "1f0w869x0176n5nsq7m70r344gv5qvfmk7b58syc0jls8ghmjvb4";
+    rev = "503f6dfed71e5907e875e62bdf87905c6bce50b5";
+    sha256 = "sha256-aPeU+bsNqd7JE/Wr/3w14+qaX7th9mFxMrTLnWJ8RQ8=";
     fetchSubmodules = true;
   };
 
@@ -34,9 +34,9 @@ stdenv.mkDerivation {
     cp doc/manpages/*.1 $out/share/man/man1/
   '';
 
-  preFixup = ''
-    # Let patchShebangs rewrite shebangs with wsh.
-    PATH+=:$out/bin
+  postFixup = ''
+    # not detected by patchShebangs
+    substituteInPlace $out/bin/wcch --replace '#!/usr/bin/wsh' "#!$out/bin/wsh"
   '';
 
   enableParallelBuilding = true;
