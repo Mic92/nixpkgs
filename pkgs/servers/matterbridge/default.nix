@@ -15,6 +15,15 @@ buildGoModule rec {
 
   vendorHash = null;
 
+  tags = [ "whatsappmulti" ];
+
+  patches = [
+    ./0001-whatsapp-allow-to-open-channel-with-users.patch
+    ./0002-whatsapp-skip-checking-profile-images.patch
+    ./0003-whatsapp-workaround-for-ratelimit.patch
+  ];
+
+
   meta = with lib; {
     description = "Simple bridge between Mattermost, IRC, XMPP, Gitter, Slack, Discord, Telegram, Rocket.Chat, Hipchat(via xmpp), Matrix and Steam";
     homepage = "https://github.com/42wim/matterbridge";
