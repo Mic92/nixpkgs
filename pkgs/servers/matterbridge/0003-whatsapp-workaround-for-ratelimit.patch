@@ -1,0 +1,39 @@
+From 0c40d6c7e9d8af0f9b09287e022b5177602ab02c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=B6rg=20Thalheim?= <joerg@thalheim.io>
+Date: Thu, 15 Dec 2022 22:57:58 +0100
+Subject: [PATCH 3/3] whatsapp: workaround for ratelimit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Jörg Thalheim <joerg@thalheim.io>
+---
+ bridge/whatsappmulti/whatsapp.go | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/bridge/whatsappmulti/whatsapp.go b/bridge/whatsappmulti/whatsapp.go
+index e10aefee..a2226e12 100644
+--- a/bridge/whatsappmulti/whatsapp.go
++++ b/bridge/whatsappmulti/whatsapp.go
+@@ -166,9 +166,15 @@ func (b *Bwhatsapp) Disconnect() error {
+ func (b *Bwhatsapp) JoinChannel(channel config.ChannelInfo) error {
+ 	byJid := isGroupJid(channel.Name)
+ 
+-	groups, err := b.wc.GetJoinedGroups()
+-	if err != nil {
+-		return err
++	var groups []*types.GroupInfo
++	var err error
++	for {
++		groups, err = b.wc.GetJoinedGroups()
++		if err == nil {
++			break
++		}
++		b.Log.Warnf("failed to join group: %s\n", err)
++		time.Sleep(time.Second)
+ 	}
+ 
+ 	// verify if we are member of the given group
+-- 
+2.38.1
+

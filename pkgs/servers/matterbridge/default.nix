@@ -11,6 +11,14 @@ buildGoModule rec {
     sha256 = "sha256-VqVrAmbKTfDhcvgayEE1wUeFBSTGczBrntIJQ5/uWzM=";
   };
 
+  tags = [ "whatsappmulti" ];
+
+  patches = [
+    ./0001-whatsapp-allow-to-open-channel-with-users.patch
+    ./0002-whatsapp-skip-checking-profile-images.patch
+    ./0003-whatsapp-workaround-for-ratelimit.patch
+  ];
+
   vendorSha256 = null;
 
   meta = with lib; {
