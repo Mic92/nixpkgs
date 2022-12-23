@@ -1927,6 +1927,8 @@ self: super: with self; {
 
   clize = callPackage ../development/python-modules/clize { };
 
+  cli-formatter = callPackage ../development/python-modules/cli-formatter { };
+
   clldutils = callPackage ../development/python-modules/clldutils { };
 
   cloudflare = callPackage ../development/python-modules/cloudflare { };
