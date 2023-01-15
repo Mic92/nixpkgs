@@ -105,8 +105,10 @@ in {
     server = { ... }: {
       services.openssh = {
         enable = true;
-        passwordAuthentication = false;
-        kbdInteractiveAuthentication = false;
+        settings = {
+          PasswordAuthentication = false;
+          KbdInteractiveAuthentication = false;
+        };
       };
 
       services.borgbackup.repos.repo1 = {
