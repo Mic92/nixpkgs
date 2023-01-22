@@ -1,35 +1,31 @@
 { lib
 , fetchpatch
 , kernel
-, commitDate ? "2022-12-29"
-, currentCommit ? "8f064a4cb5c7cce289b83d7a459e6d8620188b37"
-, diffHash ? "sha256-RnlM7uOSWhFHG1aj5BOjrfRtoZfbx+tqQw1V49nW5vw="
-
+, buildLinux
+, fetchFromGitHub
 , kernelPatches # must always be defined in bcachefs' all-packages.nix entry because it's also a top-level attribute supplied by callPackage
 , argsOverride ? {}
 , ...
 } @ args:
+buildLinux (args // {
+  # NOTE: bcachefs-tools should be updated simultaneously to preserve compatibility
+  version = "6.1.0-2022-12-29";
+  modDirVersion = "6.1.0";
 
-# NOTE: bcachefs-tools should be updated simultaneously to preserve compatibility
-(kernel.override ( args // {
-  argsOverride = {
-    version = "${kernel.version}-bcachefs-unstable-${commitDate}";
+  src = fetchFromGitHub {
+    owner = "koverstreet";
+    repo = "bcachefs";
+    rev = "8f064a4cb5c7cce289b83d7a459e6d8620188b37";
+    sha256 = "sha256-UgWAbYToauAjGrgeS+o6N42/oW0roICJIoJlEAHBRPk=";
+  };
 
-    extraMeta = {
-      branch = "master";
-      maintainers = with lib.maintainers; [ davidak Madouura ];
-    };
-  } // argsOverride;
+  extraConfig = "BCACHEFS_FS m";
 
-  kernelPatches = [ {
-      name = "bcachefs-${currentCommit}";
+  extraMeta = {
+    branch = "master";
+    hydraPlatforms = []; # Should the testing kernels ever be built on Hydra?
+    maintainers = with lib.maintainers; [ davidak chiiruno ];
+    platforms = [ "x86_64-linux" ];
+  };
 
-      patch = fetchpatch {
-        name = "bcachefs-${currentCommit}.diff";
-        url = "https://evilpiepirate.org/git/bcachefs.git/rawdiff/?id=${currentCommit}&id2=v${lib.versions.majorMinor kernel.version}";
-        sha256 = diffHash;
-      };
-
-      extraConfig = "BCACHEFS_FS m";
-    } ] ++ kernelPatches;
-}))
+} // (args.argsOverride or {}))
