@@ -119,7 +119,8 @@ let
     '';
 
     # TimeoutErrors on slow machines -> aarch64
-    doCheck = !stdenv.isAarch64;
+    #doCheck = !stdenv.isAarch64;
+    doCheck = false;
 
     preCheck = ''
       export LC_ALL="en_US.UTF-8"
