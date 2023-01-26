@@ -48,6 +48,7 @@
 , libpulseaudio
 , xdg-utils
 , wayland
+, nix-update-script
 }:
 
 stdenv.mkDerivation rec {
@@ -165,6 +166,12 @@ stdenv.mkDerivation rec {
 
   # Tests if the application launches and waits for "Link your phone to Signal Desktop":
   passthru.tests.application-launch = nixosTests.signal-desktop;
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--url=https://github.com/signalapp/Signal-Desktop"
+      "--override-filename=pkgs/applications/networking/instant-messengers/signal-desktop/default.nix"
+    ];
+  };
 
   meta = {
     description = "Private, simple, and secure messenger";
