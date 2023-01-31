@@ -51,7 +51,7 @@ machine
       command:
     </para>
     <programlisting>
-$ socat 'READLINE,PROMPT=$ ' tcp-listen:4444,reuseaddr`
+$ socat 'READLINE,PROMPT=$ ' tcp-listen:4444,reuseaddr
 </programlisting>
     <para>
       In the terminal where the test driver is running, connect to this
