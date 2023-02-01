@@ -58,7 +58,7 @@ $ socat 'READLINE,PROMPT=$ ' tcp-listen:4444,reuseaddr`
       server by using:
     </para>
     <programlisting language="python">
-&gt;&gt;&gt; machine.shell_interact(&quot;tcp:127.0.0.1:4444&quot;)
+&gt;&gt;&gt; machine.shell_interact(&quot;tcp:127.0.0.1:4444,forever,interval=2&quot;)
 </programlisting>
     <para>
       Once the connection is established, you can enter commands in the
