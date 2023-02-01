@@ -57,7 +57,7 @@ In the terminal where the test driver is running, connect to this server by
 using:
 
 ```py
->>> machine.shell_interact("tcp:127.0.0.1:4444")
+>>> machine.shell_interact("tcp:127.0.0.1:4444,forever,interval=2")
 ```
 
 Once the connection is established, you can enter commands in the socat terminal
