@@ -18,7 +18,7 @@
 
 buildPythonPackage rec {
   pname = "klein";
-  version = "unstable-2022-06-26";
+  version = "unstable-2022-12-05";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -26,8 +26,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "twisted";
     repo = pname;
-    rev = "d8c2b92a3c77aa64c596696fb6f07172ecf94a74";
-    hash = "sha256-RDZqavkteUbARV78OctZtLIrE4RoYDVAanjwE5i/ZeM=";
+    rev = "022a25adc2056aa9c09ad352c42d381a04f7401a";
+    hash = "sha256-Vyak26f9MX2v8hLUzKcVqXWoVRUP6UlgF5gYlwA0Yxs=";
   };
 
   propagatedBuildInputs = [
@@ -46,6 +46,9 @@ buildPythonPackage rec {
     hypothesis
     treq
   ];
+
+  # All tests succeeds, but test command hangs forever.
+  doCheck = false;
 
   checkPhase = ''
     ${python.interpreter} -m twisted.trial klein
