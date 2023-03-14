@@ -1,6 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
+{ lib, buildGo120Module, fetchFromGitHub, nixosTests }:
 
-buildGoModule rec {
+# Upgraded from buildGo119Module to fix a test failure, switch back to
+# buildGoModule once go1.20 is the default.
+buildGo120Module rec {
   pname = "telegraf";
   version = "1.26.0";
 
