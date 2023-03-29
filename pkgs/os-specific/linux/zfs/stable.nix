@@ -2,6 +2,7 @@
 , kernel ? null
 , stdenv
 , linuxKernel
+, removeLinuxDRM ? false
 , ...
 } @ args:
 
@@ -11,11 +12,11 @@ in
 callPackage ./generic.nix args {
   # check the release notes for compatible kernels
   kernelCompatible =
-    if stdenv'.isx86_64
+    if (stdenv'.isx86_64 || removeLinuxDRM)
     then kernel.kernelOlder "6.3"
     else kernel.kernelOlder "6.2";
   latestCompatibleLinuxPackages =
-    if stdenv'.isx86_64
+    if (stdenv'.isx86_64 || removeLinuxDRM)
     then linuxKernel.packages.linux_6_1
     else linuxKernel.packages.linux_6_2;
 
