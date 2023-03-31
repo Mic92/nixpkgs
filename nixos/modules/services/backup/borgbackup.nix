@@ -65,6 +65,7 @@ let
       ${mkKeepArgs cfg} \
       ${optionalString (cfg.prune.prefix != null) "--glob-archives ${escapeShellArg "${cfg.prune.prefix}*"}"} \
       $extraPruneArgs
+    borg compact $extraArgs $extraCompactArgs
     ${cfg.postPrune}
   '';
 
@@ -621,6 +622,15 @@ in {
             example = "--save-space";
           };
 
+          extraCompactArgs = mkOption {
+            type = types.str;
+            description = lib.mdDoc ''
+              Additional arguments for {command}`borg compact`.
+              Can also be set at runtime using `$extraCompactArgs`.
+            '';
+            default = "";
+            example = "--cleanup-commits";
+          };
         };
       }
     ));
