@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, kernel, installShellFiles, pkg-config
+{ lib, stdenv, fetchFromGitHub, cmake, kernel, installShellFiles, pkg-config
 , luajit, ncurses, perl, jsoncpp, libb64, openssl, curl, jq, gcc, elfutils, tbb, protobuf, grpc
 , libyamlcpp, nlohmann_json, re2, zstd
 }:
@@ -19,8 +19,8 @@ let
   driver = fetchFromGitHub {
     owner = "falcosecurity";
     repo = "libs";
-    rev = "3.0.1+driver";
-    sha256 = "sha256-bK9wv17bVl93rOqw7JICnMOM0fDtPIErfMmUmNKOD5c=";
+    rev = libsRev;
+    sha256 = libsSha256;
   };
 
 in
