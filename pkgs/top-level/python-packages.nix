@@ -12009,7 +12009,7 @@ self: super: with self; {
     inherit (pkgs.darwin) cctools;
   };
 
-  tensorflow = self.tensorflow-build;
+  tensorflow = tensorflow-bin;
 
   tensorflowWithCuda = self.tensorflow.override {
     cudaSupport = true;
