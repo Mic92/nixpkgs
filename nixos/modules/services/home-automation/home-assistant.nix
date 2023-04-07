@@ -385,6 +385,22 @@ in {
         List of custom cards to install.
       '';
     };
+
+    customSentences = mkOption {
+      default = {};
+      type = types.attrsOf format.type;
+      description = ''
+        List of custom sentences to install.
+      '';
+      example = {
+        language = "en";
+        intents = {
+          HassTurnOn.data = [
+            { sentences = [ "engage [the] {name}" ]; }
+          ];
+        };
+      };
+    };
   };
 
   config = mkIf cfg.enable {
@@ -413,6 +429,11 @@ in {
                              ++ lib.optional (cfg.customComponents != {}) "L+ ${cfg.configDir}/custom_components - - - - ${pkgs.linkFarm "custom_components" (lib.mapAttrsToList (k: v: {
                                name = k; path = v;
                              }) cfg.customComponents)}"
+                             ++ lib.optional (cfg.customSentences != {}) "L+ ${cfg.configDir}/custom_sentences - - - - ${pkgs.linkFarm "custom_sentences"
+                               (lib.mapAttrsToList (k: v: {
+                                 name = "${v.language}/${k}.yaml";
+                                 path = format.generate "${k}.yaml" v;
+                               }) cfg.customSentences)}"
                              ++ lib.optional (cfg.customCards != {}) "L+ ${cfg.configDir}/www - - - - ${pkgs.runCommand "www" {} ''
                                for p in ${toString (builtins.attrValues cfg.customCards)}; do
                                  install -D -m 644 "$p" "$out/$p"
