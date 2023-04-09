@@ -26,6 +26,14 @@ python.pkgs.buildPythonApplication rec {
     hash = "sha256-PV+uqJKXqnSMItWVg8iZVOQwxHrDHthezqyvciRq5+M=";
   };
 
+  patches = [
+    ./0001-fix-include.patch
+    ./0002-fix-freertos-compatibility.patch
+    ./0003-wifi-port-to-new-esp-netif-api.patch
+    ./0004-mdns-add-mdns-component-when-using-esp-idf.patch
+    ./0005-use-PRIx-macros-for-printing-u32-i32-ints-4671.patch
+  ];
+
   postPatch = ''
     # remove all version pinning (E.g tornado==5.1.1 -> tornado)
     sed -i -e "s/==[0-9.]*//" requirements.txt
