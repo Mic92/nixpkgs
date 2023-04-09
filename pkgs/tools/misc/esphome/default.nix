@@ -16,15 +16,23 @@ let
 in
 python.pkgs.buildPythonApplication rec {
   pname = "esphome";
-  version = "2023.3.1";
+  version = "2023.3.2";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "refs/tags/${version}";
-    hash = "sha256-h35V6tg6TewqJiZ4T5t6RNNaT2JEzqhbnJgH6xqqqzs=";
+    hash = "sha256-MfipnmBxCz8R0bNyJDRBP2R8JeOtgIm6Mu6SFPGkDc0=";
   };
+
+  patches = [
+    ./0001-fix-include.patch
+    ./0002-fix-compilation-with-latest-esp-idf.patch
+    ./0003-fix-freertos-compatibility.patch
+    ./0004-wifi-port-to-new-esp-netif-api.patch
+    ./0005-mdns-add-mdns-component-when-using-esp-idf.patch
+  ];
 
   postPatch = ''
     # remove all version pinning (E.g tornado==5.1.1 -> tornado)

@@ -1,0 +1,258 @@
+From 4d63db6a4b32c15429e9bc95214fcc75bffa4d3c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=B6rg=20Thalheim?= <joerg@thalheim.io>
+Date: Sun, 9 Apr 2023 08:32:29 +0200
+Subject: [PATCH 2/5] fix compilation with latest esp-idf
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Jörg Thalheim <joerg@thalheim.io>
+---
+ esphome/components/api/api_connection.cpp     |  3 ++-
+ esphome/components/api/proto.cpp              | 19 ++++++++++---------
+ esphome/components/esp32/gpio.cpp             |  3 ++-
+ esphome/components/esp32/preferences.cpp      |  3 ++-
+ esphome/components/i2c/i2c_bus_esp_idf.cpp    |  3 ++-
+ esphome/components/logger/logger.cpp          |  3 ++-
+ esphome/components/wifi/wifi_component.cpp    |  3 ++-
+ .../wifi/wifi_component_esp_idf.cpp           |  3 ++-
+ esphome/core/scheduler.cpp                    |  2 +-
+ 9 files changed, 25 insertions(+), 17 deletions(-)
+
+diff --git a/esphome/components/api/api_connection.cpp b/esphome/components/api/api_connection.cpp
+index 40a5a230..f0ea6341 100644
+--- a/esphome/components/api/api_connection.cpp
++++ b/esphome/components/api/api_connection.cpp
+@@ -1,5 +1,6 @@
+ #include "api_connection.h"
+ #include <cerrno>
++#include <cinttypes>
+ #include "esphome/components/network/util.h"
+ #include "esphome/core/entity_base.h"
+ #include "esphome/core/hal.h"
+@@ -898,7 +899,7 @@ HelloResponse APIConnection::hello(const HelloRequest &msg) {
+   this->helper_->set_log_info(client_info_);
+   this->client_api_version_major_ = msg.api_version_major;
+   this->client_api_version_minor_ = msg.api_version_minor;
+-  ESP_LOGV(TAG, "Hello from client: '%s' | API Version %d.%d", this->client_info_.c_str(),
++  ESP_LOGV(TAG, "Hello from client: '%s' | API Version %" PRIu32 ".%" PRIu32, this->client_info_.c_str(),
+            this->client_api_version_major_, this->client_api_version_minor_);
+ 
+   HelloResponse resp;
+diff --git a/esphome/components/api/proto.cpp b/esphome/components/api/proto.cpp
+index ca7a4c08..7af2e925 100644
+--- a/esphome/components/api/proto.cpp
++++ b/esphome/components/api/proto.cpp
+@@ -1,4 +1,5 @@
+ #include "proto.h"
++#include <cinttypes>
+ #include "esphome/core/log.h"
+ 
+ namespace esphome {
+@@ -13,7 +14,7 @@ void ProtoMessage::decode(const uint8_t *buffer, size_t length) {
+     uint32_t consumed;
+     auto res = ProtoVarInt::parse(&buffer[i], length - i, &consumed);
+     if (!res.has_value()) {
+-      ESP_LOGV(TAG, "Invalid field start at %u", i);
++      ESP_LOGV(TAG, "Invalid field start at %" PRIu32, i);
+       break;
+     }
+ 
+@@ -25,12 +26,12 @@ void ProtoMessage::decode(const uint8_t *buffer, size_t length) {
+       case 0: {  // VarInt
+         res = ProtoVarInt::parse(&buffer[i], length - i, &consumed);
+         if (!res.has_value()) {
+-          ESP_LOGV(TAG, "Invalid VarInt at %u", i);
++          ESP_LOGV(TAG, "Invalid VarInt at %" PRIu32, i);
+           error = true;
+           break;
+         }
+         if (!this->decode_varint(field_id, *res)) {
+-          ESP_LOGV(TAG, "Cannot decode VarInt field %u with value %u!", field_id, res->as_uint32());
++          ESP_LOGV(TAG, "Cannot decode VarInt field %" PRIu32 " with value %" PRIu32 "!", field_id, res->as_uint32());
+         }
+         i += consumed;
+         break;
+@@ -38,38 +39,38 @@ void ProtoMessage::decode(const uint8_t *buffer, size_t length) {
+       case 2: {  // Length-delimited
+         res = ProtoVarInt::parse(&buffer[i], length - i, &consumed);
+         if (!res.has_value()) {
+-          ESP_LOGV(TAG, "Invalid Length Delimited at %u", i);
++          ESP_LOGV(TAG, "Invalid Length Delimited at %" PRIu32, i);
+           error = true;
+           break;
+         }
+         uint32_t field_length = res->as_uint32();
+         i += consumed;
+         if (field_length > length - i) {
+-          ESP_LOGV(TAG, "Out-of-bounds Length Delimited at %u", i);
++          ESP_LOGV(TAG, "Out-of-bounds Length Delimited at %" PRIu32, i);
+           error = true;
+           break;
+         }
+         if (!this->decode_length(field_id, ProtoLengthDelimited(&buffer[i], field_length))) {
+-          ESP_LOGV(TAG, "Cannot decode Length Delimited field %u!", field_id);
++          ESP_LOGV(TAG, "Cannot decode Length Delimited field %" PRIu32 "!", field_id);
+         }
+         i += field_length;
+         break;
+       }
+       case 5: {  // 32-bit
+         if (length - i < 4) {
+-          ESP_LOGV(TAG, "Out-of-bounds Fixed32-bit at %u", i);
++          ESP_LOGV(TAG, "Out-of-bounds Fixed32-bit at %" PRIu32, i);
+           error = true;
+           break;
+         }
+         uint32_t val = encode_uint32(buffer[i + 3], buffer[i + 2], buffer[i + 1], buffer[i]);
+         if (!this->decode_32bit(field_id, Proto32Bit(val))) {
+-          ESP_LOGV(TAG, "Cannot decode 32-bit field %u with value %u!", field_id, val);
++          ESP_LOGV(TAG, "Cannot decode 32-bit field %" PRIu32 " with value %" PRIu32 "!", field_id, val);
+         }
+         i += 4;
+         break;
+       }
+       default:
+-        ESP_LOGV(TAG, "Invalid field type at %u", i);
++        ESP_LOGV(TAG, "Invalid field type at %" PRIu32, i);
+         error = true;
+         break;
+     }
+diff --git a/esphome/components/esp32/gpio.cpp b/esphome/components/esp32/gpio.cpp
+index aafdf807..7896597d 100644
+--- a/esphome/components/esp32/gpio.cpp
++++ b/esphome/components/esp32/gpio.cpp
+@@ -2,6 +2,7 @@
+ 
+ #include "gpio.h"
+ #include "esphome/core/log.h"
++#include <cinttypes>
+ 
+ namespace esphome {
+ namespace esp32 {
+@@ -74,7 +75,7 @@ void ESP32InternalGPIOPin::attach_interrupt(void (*func)(void *), void *arg, gpi
+ 
+ std::string ESP32InternalGPIOPin::dump_summary() const {
+   char buffer[32];
+-  snprintf(buffer, sizeof(buffer), "GPIO%u", static_cast<uint32_t>(pin_));
++  snprintf(buffer, sizeof(buffer), "GPIO%" PRIu32, static_cast<uint32_t>(pin_));
+   return buffer;
+ }
+ 
+diff --git a/esphome/components/esp32/preferences.cpp b/esphome/components/esp32/preferences.cpp
+index 6a6305cf..a006aa4f 100644
+--- a/esphome/components/esp32/preferences.cpp
++++ b/esphome/components/esp32/preferences.cpp
+@@ -5,6 +5,7 @@
+ #include "esphome/core/log.h"
+ #include <nvs_flash.h>
+ #include <cstring>
++#include <cinttypes>
+ #include <vector>
+ #include <string>
+ 
+@@ -101,7 +102,7 @@ class ESP32Preferences : public ESPPreferences {
+     pref->nvs_handle = nvs_handle;
+ 
+     uint32_t keyval = type;
+-    pref->key = str_sprintf("%u", keyval);
++    pref->key = str_sprintf(PRIu32, keyval);
+ 
+     return ESPPreferenceObject(pref);
+   }
+diff --git a/esphome/components/i2c/i2c_bus_esp_idf.cpp b/esphome/components/i2c/i2c_bus_esp_idf.cpp
+index 1e2a7304..5178f6d4 100644
+--- a/esphome/components/i2c/i2c_bus_esp_idf.cpp
++++ b/esphome/components/i2c/i2c_bus_esp_idf.cpp
+@@ -5,6 +5,7 @@
+ #include "esphome/core/log.h"
+ #include "esphome/core/helpers.h"
+ #include <cstring>
++#include <cinttypes>
+ 
+ namespace esphome {
+ namespace i2c {
+@@ -47,7 +48,7 @@ void IDFI2CBus::dump_config() {
+   ESP_LOGCONFIG(TAG, "I2C Bus:");
+   ESP_LOGCONFIG(TAG, "  SDA Pin: GPIO%u", this->sda_pin_);
+   ESP_LOGCONFIG(TAG, "  SCL Pin: GPIO%u", this->scl_pin_);
+-  ESP_LOGCONFIG(TAG, "  Frequency: %u Hz", this->frequency_);
++  ESP_LOGCONFIG(TAG, "  Frequency: %" PRIu32 " Hz", this->frequency_);
+   switch (this->recovery_result_) {
+     case RECOVERY_COMPLETED:
+       ESP_LOGCONFIG(TAG, "  Recovery: bus successfully recovered");
+diff --git a/esphome/components/logger/logger.cpp b/esphome/components/logger/logger.cpp
+index 8a3c6a95..c77e2807 100644
+--- a/esphome/components/logger/logger.cpp
++++ b/esphome/components/logger/logger.cpp
+@@ -1,4 +1,5 @@
+ #include "logger.h"
++#include <cinttypes>
+ 
+ #ifdef USE_ESP_IDF
+ #include <driver/uart.h>
+@@ -292,7 +293,7 @@ const char *const UART_SELECTIONS[] = {"UART0", "UART1", "USB_CDC"};
+ void Logger::dump_config() {
+   ESP_LOGCONFIG(TAG, "Logger:");
+   ESP_LOGCONFIG(TAG, "  Level: %s", LOG_LEVELS[ESPHOME_LOG_LEVEL]);
+-  ESP_LOGCONFIG(TAG, "  Log Baud Rate: %u", this->baud_rate_);
++  ESP_LOGCONFIG(TAG, "  Log Baud Rate: %" PRIu32, this->baud_rate_);
+   ESP_LOGCONFIG(TAG, "  Hardware UART: %s", UART_SELECTIONS[this->uart_]);
+   for (auto &it : this->log_levels_) {
+     ESP_LOGCONFIG(TAG, "  Level for '%s': %s", it.tag.c_str(), LOG_LEVELS[it.level]);
+diff --git a/esphome/components/wifi/wifi_component.cpp b/esphome/components/wifi/wifi_component.cpp
+index d4636c81..efb1af17 100644
+--- a/esphome/components/wifi/wifi_component.cpp
++++ b/esphome/components/wifi/wifi_component.cpp
+@@ -1,4 +1,5 @@
+ #include "wifi_component.h"
++#include <cinttypes>
+ 
+ #if defined(USE_ESP32) || defined(USE_ESP_IDF)
+ #include <esp_wifi.h>
+@@ -370,7 +371,7 @@ void WiFiComponent::print_connect_params_() {
+   if (this->selected_ap_.get_bssid().has_value()) {
+     ESP_LOGV(TAG, "  Priority: %.1f", this->get_sta_priority(*this->selected_ap_.get_bssid()));
+   }
+-  ESP_LOGCONFIG(TAG, "  Channel: %d", wifi_channel_());
++  ESP_LOGCONFIG(TAG, "  Channel: %" PRId32, wifi_channel_());
+   ESP_LOGCONFIG(TAG, "  Subnet: %s", wifi_subnet_mask_().str().c_str());
+   ESP_LOGCONFIG(TAG, "  Gateway: %s", wifi_gateway_ip_().str().c_str());
+   ESP_LOGCONFIG(TAG, "  DNS1: %s", wifi_dns_ip_(0).str().c_str());
+diff --git a/esphome/components/wifi/wifi_component_esp_idf.cpp b/esphome/components/wifi/wifi_component_esp_idf.cpp
+index 28831644..74970db6 100644
+--- a/esphome/components/wifi/wifi_component_esp_idf.cpp
++++ b/esphome/components/wifi/wifi_component_esp_idf.cpp
+@@ -11,6 +11,7 @@
+ #include <esp_event.h>
+ #include <esp_netif.h>
+ 
++#include <cinttypes>
+ #include <utility>
+ #include <algorithm>
+ #ifdef USE_WIFI_WPA2_EAP
+@@ -656,7 +657,7 @@ void WiFiComponent::wifi_process_event_(IDFWiFiEvent *data) {
+ 
+   } else if (data->event_base == WIFI_EVENT && data->event_id == WIFI_EVENT_SCAN_DONE) {
+     const auto &it = data->data.sta_scan_done;
+-    ESP_LOGV(TAG, "Event: WiFi Scan Done status=%u number=%u scan_id=%u", it.status, it.number, it.scan_id);
++    ESP_LOGV(TAG, "Event: WiFi Scan Done status=%" PRIu32 " number=%u scan_id=%u", it.status, it.number, it.scan_id);
+ 
+     scan_result_.clear();
+     this->scan_done_ = true;
+diff --git a/esphome/core/scheduler.cpp b/esphome/core/scheduler.cpp
+index 0cb148ec..d673930f 100644
+--- a/esphome/core/scheduler.cpp
++++ b/esphome/core/scheduler.cpp
+@@ -194,7 +194,7 @@ void HOT Scheduler::call() {
+ 
+     // The following should not happen unless I'm missing something
+     if (to_remove_ != 0) {
+-      ESP_LOGW(TAG, "to_remove_ was %u now: %u items where %zu now %zu. Please report this", to_remove_was, to_remove_,
++      ESP_LOGW(TAG, "to_remove_ was %" PRIu32 " now: %" PRIu32 " items where %zu now %zu. Please report this", to_remove_was, to_remove_,
+                items_was, items_.size());
+       to_remove_ = 0;
+     }
+-- 
+2.39.2
+

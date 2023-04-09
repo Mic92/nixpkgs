@@ -1,0 +1,37 @@
+From 0b664999484a7e79f3edef254a63ac0fd00d6ea9 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=B6rg=20Thalheim?= <joerg@thalheim.io>
+Date: Sun, 9 Apr 2023 09:17:41 +0200
+Subject: [PATCH 3/5] fix freertos compatibility
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Jörg Thalheim <joerg@thalheim.io>
+---
+ esphome/components/wifi/wifi_component_esp_idf.cpp | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/esphome/components/wifi/wifi_component_esp_idf.cpp b/esphome/components/wifi/wifi_component_esp_idf.cpp
+index 74970db6..bfd2d8e6 100644
+--- a/esphome/components/wifi/wifi_component_esp_idf.cpp
++++ b/esphome/components/wifi/wifi_component_esp_idf.cpp
+@@ -2,6 +2,7 @@
+ 
+ #ifdef USE_ESP_IDF
+ 
++#define ENABLE_BACKWARD_COMPATIBILITY
+ #include <freertos/FreeRTOS.h>
+ #include <freertos/task.h>
+ #include <freertos/event_groups.h>
+@@ -32,7 +33,7 @@ namespace wifi {
+ static const char *const TAG = "wifi_esp32";
+ 
+ static EventGroupHandle_t s_wifi_event_group;  // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
+-static xQueueHandle s_event_queue;             // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
++static QueueHandle_t s_event_queue;            // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
+ static esp_netif_t *s_sta_netif = nullptr;     // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
+ static esp_netif_t *s_ap_netif = nullptr;      // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
+ static bool s_sta_started = false;             // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
+-- 
+2.39.2
+
