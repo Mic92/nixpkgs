@@ -57,7 +57,7 @@ build_bin() {
     $EXTRA_BUILD \
     $EXTRA_FEATURES \
     $EXTRA_RUSTC_FLAGS \
-    --color ${colors} \
+    --color ${colors} || return 1
 
   if [ "$crate_name_" != "$crate_name" ]; then
     if [ -f "target/bin/$crate_name_.wasm" ]; then
