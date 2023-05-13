@@ -2,9 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , pkg-config
-, docutils
 , libuuid
-, libscrypt
 , libsodium
 , keyutils
 , liburcu
@@ -12,66 +10,85 @@
 , libaio
 , zstd
 , lz4
-, python3Packages
-, util-linux
+, attr
 , udev
 , valgrind
 , nixosTests
-, makeWrapper
-, getopt
 , fuse3
+, cargo
+, rustc
+, coreutils
+, rustPlatform
+, makeWrapper
 , fuseSupport ? false
 }:
-
-stdenv.mkDerivation {
+let
+  rev = "5ef62f56ab50c5799f713e3a42f5c7ad7e8283d3";
+in stdenv.mkDerivation {
   pname = "bcachefs-tools";
-  version = "unstable-2023-01-31";
+  version = "unstable-2023-05-13";
 
   src = fetchFromGitHub {
     owner = "koverstreet";
     repo = "bcachefs-tools";
-    rev = "3c39b422acd3346321185be0ce263809e2a9a23f";
-    hash = "sha256-2ci/m4JfodLiPoWfP+QCEqlk0k48zq3mKb8Pdrtln0o=";
+    inherit rev;
+    hash = "sha256-w8ez7+E4suPN0W5OzbzFLysDXlmZrjFk20f8VZlIfuE=";
   };
 
-  postPatch = ''
-    patchShebangs .
-    substituteInPlace Makefile \
-      --replace "pytest-3" "pytest --verbose" \
-      --replace "INITRAMFS_DIR=/etc/initramfs-tools" \
-                "INITRAMFS_DIR=${placeholder "out"}/etc/initramfs-tools"
-  '';
-
   nativeBuildInputs = [
-    pkg-config docutils python3Packages.python makeWrapper
+    pkg-config
+    cargo
+    rustc
+    rustPlatform.cargoSetupHook
+    rustPlatform.bindgenHook
+    makeWrapper
   ];
 
+  cargoRoot = "rust-src";
+  cargoDeps = rustPlatform.importCargoLock {
+    lockFile = ./Cargo.lock;
+    outputHashes = {
+      "bindgen-0.64.0" = "sha256-GNG8as33HLRYJGYe0nw6qBzq86aHiGonyynEM7gaEE4=";
+    };
+  };
+
   buildInputs = [
-    libuuid libscrypt libsodium keyutils liburcu zlib libaio
-    zstd lz4 python3Packages.pytest udev valgrind
+    libaio
+    keyutils
+    lz4
+
+    libsodium
+    liburcu
+    libuuid
+    zstd
+    zlib
+    attr
+    udev
   ] ++ lib.optional fuseSupport fuse3;
 
   doCheck = false; # needs bcachefs module loaded on builder
   checkFlags = [ "BCACHEFS_TEST_USE_VALGRIND=no" ];
   nativeCheckInputs = [ valgrind ];
 
+  makeFlags = [
+    "PREFIX=${placeholder "out"}"
+    "VERSION=${lib.strings.substring 0 7 rev}"
+    "INITRAMFS_DIR=${placeholder "out"}/etc/initramfs-tools"
+  ];
+
   preCheck = lib.optionalString fuseSupport ''
     rm tests/test_fuse.py
   '';
-
-  # this symlink is needed for mount -t bcachefs to work
-  postFixup = ''
-    ln -s $out/bin/mount.bcachefs.sh $out/bin/mount.bcachefs
-    wrapProgram $out/bin/mount.bcachefs.sh \
-      --prefix PATH : ${lib.makeBinPath [ getopt util-linux ]}
-  '';
-
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   passthru.tests = {
     smoke-test = nixosTests.bcachefs;
     inherit (nixosTests.installer) bcachefsSimple bcachefsEncrypted bcachefsMulti;
   };
+
+  postFixup = ''
+    wrapProgram $out/bin/mount.bcachefs \
+      --prefix PATH : ${lib.makeBinPath [ coreutils ]}
+  '';
 
   enableParallelBuilding = true;
 
