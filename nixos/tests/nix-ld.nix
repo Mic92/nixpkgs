@@ -12,6 +12,8 @@ import ./make-test-python.nix ({ lib, pkgs, ...} :
   };
   testScript = ''
     start_all()
-    machine.succeed("hello")
+    out = machine.succeed("hello")
+    assert out == "Hello, world!\n", f"hello output was: '{out}', expected: Hello, world!"
+    machine.succeed("/run/current-system/sw/share/nix-ld/lib/ld.so --version >&2")
  '';
 })
