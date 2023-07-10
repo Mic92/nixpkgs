@@ -343,6 +343,7 @@ in {
     boot.initrd.availableKernelModules = [
       # systemd needs this for some features
       "autofs4"
+    ] ++ lib.optional (pkgs.stdenv.hostPlatform.system != "aarch64-linux") [
       # systemd-cryptenroll
       "tpm-tis"
     ] ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux") "tpm-crb";
