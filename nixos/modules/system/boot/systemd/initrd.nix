@@ -343,9 +343,12 @@ in {
     boot.initrd.availableKernelModules = [
       # systemd needs this for some features
       "autofs4"
-      # systemd-cryptenroll
-      "tpm-tis"
-    ] ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux") "tpm-crb";
+      # systemd-cryptenroll"
+      # we don't have those in the asahi kernel
+      #"tpm-tis"
+      #"tpm-crb"
+    ];
+
 
     boot.initrd.systemd = {
       initrdBin = [pkgs.bash pkgs.coreutils cfg.package.kmod cfg.package] ++ config.system.fsPackages;
