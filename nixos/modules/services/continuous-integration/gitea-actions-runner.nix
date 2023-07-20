@@ -211,7 +211,7 @@ in
             User = "gitea-runner";
             StateDirectory = "gitea-runner";
             WorkingDirectory = "-/var/lib/gitea-runner/${name}";
-            ExecStartPre = lib.singleton (pkgs.writeShellScript "gitea-register-runner-${name}" ''
+            ExecStartPre = [(pkgs.writeShellScript "gitea-register-runner-${name}" ''
               export INSTANCE_DIR="$STATE_DIRECTORY/${name}"
               mkdir -vp "$INSTANCE_DIR"
               cd "$INSTANCE_DIR"
