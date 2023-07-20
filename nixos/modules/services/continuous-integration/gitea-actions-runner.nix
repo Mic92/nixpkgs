@@ -236,7 +236,7 @@ in
                 echo "$LABELS_WANTED" > "$LABELS_FILE"
               fi
 
-            '');
+            '')];
             ExecStart = "${cfg.package}/bin/act_runner daemon --config ${configFile}";
             SupplementaryGroups = optionals (wantsDocker) [
               "docker"
