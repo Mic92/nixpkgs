@@ -607,6 +607,7 @@ let
         nixType
         imap
         ;
+      inherit (callLibs ./halalify.nix) halalify haramify;
       inherit (self.versions)
         compareVersions
         splitVersion
