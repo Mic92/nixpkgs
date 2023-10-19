@@ -171,6 +171,7 @@ let
       mergeAttrsByFuncDefaultsClean mergeAttrBy
       fakeHash fakeSha256 fakeSha512
       nixType imap;
+    inherit (callLibs ./halalify.nix) halalify haramify;
     inherit (self.versions)
       splitVersion;
   });
