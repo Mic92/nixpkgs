@@ -1,0 +1,35 @@
+From d5e8593fedf7c8be1e344fee1768c23fd810e50e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=B6rg=20Thalheim?= <joerg@thalheim.io>
+Date: Wed, 1 Nov 2023 21:54:05 +0100
+Subject: [PATCH] don't install example
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Jörg Thalheim <joerg@thalheim.io>
+---
+ meson.build | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 5f5935f..8373013 100644
+--- a/meson.build
++++ b/meson.build
+@@ -114,10 +114,10 @@ else
+   runstatedir = rundir
+ endif
+ 
+-install_data(
+-  sources: 'ksmbd.conf.example',
+-  install_dir: get_option('sysconfdir') / 'ksmbd',
+-)
++#install_data(
++#  sources: 'ksmbd.conf.example',
++#  install_dir: get_option('sysconfdir') / 'ksmbd',
++#)
+ 
+ systemdsystemunitdir = get_option('systemdsystemunitdir')
+ if systemdsystemunitdir == ''
+-- 
+2.42.0
+
