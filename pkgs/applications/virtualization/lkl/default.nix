@@ -11,15 +11,15 @@ stdenv.mkDerivation rec {
   # Please verify `nix build -f nixos/release-combined.nix nixos.ova` works
   # before attempting to update again.
   # ref: https://github.com/NixOS/nixpkgs/pull/219434
-  version = "2022-08-08";
+  version = "unstable-2023-11-07";
 
   outputs = [ "dev" "lib" "out" ];
 
   src = fetchFromGitHub {
     owner  = "lkl";
     repo   = "linux";
-    rev  = "ffbb4aa67b3e0a64f6963f59385a200d08cb2d8b";
-    sha256 = "sha256-24sNREdnhkF+P+3P0qEh2tF1jHKF7KcbFSn/rPK2zWs=";
+    rev  = "970883c348b61954a11c8c1ab9a2ab3ff0d89f08";
+    sha256 = "sha256-MpvhYLH3toC5DaxeiQxKlYWjrPoFw+1eWkkX3XIiVQ0=";
   };
 
   nativeBuildInputs = [ bc bison flex python3 ];
