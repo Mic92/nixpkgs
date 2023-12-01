@@ -3,7 +3,7 @@
 , stdenv
 , linuxKernel
 , removeLinuxDRM ? false
-, fetchpatch
+, nixosTests
 , ...
 } @ args:
 
@@ -22,7 +22,7 @@ callPackage ./generic.nix args {
     else linuxKernel.packages.linux_6_1;
 
   # this package should point to the latest release.
-  version = "2.2.1";
+  version = "2.2.2";
 
-  sha256 = "sha256-2Q/Nhp3YKgMCLPNRNBq5r9U4GeuYlWMWAsjsQy3vFW4=";
+  hash = "sha256-CqhETAwhWMhbld5ib3Rz1dxms+GQbLwjEZw/V7U/2nE=";
 }

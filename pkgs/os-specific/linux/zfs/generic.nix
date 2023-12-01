@@ -20,7 +20,7 @@
 }:
 
 { version
-, sha256
+, hash
 , extraPatches ? []
 , rev ? "zfs-${version}"
 , isUnstable ? false
@@ -51,7 +51,7 @@ stdenv'.mkDerivation {
   src = fetchFromGitHub {
     owner = "openzfs";
     repo = "zfs";
-    inherit rev sha256;
+    inherit rev hash;
   };
 
   patches = extraPatches;

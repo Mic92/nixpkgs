@@ -11,7 +11,8 @@ let
 in
 callPackage ./generic.nix args {
   # check the release notes for compatible kernels
-  kernelCompatible = if stdenv'.isx86_64 || removeLinuxDRM
+  kernelCompatible =
+    if stdenv'.isx86_64 || removeLinuxDRM
     then kernel.kernelOlder "6.7"
     else kernel.kernelOlder "6.2";
 
@@ -23,9 +24,9 @@ callPackage ./generic.nix args {
   # IMPORTANT: Always use a tagged release candidate or commits from the
   # zfs-<version>-staging branch, because this is tested by the OpenZFS
   # maintainers.
-  version = "2.2.1";
-
-  sha256 = "sha256-2Q/Nhp3YKgMCLPNRNBq5r9U4GeuYlWMWAsjsQy3vFW4=";
+  version = "2.2.2";
 
   isUnstable = true;
+
+  hash = "sha256-CqhETAwhWMhbld5ib3Rz1dxms+GQbLwjEZw/V7U/2nE=";
 }
