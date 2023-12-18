@@ -111,4 +111,7 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [ jonringer ];
     mainProgram = "protoc";
   };
+} // lib.optionalAttrs stdenv.hostPlatform.isRiscV64 {
+  # https://github.com/abseil/abseil-cpp/issues/1561
+  NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isRiscV64 "-latomic";
 })
