@@ -7,7 +7,7 @@
 , spirv-headers
 , spirv-tools
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (rec {
   pname = "glslang";
   version = "13.1.1";
 
@@ -52,4 +52,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     maintainers = [ maintainers.ralith ];
   };
-}
+} // lib.optionalAttrs stdenv.hostPlatform.isRiscV64 {
+  # fixes `undefined reference to symbol '__atomic_exchange_1` linker error
+  NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isRiscV64 "-latomic";
+})
