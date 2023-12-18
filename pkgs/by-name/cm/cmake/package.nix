@@ -185,4 +185,7 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = lib.platforms.all;
     broken = (qt5UI && stdenv.isDarwin);
   };
+} // lib.optionalAttrs stdenv.hostPlatform.isRiscV64 {
+  # fixes `undefined reference to symbol '__atomic_exchange_1` linker error
+  NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isRiscV64 "-latomic";
 })
