@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchFromGitHub
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "opencl-headers";
@@ -12,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BJDaDokyHgmyl+bGqCwG1J7iOvu0E3P3iYZ1/krot8s=";
   };
 
-  installPhase = ''
-    mkdir -p $out/include/CL
-    cp CL/* $out/include/CL
-  '';
+  nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
     description = "Khronos OpenCL headers version ${version}";
