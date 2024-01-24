@@ -53,7 +53,11 @@ buildGoModule rec {
     "data"
   ];
 
-  patches = [ ./static-root-path.patch ];
+  patches = [
+    # TODO: needs an update.
+    # ./0001-zstd-archive-support.patch
+    ./static-root-path.patch
+  ];
 
   # go-modules derivation doesn't provide $data
   # so we need to wait until it is built, and then
