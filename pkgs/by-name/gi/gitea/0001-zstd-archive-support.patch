@@ -1,0 +1,101 @@
+From 507dd5aeee8742c37b01428d51817133b7b64ab3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=B6rg=20Thalheim?= <joerg@thalheim.io>
+Date: Wed, 24 Jan 2024 23:36:05 +0100
+Subject: [PATCH] zstd archive support
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Signed-off-by: Jörg Thalheim <joerg@thalheim.io>
+---
+ modules/git/repo_archive.go              | 6 ++++++
+ options/locale/locale_de-DE.ini          | 1 +
+ options/locale/locale_en-US.ini          | 1 +
+ services/repository/archiver/archiver.go | 3 +++
+ templates/repo/home.tmpl                 | 1 +
+ 5 files changed, 12 insertions(+)
+
+diff --git a/modules/git/repo_archive.go b/modules/git/repo_archive.go
+index 2b45a50f1..deba36910 100644
+--- a/modules/git/repo_archive.go
++++ b/modules/git/repo_archive.go
+@@ -22,6 +22,8 @@
+ 	TARGZ
+ 	// BUNDLE bundle archive type
+ 	BUNDLE
++	// TARZST tar zst archive type
++	TARZST
+ )
+ 
+ // String converts an ArchiveType to string
+@@ -33,6 +35,8 @@ func (a ArchiveType) String() string {
+ 		return "tar.gz"
+ 	case BUNDLE:
+ 		return "bundle"
++	case TARZST:
++		return "tar.zst"
+ 	}
+ 	return "unknown"
+ }
+@@ -45,6 +49,8 @@ func ToArchiveType(s string) ArchiveType {
+ 		return TARGZ
+ 	case "bundle":
+ 		return BUNDLE
++	case "tar.zst":
++		return TARZST
+ 	}
+ 	return 0
+ }
+diff --git a/options/locale/locale_de-DE.ini b/options/locale/locale_de-DE.ini
+index abbbbd211..57444230c 100644
+--- a/options/locale/locale_de-DE.ini
++++ b/options/locale/locale_de-DE.ini
+@@ -887,6 +887,7 @@ clone_in_vsc=In VS Code klonen
+ download_zip=ZIP herunterladen
+ download_tar=TAR.GZ herunterladen
+ download_bundle=BUNDLE herunterladen
++download_zstd=TAR.ZST herunterladen
+ generate_repo=Repository erstellen
+ generate_from=Erstelle aus
+ repo_desc=Beschreibung
+diff --git a/options/locale/locale_en-US.ini b/options/locale/locale_en-US.ini
+index c84618037..0717c157d 100644
+--- a/options/locale/locale_en-US.ini
++++ b/options/locale/locale_en-US.ini
+@@ -952,6 +952,7 @@ clone_in_vsc = Clone in VS Code
+ download_zip = Download ZIP
+ download_tar = Download TAR.GZ
+ download_bundle = Download BUNDLE
++download_zstd = Download TAR.ZST
+ generate_repo = Generate Repository
+ generate_from = Generate From
+ repo_desc = Description
+diff --git a/services/repository/archiver/archiver.go b/services/repository/archiver/archiver.go
+index f6f03e75a..1dfb43144 100644
+--- a/services/repository/archiver/archiver.go
++++ b/services/repository/archiver/archiver.go
+@@ -87,6 +87,9 @@ func NewRequest(repoID int64, repo *git.Repository, uri string) (*ArchiveRequest
+ 	case strings.HasSuffix(uri, ".tar.gz"):
+ 		ext = ".tar.gz"
+ 		r.Type = git.TARGZ
++	case strings.HasSuffix(uri, ".tar.zst"):
++		ext = ".tar.zst"
++		r.Type = git.TARZST
+ 	case strings.HasSuffix(uri, ".bundle"):
+ 		ext = ".bundle"
+ 		r.Type = git.BUNDLE
+diff --git a/templates/repo/home.tmpl b/templates/repo/home.tmpl
+index ee0dd3162..a4716b8fd 100644
+--- a/templates/repo/home.tmpl
++++ b/templates/repo/home.tmpl
+@@ -135,6 +135,7 @@
+ 									<a class="item archive-link" href="{{$.RepoLink}}/archive/{{PathEscapeSegments $.RefName}}.zip" rel="nofollow">{{svg "octicon-file-zip" 16 "gt-mr-3"}}{{ctx.Locale.Tr "repo.download_zip"}}</a>
+ 									<a class="item archive-link" href="{{$.RepoLink}}/archive/{{PathEscapeSegments $.RefName}}.tar.gz" rel="nofollow">{{svg "octicon-file-zip" 16 "gt-mr-3"}}{{ctx.Locale.Tr "repo.download_tar"}}</a>
+ 									<a class="item archive-link" href="{{$.RepoLink}}/archive/{{PathEscapeSegments $.RefName}}.bundle" rel="nofollow">{{svg "octicon-package" 16 "gt-mr-3"}}{{ctx.Locale.Tr "repo.download_bundle"}}</a>
++									<a class="item archive-link" href="{{$.RepoLink}}/archive/{{PathEscapeSegments $.RefName}}.tar.zst" rel="nofollow">{{svg "octicon-package" 16 "gt-mr-3"}}{{ctx.Locale.Tr "repo.download_zstd"}}</a>
+ 									{{if .CitiationExist}}
+ 										<a class="item" id="cite-repo-button">{{svg "octicon-cross-reference" 16 "gt-mr-3"}}{{ctx.Locale.Tr "repo.cite_this_repo"}}</a>
+ 									{{end}}
+-- 
+2.43.0
+
