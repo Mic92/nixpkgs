@@ -1,0 +1,30 @@
+From 6173e5ff0103f534e8c53babd1e8f8c5f89671cd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=B6rg=20Thalheim?= <joerg@thalheim.io>
+Date: Tue, 6 Feb 2024 11:33:29 +0100
+Subject: [PATCH] allow to disable bundled uthash in falcosecurity
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This breaks hermetic builds as it tries to download the uthash tarball
+
+Signed-off-by: Jörg Thalheim <joerg@thalheim.io>
+---
+ cmake/modules/falcosecurity-libs.cmake | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/cmake/modules/falcosecurity-libs.cmake b/cmake/modules/falcosecurity-libs.cmake
+index 0c51042af..c71c61c22 100644
+--- a/cmake/modules/falcosecurity-libs.cmake
++++ b/cmake/modules/falcosecurity-libs.cmake
+@@ -80,6 +80,7 @@ set(USE_BUNDLED_B64 ON CACHE BOOL "")
+ set(USE_BUNDLED_JSONCPP ON CACHE BOOL "")
+ set(USE_BUNDLED_VALIJSON ON CACHE BOOL "")
+ set(USE_BUNDLED_RE2 ON CACHE BOOL "")
++set(USE_BUNDLED_UTHASH OFF CACHE BOOL "")
+ 
+ list(APPEND CMAKE_MODULE_PATH "${FALCOSECURITY_LIBS_SOURCE_DIR}/cmake/modules")
+ 
+-- 
+2.43.0
+
