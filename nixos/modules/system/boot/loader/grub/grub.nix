@@ -296,6 +296,25 @@ in
         '';
       };
 
+      serial = {
+        enable =  lib.mkEnableOption "output serial consoles";
+        baudRate = mkOption {
+          default = 115200;
+          type = types.int;
+          description = ''
+            The baud rate for the serial console.
+          '';
+        };
+        extraFlags = mkOption {
+          default = [];
+          type = types.listOf types.str;
+          description = ''
+            Extra flags to pass to the serial option.
+            See the [GRUB manual](https://www.gnu.org/software/grub/manual/grub/grub.html#serial) for more information.
+          '';
+        };
+      };
+
       extraPrepareConfig = mkOption {
         default = "";
         type = types.lines;
@@ -307,11 +326,6 @@ in
 
       extraConfig = mkOption {
         default = "";
-        example = ''
-          serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
-          terminal_input --append serial
-          terminal_output --append serial
-        '';
         type = types.lines;
         description = ''
           Additional GRUB commands inserted in the configuration file
@@ -723,6 +737,12 @@ in
       system.systemBuilderArgs.configurationName = cfg.configurationName;
       system.systemBuilderCommands = ''
         echo -n "$configurationName" > $out/configuration-name
+      '';
+
+      boot.loader.grub.extraConfig = lib.mkIf (cfg.serial.enable) ''
+        serial --speed=${builtins.toString cfg.serial.baudRate} ${builtins.toString cfg.serial.extraFlags}
+        terminal_input --append serial
+        terminal_output --append serial
       '';
 
       system.build.installBootLoader =

@@ -34,7 +34,7 @@ let
         ${optionalString systemdStage1 "boot.initrd.systemd.enable = true;"}
 
         ${optionalString (bootLoader == "grub") ''
-          boot.loader.grub.extraConfig = "serial; terminal_output serial";
+          boot.loader.grub.serial.enable = true;
           ${if grubUseEfi then ''
             boot.loader.grub.device = "nodev";
             boot.loader.grub.efiSupport = true;
