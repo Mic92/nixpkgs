@@ -107,7 +107,7 @@ let
     # "opus"
   ];
 
-  opusWithCustomModes = libopus.override {
+  opusWithCustomModes = pkgsBuildTarget.libopus.override {
     withCustomModes = true;
   };
 
@@ -166,9 +166,9 @@ let
     depsBuildBuild = [
       buildPlatformLlvmStdenv
       buildPlatformLlvmStdenv.cc
+      (buildPackages.libpng.override { apngSupport = false; }) # needed for "host/generate_colors_info"
       pkg-config
       libuuid
-      (libpng.override { apngSupport = false; }) # needed for "host/generate_colors_info"
     ]
     # When cross-compiling, chromium builds a huge proportion of its
     # components for both the `buildPlatform` (which it calls
@@ -179,9 +179,12 @@ let
     ++ buildInputs
     ;
 
+    strictDeps = true;
+
     buildInputs = [
-      (libpng.override { apngSupport = false; }) # https://bugs.chromium.org/p/chromium/issues/detail?id=752403
-      bzip2 flac speex opusWithCustomModes
+      (pkgsBuildTarget.libpng.override { apngSupport = false; })  # https://bugs.chromium.org/p/chromium/issues/detail?id=752403
+      bzip2 flac speex
+      opusWithCustomModes
       libevent expat libjpeg snappy
       libcap
       minizip libwebp
