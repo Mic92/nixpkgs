@@ -18,16 +18,21 @@
   python3,
   scons,
   which,
+  withMixer ? false,
   wrapQtAppsHook,
 }:
 
 let
-  python = python3.withPackages (
-    pkgs: with pkgs; [
-      pyqt5
-      dbus-python
-    ]
-  );
+  python =
+    if withMixer then
+      python3.withPackages (
+        pkgs: with pkgs; [
+          pyqt5
+          dbus-python
+        ]
+      )
+    else
+      python3;
 in
 mkDerivation rec {
   pname = "ffado";
@@ -55,6 +60,9 @@ mkDerivation rec {
     # fix installing metainfo file
     ./fix-build.patch
 
+    # Do not install appstream file without mixer
+    ./no-appstream-without-mixer.patch
+
     (fetchpatch {
       name = "musl.patch";
       url = "http://subversion.ffado.org/changeset?format=diff&new=2846&old=2845";
@@ -63,15 +71,18 @@ mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    scons
-    pkg-config
-    which
-    python
-    python3.pkgs.pyqt5
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs =
+    [
+      desktop-file-utils
+      scons
+      pkg-config
+      which
+    ]
+    ++ lib.optionals withMixer [
+      python
+      python3.pkgs.pyqt5
+      wrapQtAppsHook
+    ];
 
   prefixKey = "PREFIX=";
   sconsFlags = [
@@ -79,7 +90,7 @@ mkDerivation rec {
     "ENABLE_ALL=True"
     "BUILD_TESTS=True"
     "WILL_DEAL_WITH_XDG_MYSELF=True"
-    "BUILD_MIXER=True"
+    "BUILD_MIXER=${if withMixer then "True" else "False"}"
     "UDEVDIR=${placeholder "out"}/lib/udev/rules.d"
     "PYPKGDIR=${placeholder "out"}/${python3.sitePackages}"
     "BINDIR=${placeholder "bin"}/bin"
@@ -106,20 +117,22 @@ mkDerivation rec {
   enableParallelBuilding = true;
   dontWrapQtApps = true;
 
-  postInstall = ''
-    desktop="$bin/share/applications/ffado-mixer.desktop"
-    install -DT -m 444 support/xdg/ffado.org-ffadomixer.desktop $desktop
-    substituteInPlace "$desktop" \
-      --replace Exec=ffado-mixer "Exec=$bin/bin/ffado-mixer" \
-      --replace hi64-apps-ffado ffado-mixer
-    install -DT -m 444 support/xdg/hi64-apps-ffado.png "$bin/share/icons/hicolor/64x64/apps/ffado-mixer.png"
+  postInstall =
+    lib.optionalString withMixer ''
+      desktop="$bin/share/applications/ffado-mixer.desktop"
+      install -DT -m 444 support/xdg/ffado.org-ffadomixer.desktop $desktop
+      substituteInPlace "$desktop" \
+        --replace Exec=ffado-mixer "Exec=$bin/bin/ffado-mixer" \
+        --replace hi64-apps-ffado ffado-mixer
+      install -DT -m 444 support/xdg/hi64-apps-ffado.png "$bin/share/icons/hicolor/64x64/apps/ffado-mixer.png"
+    ''
+    + ''
+      # prevent build tools from leaking into closure
+      echo 'See `nix-store --query --tree ${placeholder "out"}`.' > $out/lib/libffado/static_info.txt
+    '';
 
-    # prevent build tools from leaking into closure
-    echo 'See `nix-store --query --tree ${placeholder "out"}`.' > $out/lib/libffado/static_info.txt
-  '';
-
-  preFixup = ''
-    wrapQtApp $bin/bin/ffado-mixer
+  preFixup = lib.optionalString withMixer ''
+    wrapQtApp "$bin/bin/ffado-mixer"
   '';
 
   meta = with lib; {
