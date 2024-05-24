@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchurl, fetchpatch, python3Packages, zlib, pkg-config, glib, buildPackages
+{ lib, stdenv, fetchzip, fetchpatch, python3Packages, zlib, pkg-config, glib, buildPackages
+, git, cacert
 , pixman, vde2, alsa-lib, texinfo, flex
 , bison, lzo, snappy, libaio, libtasn1, gnutls, nettle, curl, dtc, ninja, meson
 , sigtool
@@ -57,9 +58,18 @@ stdenv.mkDerivation (finalAttrs: {
     + lib.optionalString toolsOnly "-utils";
   version = "8.2.4";
 
-  src = fetchurl {
+  # Upstream doesn't vendor any dependencies in their release tarball,
+  # which for example breaks during cross-compilation.
+  # So instead we just download all subprojects.
+  src = fetchzip {
     url = "https://download.qemu.org/qemu-${finalAttrs.version}.tar.xz";
-    hash = "sha256-7PVTf+q5JkG5nXSC9VHyGV06W9NKzvnVK/v/NTpgc5c=";
+    hash = "sha256-PY/I4qCQj6Q0n8iFzQSHMGimMk0T6o8QAzUGQjF70YI=";
+    nativeBuildInputs = [ cacert git meson ];
+    postFetch = ''
+      pushd "$out"
+      meson subprojects download
+      popd
+    '';
   };
 
   depsBuildBuild = [ buildPackages.stdenv.cc ]
