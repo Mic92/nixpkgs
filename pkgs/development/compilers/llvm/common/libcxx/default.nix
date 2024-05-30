@@ -13,8 +13,8 @@
 , python3
 , fixDarwinDylibNames
 , version
-, cxxabi ? if stdenv.hostPlatform.isFreeBSD then libcxxrt else null
-, libcxxrt
+, freebsd
+, cxxabi ? if stdenv.hostPlatform.isFreeBSD then freebsd.libcxxrt else null
 , libunwind
 , enableShared ? !stdenv.hostPlatform.isStatic
 }:
@@ -89,6 +89,8 @@ let
     "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
   ] ++ lib.optionals (!enableShared) [
     "-DLIBCXX_ENABLE_SHARED=OFF"
+  ] ++ lib.optionals (cxxabi != null && cxxabi.libName == "cxxrt") [
+    "-DLIBCXX_ENABLE_NEW_DELETE_DEFINITIONS=ON"
   ];
 
   cmakeFlags = [
