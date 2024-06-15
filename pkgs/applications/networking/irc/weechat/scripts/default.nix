@@ -34,6 +34,8 @@
 
   weechat-otr = callPackage ./weechat-otr { };
 
+  weechat-signal = python3Packages.callPackage ./weechat-signal { };
+
   weechat-go = callPackage ./weechat-go { };
 
   buffer_autoset = callPackage ./buffer_autoset { };
