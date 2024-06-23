@@ -2,6 +2,8 @@
 , stdenv
 , buildPythonApplication
 , fetchPypi
+, fetchFromGitHub
+, fetchpatch
 , makeWrapper
 # Tie withPlugins through the fixed point here, so it will receive an
 # overridden version properly
@@ -72,14 +74,16 @@ let
 in
 buildPythonApplication rec {
   pname = "buildbot";
-  version = "3.11.2";
+  version = "4.0.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.8";
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-x7RaApfIe1x7Py1KLQCcotxU6dJRXTOk67W+QOhNJf0=";
+  src = fetchFromGitHub {
+    owner = "buildbot";
+    repo = "buildbot";
+    rev = "v${version}";
+    hash = "sha256-uJj7bSRGdYkA7Jl0qe/DncexWXNfQEEPcqGI7AbwX1w=";
   };
 
   build-system = [
@@ -137,7 +141,11 @@ buildPythonApplication rec {
   ];
 
   postPatch = ''
-    substituteInPlace buildbot/scripts/logwatcher.py --replace '/usr/bin/tail' "$(type -P tail)"
+    substituteInPlace master/buildbot/scripts/logwatcher.py --replace '/usr/bin/tail' "$(type -P tail)"
+  '';
+
+  preBuild = ''
+    cd master
   '';
 
   # Silence the depreciation warning from SqlAlchemy
@@ -158,8 +166,11 @@ buildPythonApplication rec {
 
   passthru = {
     inherit withPlugins;
-    tests.buildbot = nixosTests.buildbot;
     updateScript = ./update.sh;
+  } // lib.optionalAttrs stdenv.isLinux {
+    tests = {
+      inherit (nixosTests) buildbot;
+    };
   };
 
   meta = with lib; {
