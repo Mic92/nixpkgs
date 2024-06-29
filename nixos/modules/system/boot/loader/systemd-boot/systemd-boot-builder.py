@@ -46,6 +46,9 @@ class BootSpec:
     sortKey: str
     initrdSecrets: str | None = None
 
+class BootBuilderError(Exception):
+    pass
+
 
 libc = ctypes.CDLL("libc.so.6")
 
@@ -320,10 +323,12 @@ def install_bootloader(args: argparse.Namespace) -> None:
         available_match = re.search(r"^\((.*)\)$", available_out)
 
         if installed_match is None:
-            raise Exception("could not find any previously installed systemd-boot")
+            msg = f"could not find any previously installed systemd-boot from bootctl output: {installed_out}"
+            raise BootBuilderError(msg)
 
         if available_match is None:
-            raise Exception("could not determine systemd-boot version")
+            msg = f"could not determine systemd-boot version from bootctl output: {available_out}"
+            raise BootBuilderError(msg)
 
         installed_version = installed_match.group(1)
         available_version = available_match.group(1)
@@ -397,6 +402,9 @@ def main() -> None:
 
     try:
         install_bootloader(args)
+    except BootBuilderError as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
     finally:
         # Since fat32 provides little recovery facilities after a crash,
         # it can leave the system in an unbootable state, when a crash/outage
