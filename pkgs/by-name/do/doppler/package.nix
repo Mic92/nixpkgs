@@ -4,6 +4,7 @@
 , installShellFiles
 , lib
 , testers
+, stdenv
 }:
 
 buildGoModule rec {
@@ -26,8 +27,9 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  postInstall = ''
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     mv $out/bin/cli $out/bin/doppler
+    export HOME=$(mktemp -d)
     installShellCompletion --cmd doppler \
       --bash <($out/bin/doppler completion bash) \
       --fish <($out/bin/doppler completion fish) \
