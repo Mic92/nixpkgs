@@ -4456,10 +4456,6 @@ with pkgs;
 
   cddl = callPackage ../development/tools/cddl { };
 
-  cedille = callPackage ../applications/science/logic/cedille
-                          { inherit (haskellPackages) alex happy Agda ghcWithPackages;
-                          };
-
   cel-go = callPackage ../development/interpreters/cel-go { };
 
   cfdyndns = callPackage ../applications/networking/dyndns/cfdyndns { };
