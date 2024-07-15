@@ -859,6 +859,8 @@ mapAliases ({
 
   ### M ###
 
+  mailnag = throw "mailnag has been removed from nixppkgs because it was marked as broken"; # Added 2024-07-15
+  mailnagWithPlugins = throw "mailnagWithPlugins has been removed from nixppkgs because it was marked as broken"; # Added 2024-07-15
   ma1sd = throw "ma1sd was dropped as it is unmaintained"; # Added 2024-07-10
   MACS2 = macs2; # Added 2023-06-12
   mailman-rss = throw "The mailman-rss package was dropped since it was unmaintained."; # Added 2024-06-21
