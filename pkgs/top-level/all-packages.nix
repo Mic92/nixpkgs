@@ -12854,6 +12854,7 @@ with pkgs;
     ubootPine64LTS
     ubootPinebook
     ubootPinebookPro
+    ubootPinecube
     ubootQemuAarch64
     ubootQemuArm
     ubootQemuRiscv64Smode
