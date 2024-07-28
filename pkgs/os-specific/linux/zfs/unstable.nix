@@ -14,7 +14,7 @@ callPackage ./generic.nix args {
   # this attribute is the correct one for this package.
   kernelModuleAttribute = "zfs_unstable";
   # check the release notes for compatible kernels
-  kernelCompatible = kernel.kernelOlder "6.9";
+  kernelCompatible = kernel.kernelOlder "6.10";
 
   latestCompatibleLinuxPackages = linuxKernel.packages.linux_6_8;
 
@@ -22,8 +22,8 @@ callPackage ./generic.nix args {
   # IMPORTANT: Always use a tagged release candidate or commits from the
   # zfs-<version>-staging branch, because this is tested by the OpenZFS
   # maintainers.
-  version = "2.2.4";
-  # rev = "";
+  version = "0-unstable-2024-07-28";
+  rev = "62e7d3c89ebdb5faddfff5e2e8adc92e569ddf09";
 
   isUnstable = true;
   tests = [

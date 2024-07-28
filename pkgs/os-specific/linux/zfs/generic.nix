@@ -92,13 +92,25 @@ let
         --replace "PATH=/bin:/sbin:/usr/bin:/usr/sbin" \
          "PATH=${makeBinPath [ coreutils gawk gnused gnugrep systemd ]}"
     '' + optionalString (!isAtLeast22Series) ''
-      substituteInPlace ./etc/zfs/Makefile.am --replace "\$(sysconfdir)/zfs" "$out/etc/zfs"
+      for i in ./etc/zfs/Makefile.am etc/Makefile.am; do
+        if [ ! -f $i ]; then
+          continue
+        fi
+        substituteInPlace $i --replace-fail "\$(sysconfdir)/zfs" "$out/etc/zfs"
+        break
+      done
 
       find ./contrib/initramfs -name Makefile.am -exec sed -i -e 's|/usr/share/initramfs-tools|'$out'/share/initramfs-tools|g' {} \;
 
-      substituteInPlace ./cmd/vdev_id/vdev_id \
-        --replace "PATH=/bin:/sbin:/usr/bin:/usr/sbin" \
-        "PATH=${makeBinPath [ coreutils gawk gnused gnugrep systemd ]}"
+      for i in ./cmd/vdev_id/vdev_id udev/vdev_id; do
+        if [ ! -f $i ]; then
+          continue
+        fi
+        substituteInPlace $i --replace-fail \
+          'PATH=/bin:/sbin:/usr/bin:/usr/sbin' \
+          "PATH=${makeBinPath [ coreutils gawk gnused gnugrep systemd ]}"
+        break
+      done
     '' + ''
       substituteInPlace ./config/zfs-build.m4 \
         --replace "bashcompletiondir=/etc/bash_completion.d" \
