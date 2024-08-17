@@ -1,0 +1,6409 @@
+{
+  "version": 1,
+  "system": "x86_64-linux",
+  "virtualisation": "none",
+  "smbios": [
+    {
+      "type": "SmbiosType(134)",
+      "handle": 0,
+      "data": "0x86100000000031005074536920"
+    },
+    {
+      "type": "memory_array",
+      "handle": 1,
+      "location": {
+        "value": 3,
+        "name": "Motherboard"
+      },
+      "usage": {
+        "value": 3,
+        "name": "System memory"
+      },
+      "ecc": {
+        "value": 3,
+        "name": "None"
+      },
+      "max_size": 33554432,
+      "error_handle": 65534,
+      "slots": 8
+    },
+    {
+      "type": "memory_device",
+      "handle": 2,
+      "location": "Controller0-ChannelA",
+      "bank_location": "BANK 0",
+      "manufacturer": "Samsung",
+      "asset_tag": "None",
+      "part_number": "K3KL9L90CM-MGCT",
+      "array_handle": 1,
+      "error_handle": 65534,
+      "width": 16,
+      "ecc_bits": 0,
+      "size": 4194304,
+      "form_factor": {
+        "value": 11,
+        "name": "Row of Chips"
+      },
+      "set": 0,
+      "memory_type": {
+        "value": 35,
+        "name": "Other"
+      },
+      "memory_type_details": [
+        "Synchronous"
+      ],
+      "speed": 6400
+    },
+    {
+      "type": "memory_device",
+      "handle": 3,
+      "location": "Controller0-ChannelB",
+      "bank_location": "BANK 1",
+      "manufacturer": "Samsung",
+      "asset_tag": "None",
+      "part_number": "K3KL9L90CM-MGCT",
+      "array_handle": 1,
+      "error_handle": 65534,
+      "width": 16,
+      "ecc_bits": 0,
+      "size": 4194304,
+      "form_factor": {
+        "value": 11,
+        "name": "Row of Chips"
+      },
+      "set": 0,
+      "memory_type": {
+        "value": 35,
+        "name": "Other"
+      },
+      "memory_type_details": [
+        "Synchronous"
+      ],
+      "speed": 6400
+    },
+    {
+      "type": "memory_device",
+      "handle": 4,
+      "location": "Controller0-ChannelC",
+      "bank_location": "BANK 2",
+      "manufacturer": "Samsung",
+      "asset_tag": "None",
+      "part_number": "K3KL9L90CM-MGCT",
+      "array_handle": 1,
+      "error_handle": 65534,
+      "width": 16,
+      "ecc_bits": 0,
+      "size": 4194304,
+      "form_factor": {
+        "value": 11,
+        "name": "Row of Chips"
+      },
+      "set": 0,
+      "memory_type": {
+        "value": 35,
+        "name": "Other"
+      },
+      "memory_type_details": [
+        "Synchronous"
+      ],
+      "speed": 6400
+    },
+    {
+      "type": "memory_device",
+      "handle": 5,
+      "location": "Controller0-ChannelD",
+      "bank_location": "BANK 3",
+      "manufacturer": "Samsung",
+      "asset_tag": "None",
+      "part_number": "K3KL9L90CM-MGCT",
+      "array_handle": 1,
+      "error_handle": 65534,
+      "width": 16,
+      "ecc_bits": 0,
+      "size": 4194304,
+      "form_factor": {
+        "value": 11,
+        "name": "Row of Chips"
+      },
+      "set": 0,
+      "memory_type": {
+        "value": 35,
+        "name": "Other"
+      },
+      "memory_type_details": [
+        "Synchronous"
+      ],
+      "speed": 6400
+    },
+    {
+      "type": "memory_device",
+      "handle": 6,
+      "location": "Controller1-ChannelA",
+      "bank_location": "BANK 0",
+      "manufacturer": "Samsung",
+      "asset_tag": "None",
+      "part_number": "K3KL9L90CM-MGCT",
+      "array_handle": 1,
+      "error_handle": 65534,
+      "width": 16,
+      "ecc_bits": 0,
+      "size": 4194304,
+      "form_factor": {
+        "value": 11,
+        "name": "Row of Chips"
+      },
+      "set": 0,
+      "memory_type": {
+        "value": 35,
+        "name": "Other"
+      },
+      "memory_type_details": [
+        "Synchronous"
+      ],
+      "speed": 6400
+    },
+    {
+      "type": "memory_device",
+      "handle": 7,
+      "location": "Controller1-ChannelB",
+      "bank_location": "BANK 1",
+      "manufacturer": "Samsung",
+      "asset_tag": "None",
+      "part_number": "K3KL9L90CM-MGCT",
+      "array_handle": 1,
+      "error_handle": 65534,
+      "width": 16,
+      "ecc_bits": 0,
+      "size": 4194304,
+      "form_factor": {
+        "value": 11,
+        "name": "Row of Chips"
+      },
+      "set": 0,
+      "memory_type": {
+        "value": 35,
+        "name": "Other"
+      },
+      "memory_type_details": [
+        "Synchronous"
+      ],
+      "speed": 6400
+    },
+    {
+      "type": "memory_device",
+      "handle": 8,
+      "location": "Controller1-ChannelC",
+      "bank_location": "BANK 2",
+      "manufacturer": "Samsung",
+      "asset_tag": "None",
+      "part_number": "K3KL9L90CM-MGCT",
+      "array_handle": 1,
+      "error_handle": 65534,
+      "width": 16,
+      "ecc_bits": 0,
+      "size": 4194304,
+      "form_factor": {
+        "value": 11,
+        "name": "Row of Chips"
+      },
+      "set": 0,
+      "memory_type": {
+        "value": 35,
+        "name": "Other"
+      },
+      "memory_type_details": [
+        "Synchronous"
+      ],
+      "speed": 6400
+    },
+    {
+      "type": "memory_device",
+      "handle": 9,
+      "location": "Controller1-ChannelD",
+      "bank_location": "BANK 3",
+      "manufacturer": "Samsung",
+      "asset_tag": "None",
+      "part_number": "K3KL9L90CM-MGCT",
+      "array_handle": 1,
+      "error_handle": 65534,
+      "width": 16,
+      "ecc_bits": 0,
+      "size": 4194304,
+      "form_factor": {
+        "value": 11,
+        "name": "Row of Chips"
+      },
+      "set": 0,
+      "memory_type": {
+        "value": 35,
+        "name": "Other"
+      },
+      "memory_type_details": [
+        "Synchronous"
+      ],
+      "speed": 6400
+    },
+    {
+      "type": "memory_array_mapped_address",
+      "handle": 10,
+      "array_handle": 1,
+      "start_address": 0,
+      "end_address": 34359738368,
+      "part_width": 8
+    },
+    {
+      "type": "tpm",
+      "handle": 11,
+      "data": "0x2b53020100000000000071002f692f746d50342f5f2f5f2d303a30312d3644",
+      "strings": [
+        "TPM 2.0, ManufacturerID: STM , Firmware Version: 0x00010301.0x0"
+      ]
+    },
+    {
+      "type": "SmbiosType(221)",
+      "handle": 12,
+      "data": "0xdd0100000000310053616563",
+      "strings": [
+        "BIOS Guard"
+      ]
+    },
+    {
+      "type": "SmbiosType(221)",
+      "handle": 13,
+      "data": "0xdd0100000000310038206264",
+      "strings": [
+        "FSP Binary Version"
+      ]
+    },
+    {
+      "type": "SmbiosType(221)",
+      "handle": 14,
+      "data": "0xdd0300024100000000006100620973747670723265745f617367",
+      "strings": [
+        "Reference Code - CPU",
+        "uCode Version",
+        "TXT ACM version"
+      ]
+    },
+    {
+      "type": "SmbiosType(221)",
+      "handle": 15,
+      "data": "0xdd03000200042b0000006100620973747670723265745f617367",
+      "strings": [
+        "Reference Code - ME",
+        "MEBx version",
+        "ME Firmware Version",
+        "Consumer SKU"
+      ]
+    },
+    {
+      "type": "SmbiosType(221)",
+      "handle": 16,
+      "data": "0xdd060002ff0001ff00ff07000000a1003c4d2041614f53207520695b305d75612063305b6c656e3050522065696f65",
+      "strings": [
+        "Reference Code - PCH",
+        "PCH-CRID Status",
+        "Disabled",
+        "PCH-CRID Original Value",
+        "PCH-CRID New Value",
+        "OPROM - RST - RAID",
+        "PCH Hsio Version"
+      ]
+    },
+    {
+      "type": "SmbiosType(221)",
+      "handle": 17,
+      "data": "0xdd0b0002040020ffff00070000ff2400000b0000ff000100560032172f6b2d6e2d2e35363130656962646d414e5a3144304c353032207673792f654d4756544c305f595739316569626170303a302d652f2f",
+      "strings": [
+        "Reference Code - SA - System Agent",
+        "Reference Code - MRC",
+        "SA - PCIe Version",
+        "SA-CRID Status",
+        "Enabled",
+        "SA-CRID Original Value",
+        "SA-CRID New Value",
+        "OPROM - VBIOS",
+        "IO Manageability Engine FW Version",
+        "PHY Build Version",
+        "Thunderbolt(TM) FW Version",
+        "System Agent Manageability Engine FW Version"
+      ]
+    },
+    {
+      "type": "cache",
+      "handle": 18,
+      "socket": "L1 Cache",
+      "size_max": 96,
+      "size_current": 96,
+      "speed": 0,
+      "mode": {
+        "value": 1,
+        "name": "Write Back"
+      },
+      "enabled": true,
+      "location": {
+        "name": "Internal"
+      },
+      "socketed": false,
+      "level": 0,
+      "ecc": {
+        "value": 4,
+        "name": "Parity"
+      },
+      "cache_type": {
+        "value": 4,
+        "name": "Data"
+      },
+      "associativity": {
+        "value": 9,
+        "name": "Other"
+      },
+      "sram_type_current": [
+        "Synchronous"
+      ],
+      "sram_type_supported": [
+        "Synchronous"
+      ]
+    },
+    {
+      "type": "cache",
+      "handle": 19,
+      "socket": "L1 Cache",
+      "size_max": 64,
+      "size_current": 64,
+      "speed": 0,
+      "mode": {
+        "value": 1,
+        "name": "Write Back"
+      },
+      "enabled": true,
+      "location": {
+        "name": "Internal"
+      },
+      "socketed": false,
+      "level": 0,
+      "ecc": {
+        "value": 4,
+        "name": "Parity"
+      },
+      "cache_type": {
+        "value": 3,
+        "name": "Instruction"
+      },
+      "associativity": {
+        "value": 7,
+        "name": "8-way Set-Associative"
+      },
+      "sram_type_current": [
+        "Synchronous"
+      ],
+      "sram_type_supported": [
+        "Synchronous"
+      ]
+    },
+    {
+      "type": "cache",
+      "handle": 20,
+      "socket": "L2 Cache",
+      "size_max": 2560,
+      "size_current": 2560,
+      "speed": 0,
+      "mode": {
+        "value": 1,
+        "name": "Write Back"
+      },
+      "enabled": true,
+      "location": {
+        "name": "Internal"
+      },
+      "socketed": false,
+      "level": 1,
+      "ecc": {
+        "value": 5,
+        "name": "Single-bit"
+      },
+      "cache_type": {
+        "value": 5,
+        "name": "Unified"
+      },
+      "associativity": {
+        "value": 1,
+        "name": "Other"
+      },
+      "sram_type_current": [
+        "Synchronous"
+      ],
+      "sram_type_supported": [
+        "Synchronous"
+      ]
+    },
+    {
+      "type": "cache",
+      "handle": 21,
+      "socket": "L3 Cache",
+      "size_max": 12288,
+      "size_current": 12288,
+      "speed": 0,
+      "mode": {
+        "value": 1,
+        "name": "Write Back"
+      },
+      "enabled": true,
+      "location": {
+        "name": "Internal"
+      },
+      "socketed": false,
+      "level": 2,
+      "ecc": {
+        "value": 6,
+        "name": "Multi-bit"
+      },
+      "cache_type": {
+        "value": 5,
+        "name": "Unified"
+      },
+      "associativity": {
+        "value": 9,
+        "name": "Other"
+      },
+      "sram_type_current": [
+        "Synchronous"
+      ],
+      "sram_type_supported": [
+        "Synchronous"
+      ]
+    },
+    {
+      "type": "cache",
+      "handle": 22,
+      "socket": "L1 Cache",
+      "size_max": 256,
+      "size_current": 256,
+      "speed": 0,
+      "mode": {
+        "value": 1,
+        "name": "Write Back"
+      },
+      "enabled": true,
+      "location": {
+        "name": "Internal"
+      },
+      "socketed": false,
+      "level": 0,
+      "ecc": {
+        "value": 4,
+        "name": "Parity"
+      },
+      "cache_type": {
+        "value": 4,
+        "name": "Data"
+      },
+      "associativity": {
+        "value": 7,
+        "name": "8-way Set-Associative"
+      },
+      "sram_type_current": [
+        "Synchronous"
+      ],
+      "sram_type_supported": [
+        "Synchronous"
+      ]
+    },
+    {
+      "type": "cache",
+      "handle": 23,
+      "socket": "L1 Cache",
+      "size_max": 512,
+      "size_current": 512,
+      "speed": 0,
+      "mode": {
+        "value": 1,
+        "name": "Write Back"
+      },
+      "enabled": true,
+      "location": {
+        "name": "Internal"
+      },
+      "socketed": false,
+      "level": 0,
+      "ecc": {
+        "value": 4,
+        "name": "Parity"
+      },
+      "cache_type": {
+        "value": 3,
+        "name": "Instruction"
+      },
+      "associativity": {
+        "value": 7,
+        "name": "8-way Set-Associative"
+      },
+      "sram_type_current": [
+        "Synchronous"
+      ],
+      "sram_type_supported": [
+        "Synchronous"
+      ]
+    },
+    {
+      "type": "cache",
+      "handle": 24,
+      "socket": "L2 Cache",
+      "size_max": 4096,
+      "size_current": 4096,
+      "speed": 0,
+      "mode": {
+        "value": 1,
+        "name": "Write Back"
+      },
+      "enabled": true,
+      "location": {
+        "name": "Internal"
+      },
+      "socketed": false,
+      "level": 1,
+      "ecc": {
+        "value": 5,
+        "name": "Single-bit"
+      },
+      "cache_type": {
+        "value": 5,
+        "name": "Unified"
+      },
+      "associativity": {
+        "value": 8,
+        "name": "16-way Set-Associative"
+      },
+      "sram_type_current": [
+        "Synchronous"
+      ],
+      "sram_type_supported": [
+        "Synchronous"
+      ]
+    },
+    {
+      "type": "cache",
+      "handle": 25,
+      "socket": "L3 Cache",
+      "size_max": 12288,
+      "size_current": 12288,
+      "speed": 0,
+      "mode": {
+        "value": 1,
+        "name": "Write Back"
+      },
+      "enabled": true,
+      "location": {
+        "name": "Internal"
+      },
+      "socketed": false,
+      "level": 2,
+      "ecc": {
+        "value": 6,
+        "name": "Multi-bit"
+      },
+      "cache_type": {
+        "value": 5,
+        "name": "Unified"
+      },
+      "associativity": {
+        "value": 9,
+        "name": "Other"
+      },
+      "sram_type_current": [
+        "Synchronous"
+      ],
+      "sram_type_supported": [
+        "Synchronous"
+      ]
+    },
+    {
+      "type": "processor",
+      "handle": 26,
+      "socket": "U3E1",
+      "socket_type": {
+        "value": 65,
+        "name": "Other"
+      },
+      "socket_populated": true,
+      "manufacturer": "Intel(R) Corporation",
+      "version": "13th Gen Intel(R) Core(TM) i7-1355U",
+      "asset_tag": "None",
+      "part": "None",
+      "processor_type": {
+        "value": 3,
+        "name": "CPU"
+      },
+      "processor_family": {
+        "value": 198,
+        "name": "Other"
+      },
+      "processor_status": {
+        "value": 1,
+        "name": "Enabled"
+      },
+      "voltage": 12,
+      "clock_ext": 100,
+      "clock_max": 5000,
+      "clock_current": 1700,
+      "cache_handle_l1": 23,
+      "cache_handle_l2": 24,
+      "cache_handle_l3": 25
+    },
+    {
+      "type": "bios",
+      "handle": 27,
+      "vendor": "LENOVO",
+      "version": "N3XET38W (1.13 )",
+      "date": "04/26/2023",
+      "features": [
+        "PCI supported",
+        "PnP supported",
+        "BIOS flashable",
+        "BIOS shadowing allowed",
+        "CD boot supported",
+        "Selectable boot supported",
+        "EDD spec supported",
+        "720kB Floppy supported",
+        "Print Screen supported",
+        "8042 Keyboard Services supported",
+        "Serial Services supported",
+        "Printer Services supported",
+        "CGA/Mono Video supported",
+        "ACPI supported",
+        "USB Legacy supported",
+        "BIOS Boot Spec supported"
+      ],
+      "start_address": "0xe0000",
+      "rom_size": 16777216
+    },
+    {
+      "type": "system",
+      "handle": 28,
+      "manufacturer": "LENOVO",
+      "product": "21HM006EMX",
+      "version": "ThinkPad X1 Carbon Gen 11",
+      "wake_up": {
+        "value": 6,
+        "name": "Power Switch"
+      }
+    },
+    {
+      "type": "board",
+      "handle": 29,
+      "manufacturer": "LENOVO",
+      "product": "21HM006EMX",
+      "version": "SDK0T76530 WIN",
+      "asset_tag": "Not Available",
+      "board_type": {
+        "value": 10,
+        "name": "Motherboard"
+      },
+      "features": [
+        "Hosting Board",
+        "Replaceable"
+      ],
+      "location": "Not Available",
+      "chassis": 30
+    },
+    {
+      "type": "chassis",
+      "handle": 30,
+      "manufacturer": "LENOVO",
+      "version": "None",
+      "asset_tag": "No Asset Tag",
+      "chassis_type": {
+        "value": 10,
+        "name": "Notebook"
+      },
+      "lock_present": false,
+      "bootup_state": {
+        "value": 2,
+        "name": "Unknown"
+      },
+      "power_state": {
+        "value": 2,
+        "name": "Unknown"
+      },
+      "thermal_state": {
+        "value": 2,
+        "name": "Unknown"
+      },
+      "security_state": {
+        "value": 2,
+        "name": "Unknown"
+      },
+      "oem": "0x0"
+    },
+    {
+      "type": "port_connector",
+      "handle": 31,
+      "port_type": {
+        "value": 16,
+        "name": "USB"
+      },
+      "internal_reference_designator": "Not Available",
+      "external_connector_type": {
+        "value": 18,
+        "name": "Access Bus [USB]"
+      },
+      "external_reference_designator": "USB 1"
+    },
+    {
+      "type": "port_connector",
+      "handle": 32,
+      "port_type": {
+        "value": 16,
+        "name": "USB"
+      },
+      "internal_reference_designator": "Not Available",
+      "external_connector_type": {
+        "value": 18,
+        "name": "Access Bus [USB]"
+      },
+      "external_reference_designator": "USB 2"
+    },
+    {
+      "type": "port_connector",
+      "handle": 33,
+      "port_type": {
+        "value": 16,
+        "name": "USB"
+      },
+      "internal_reference_designator": "Not Available",
+      "external_connector_type": {
+        "value": 18,
+        "name": "Access Bus [USB]"
+      },
+      "external_reference_designator": "USB 3"
+    },
+    {
+      "type": "port_connector",
+      "handle": 34,
+      "port_type": {
+        "value": 16,
+        "name": "USB"
+      },
+      "internal_reference_designator": "Not Available",
+      "external_connector_type": {
+        "value": 18,
+        "name": "Access Bus [USB]"
+      },
+      "external_reference_designator": "USB 4"
+    },
+    {
+      "type": "inactive",
+      "handle": 35,
+      "data": "0x7e011000000021004e",
+      "strings": [
+        "Not Available",
+        "USB 5"
+      ]
+    },
+    {
+      "type": "inactive",
+      "handle": 36,
+      "data": "0x7e011000000021004e",
+      "strings": [
+        "Not Available",
+        "USB 6"
+      ]
+    },
+    {
+      "type": "inactive",
+      "handle": 37,
+      "data": "0x7e011000000021004e",
+      "strings": [
+        "Not Available",
+        "USB 7"
+      ]
+    },
+    {
+      "type": "inactive",
+      "handle": 38,
+      "data": "0x7e011000000021004e",
+      "strings": [
+        "Not Available",
+        "USB 8"
+      ]
+    },
+    {
+      "type": "inactive",
+      "handle": 39,
+      "data": "0x7e011000000021004e",
+      "strings": [
+        "Not Available",
+        "USB 9"
+      ]
+    },
+    {
+      "type": "inactive",
+      "handle": 40,
+      "data": "0x7e011c00000021004e",
+      "strings": [
+        "Not Available",
+        "External Monitor"
+      ]
+    },
+    {
+      "type": "port_connector",
+      "handle": 41,
+      "port_type": {
+        "value": 28,
+        "name": "Video Port"
+      },
+      "internal_reference_designator": "Not Available",
+      "external_connector_type": {
+        "value": 255,
+        "name": "Other"
+      },
+      "external_reference_designator": "Hdmi1"
+    },
+    {
+      "type": "inactive",
+      "handle": 42,
+      "data": "0x7e011c00000021004e",
+      "strings": [
+        "Not Available",
+        "Hdmi2"
+      ]
+    },
+    {
+      "type": "inactive",
+      "handle": 43,
+      "data": "0x7e011c00000021004e",
+      "strings": [
+        "Not Available",
+        "DisplayPort1"
+      ]
+    },
+    {
+      "type": "inactive",
+      "handle": 44,
+      "data": "0x7e011c00000021004e",
+      "strings": [
+        "Not Available",
+        "DisplayPort2"
+      ]
+    },
+    {
+      "type": "port_connector",
+      "handle": 45,
+      "port_type": {
+        "value": 29,
+        "name": "Audio Port"
+      },
+      "internal_reference_designator": "Not Available",
+      "external_connector_type": {
+        "value": 31,
+        "name": "Mini-jack [headphones]"
+      },
+      "external_reference_designator": "Headphone/Microphone Combo Jack1"
+    },
+    {
+      "type": "inactive",
+      "handle": 46,
+      "data": "0x7e011d000000310048",
+      "strings": [
+        "Not Available",
+        "Headphone/Microphone Combo Jack2"
+      ]
+    },
+    {
+      "type": "slot",
+      "handle": 47,
+      "designation": "SimCard Slot",
+      "slot_type": {
+        "value": 1,
+        "name": "Other"
+      },
+      "bus_width": {
+        "value": 1,
+        "name": "Other"
+      },
+      "usage": {
+        "value": 3,
+        "name": "Available"
+      },
+      "length": {
+        "value": 1,
+        "name": "Other"
+      },
+      "id": 0
+    },
+    {
+      "type": "config",
+      "handle": 48
+    },
+    {
+      "type": "language",
+      "handle": 49,
+      "languages": [
+        "en-US"
+      ],
+      "current_language": "en-US"
+    },
+    {
+      "type": "battery",
+      "handle": 50,
+      "data": "0x1601035070050000000021000a00000000002100e000c0000000",
+      "strings": [
+        "Front",
+        "Sunwoda",
+        "5B10W13975",
+        "03.01",
+        "LiP"
+      ]
+    },
+    {
+      "type": "inactive",
+      "handle": 51,
+      "data": "0x7e010300000500000000210063666c203a202100706572310000"
+    },
+    {
+      "type": "SmbiosType(133)",
+      "handle": 52,
+      "data": "0x8501000000",
+      "strings": [
+        "KHOIHGIUCCHHII"
+      ]
+    },
+    {
+      "type": "SmbiosType(133)",
+      "handle": 53,
+      "data": "0x85f94d96620004000072000000009100766b33366f766b6f6c622c5f63696f616f636f6d735f69616f206566"
+    },
+    {
+      "type": "SmbiosType(135)",
+      "handle": 54,
+      "data": "0x87544249040021006000e00000003100312020"
+    },
+    {
+      "type": "SmbiosType(221)",
+      "handle": 55,
+      "data": "0xdd0eff02ff04ffffffff09ff00000100210dff0000ffffff11ff11009e003217656962646d75303831332f2f6b2d6e2d535f4c305542534e363764642f697653554d32482d4c374530302f2f6b2d686930342e763165696269650a66662031002f692f534d2f33",
+      "strings": [
+        "Lan Phy Version",
+        "Sensor Firmware Version",
+        "Debug Mode Status",
+        "Disabled",
+        "Performance Mode Status",
+        "Disabled",
+        "Debug Use USB(Disabled:Serial)",
+        "Disabled",
+        "ICC Overclocking Version",
+        "UNDI Version",
+        "EC FW Version",
+        "GOP Version",
+        "Royal Park Version",
+        "Platform Version",
+        "RST PreOS Version",
+        "TCSS PD0 Version",
+        "TCSS PD1 Version"
+      ]
+    },
+    {
+      "type": "SmbiosType(130)",
+      "handle": 56,
+      "data": "0x822400008045510083350000f80021012b00fe0000267600"
+    },
+    {
+      "type": "SmbiosType(131)",
+      "handle": 57,
+      "data": "0x83350000f80021012b00fe00002676000000f100d0008340c0000000390000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "type": "SmbiosType(140)",
+      "handle": 58,
+      "data": "0x8c4c56010000410061657373336970",
+      "strings": [
+        "1.13",
+        "1.13"
+      ]
+    },
+    {
+      "type": "group_associations",
+      "handle": 59,
+      "name": "$MEI",
+      "handles": [
+        0
+      ]
+    },
+    {
+      "type": "SmbiosType(219)",
+      "handle": 60,
+      "data": "0xdb01020100401f03ffffffffffff0380000000000000000000000000000051007f00321734203030203035203030203430203134203030206666206666206666206666206666206666203030203830203030203030203030203030203034203030203030203030203030",
+      "strings": [
+        "MEI1",
+        "MEI2",
+        "MEI3",
+        "MEI4"
+      ]
+    },
+    {
+      "type": "hardware_security",
+      "handle": 61,
+      "power": {
+        "name": "Disabled"
+      },
+      "keyboard": {
+        "value": 2,
+        "name": "Not Implemented"
+      },
+      "admin": {
+        "name": "Disabled"
+      },
+      "reset": {
+        "value": 2,
+        "name": "Not Implemented"
+      }
+    },
+    {
+      "type": "SmbiosType(132)",
+      "handle": 62,
+      "data": "0x840200000000f100"
+    },
+    {
+      "type": "memory_error",
+      "handle": 63,
+      "error_type": {
+        "value": 3,
+        "name": "OK"
+      },
+      "granularity": {
+        "value": 2,
+        "name": "Unknown"
+      },
+      "operation": {
+        "value": 2,
+        "name": "Unknown"
+      },
+      "syndrome": 0,
+      "array_address": 2147483648,
+      "device_address": 2147483648,
+      "range": 2147483648
+    },
+    {
+      "type": "pointing_device",
+      "handle": 64,
+      "mouse_type": {
+        "value": 5,
+        "name": "Track Point"
+      },
+      "interface": {
+        "value": 4,
+        "name": "PS/2"
+      },
+      "buttons": 3
+    },
+    {
+      "type": "pointing_device",
+      "handle": 65,
+      "mouse_type": {
+        "value": 7,
+        "name": "Touch Pad"
+      },
+      "interface": {
+        "value": 1,
+        "name": "Other"
+      },
+      "buttons": 2
+    },
+    {
+      "type": "SmbiosType(131)",
+      "handle": 66,
+      "data": "0x83010000000021000000800000003100766f6447696e",
+      "strings": [
+        "TVT-Enablement"
+      ]
+    },
+    {
+      "type": "SmbiosType(136)",
+      "handle": 67,
+      "data": "0x885a00000000"
+    },
+    {
+      "type": "event_log",
+      "handle": 68,
+      "data": "0x0f02103ff0010400000071002f692f746d50342f5f2f5f2d303a30312d3644"
+    },
+    {
+      "type": "SmbiosType(140)",
+      "handle": 69,
+      "data": "0x8c4c5601530021007370090a00003100766f64"
+    },
+    {
+      "type": "SmbiosType(140)",
+      "handle": 70,
+      "data": "0x8c4c5601000021006000a00000003100766f64"
+    },
+    {
+      "type": "SmbiosType(140)",
+      "handle": 71,
+      "data": "0x8c4c5601d40021008000600000003100766f6447696e0a"
+    },
+    {
+      "type": "SmbiosType(141)",
+      "handle": 72,
+      "data": "0x8d540000000041006d6c6d20686e74526f54"
+    },
+    {
+      "type": "SmbiosType(141)",
+      "handle": 73,
+      "data": "0x8d5400000000410061657373336970692c20"
+    },
+    {
+      "type": "SmbiosType(141)",
+      "handle": 74,
+      "data": "0x8d540000000041006d6c6d20686e74526f54"
+    },
+    {
+      "type": "SmbiosType(141)",
+      "handle": 75,
+      "data": "0x8d540000000041008d540000000000000000"
+    },
+    {
+      "type": "SmbiosType(141)",
+      "handle": 76,
+      "data": "0x8d54000084005000000071003c2038395d6c6930302e55676567436f2077"
+    },
+    {
+      "type": "SmbiosType(140)",
+      "handle": 77,
+      "data": "0x8c4c5601000041008c4c5601ffffff",
+      "strings": [
+        "N3XHT34W",
+        "04/18/20"
+      ]
+    },
+    {
+      "type": "SmbiosType(140)",
+      "handle": 78,
+      "data": "0x8c4c5601ffffffffffffff00000021004e540000000021003000d000000021003038000000002100000010"
+    },
+    {
+      "type": "SmbiosType(141)",
+      "handle": 79,
+      "data": "0x8d54000000000000000000000000f10080008d1ee00000004c00000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "type": "SmbiosType(135)",
+      "handle": 80,
+      "data": "0x875401000000410000000000000000000000"
+    },
+    {
+      "type": "end_of_table",
+      "handle": 65279,
+      "data": "0x7f000000"
+    }
+  ],
+  "hardware": [
+    {
+      "index": 1,
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 5,
+        "name": "BIOS"
+      },
+      "hardware_class": "bios",
+      "model": "BIOS",
+      "unique_id": "rdCR.lZF+r4EgHp4",
+      "detail": {
+        "type": "bios",
+        "apm_info": {
+          "supported": false,
+          "enabled": false,
+          "version": 0,
+          "sub_version": 0,
+          "bios_flags": 0
+        },
+        "vbe_info": {
+          "version": 0,
+          "video_memory": 0
+        },
+        "pnp": false,
+        "pnp_id": 0,
+        "lba_support": false,
+        "low_memory_size": 0,
+        "smbios_version": 772
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 2,
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 7,
+        "name": "System"
+      },
+      "hardware_class": "system",
+      "model": "System",
+      "unique_id": "rdCR.n_7QNeEnh23",
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {
+        "with_acpi": true
+      },
+      "driver_info": {
+        "type": "module",
+        "db_entry_0": [
+          "thermal",
+          "fan"
+        ],
+        "active": true,
+        "modprobe": true,
+        "names": [
+          "thermal",
+          "fan"
+        ],
+        "module_args": [
+          "",
+          ""
+        ],
+        "conf": ""
+      }
+    },
+    {
+      "index": 3,
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "CPU"
+      },
+      "hardware_class": "cpu",
+      "model": "13th Gen Intel(R) Core(TM) i7-1355U",
+      "unique_id": "rdCR.j8NaKXDZtZ6",
+      "detail": {
+        "type": "cpu",
+        "architecture": "x86_64",
+        "family": 6,
+        "model": 186,
+        "stepping": 3,
+        "cache": 12288,
+        "units": 64,
+        "vendor_name": "GenuineIntel",
+        "model_name": "13th Gen Intel(R) Core(TM) i7-1355U",
+        "platform": "",
+        "features": [
+          "fpu",
+          "vme",
+          "de",
+          "pse",
+          "tsc",
+          "msr",
+          "pae",
+          "mce",
+          "cx8",
+          "apic",
+          "sep",
+          "mtrr",
+          "pge",
+          "mca",
+          "cmov",
+          "pat",
+          "pse36",
+          "clflush",
+          "dts",
+          "acpi",
+          "mmx",
+          "fxsr",
+          "sse",
+          "sse2",
+          "ss",
+          "ht",
+          "tm",
+          "pbe",
+          "syscall",
+          "nx",
+          "pdpe1gb",
+          "rdtscp",
+          "lm",
+          "constant_tsc",
+          "art",
+          "arch_perfmon",
+          "pebs",
+          "bts",
+          "rep_good",
+          "nopl",
+          "xtopology",
+          "nonstop_tsc",
+          "cpuid",
+          "aperfmperf",
+          "tsc_known_freq",
+          "pni",
+          "pclmulqdq",
+          "dtes64",
+          "monitor",
+          "ds_cpl",
+          "vmx",
+          "smx",
+          "est",
+          "tm2",
+          "ssse3",
+          "sdbg",
+          "fma",
+          "cx16",
+          "xtpr",
+          "pdcm",
+          "sse4_1",
+          "sse4_2",
+          "x2apic",
+          "movbe",
+          "popcnt",
+          "tsc_deadline_timer",
+          "aes",
+          "xsave",
+          "avx",
+          "f16c",
+          "rdrand",
+          "lahf_lm",
+          "abm",
+          "3dnowprefetch",
+          "cpuid_fault",
+          "epb",
+          "ssbd",
+          "ibrs",
+          "ibpb",
+          "stibp",
+          "ibrs_enhanced",
+          "tpr_shadow",
+          "flexpriority",
+          "ept",
+          "vpid",
+          "ept_ad",
+          "fsgsbase",
+          "tsc_adjust",
+          "bmi1",
+          "avx2",
+          "smep",
+          "bmi2",
+          "erms",
+          "invpcid",
+          "rdseed",
+          "adx",
+          "smap",
+          "clflushopt",
+          "clwb",
+          "intel_pt",
+          "sha_ni",
+          "xsaveopt",
+          "xsavec",
+          "xgetbv1",
+          "xsaves",
+          "split_lock_detect",
+          "user_shstk",
+          "avx_vnni",
+          "dtherm",
+          "ida",
+          "arat",
+          "pln",
+          "pts",
+          "hwp",
+          "hwp_notify",
+          "hwp_act_window",
+          "hwp_epp",
+          "hwp_pkg_req",
+          "hfi",
+          "vnmi",
+          "umip",
+          "pku",
+          "ospke",
+          "waitpkg",
+          "gfni",
+          "vaes",
+          "vpclmulqdq",
+          "rdpid",
+          "movdiri",
+          "movdir64b",
+          "fsrm",
+          "md_clear",
+          "serialize",
+          "arch_lbr",
+          "ibt",
+          "flush_l1d",
+          "arch_capabilities"
+        ],
+        "bogo": 5222.4
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 4,
+      "slot": {
+        "bus": 0,
+        "number": 1
+      },
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "CPU"
+      },
+      "hardware_class": "cpu",
+      "model": "13th Gen Intel(R) Core(TM) i7-1355U",
+      "unique_id": "wkFv.j8NaKXDZtZ6",
+      "detail": {
+        "type": "cpu",
+        "architecture": "x86_64",
+        "family": 6,
+        "model": 186,
+        "stepping": 3,
+        "cache": 12288,
+        "units": 64,
+        "vendor_name": "GenuineIntel",
+        "model_name": "13th Gen Intel(R) Core(TM) i7-1355U",
+        "platform": "",
+        "features": [
+          "fpu",
+          "vme",
+          "de",
+          "pse",
+          "tsc",
+          "msr",
+          "pae",
+          "mce",
+          "cx8",
+          "apic",
+          "sep",
+          "mtrr",
+          "pge",
+          "mca",
+          "cmov",
+          "pat",
+          "pse36",
+          "clflush",
+          "dts",
+          "acpi",
+          "mmx",
+          "fxsr",
+          "sse",
+          "sse2",
+          "ss",
+          "ht",
+          "tm",
+          "pbe",
+          "syscall",
+          "nx",
+          "pdpe1gb",
+          "rdtscp",
+          "lm",
+          "constant_tsc",
+          "art",
+          "arch_perfmon",
+          "pebs",
+          "bts",
+          "rep_good",
+          "nopl",
+          "xtopology",
+          "nonstop_tsc",
+          "cpuid",
+          "aperfmperf",
+          "tsc_known_freq",
+          "pni",
+          "pclmulqdq",
+          "dtes64",
+          "monitor",
+          "ds_cpl",
+          "vmx",
+          "smx",
+          "est",
+          "tm2",
+          "ssse3",
+          "sdbg",
+          "fma",
+          "cx16",
+          "xtpr",
+          "pdcm",
+          "sse4_1",
+          "sse4_2",
+          "x2apic",
+          "movbe",
+          "popcnt",
+          "tsc_deadline_timer",
+          "aes",
+          "xsave",
+          "avx",
+          "f16c",
+          "rdrand",
+          "lahf_lm",
+          "abm",
+          "3dnowprefetch",
+          "cpuid_fault",
+          "epb",
+          "ssbd",
+          "ibrs",
+          "ibpb",
+          "stibp",
+          "ibrs_enhanced",
+          "tpr_shadow",
+          "flexpriority",
+          "ept",
+          "vpid",
+          "ept_ad",
+          "fsgsbase",
+          "tsc_adjust",
+          "bmi1",
+          "avx2",
+          "smep",
+          "bmi2",
+          "erms",
+          "invpcid",
+          "rdseed",
+          "adx",
+          "smap",
+          "clflushopt",
+          "clwb",
+          "intel_pt",
+          "sha_ni",
+          "xsaveopt",
+          "xsavec",
+          "xgetbv1",
+          "xsaves",
+          "split_lock_detect",
+          "user_shstk",
+          "avx_vnni",
+          "dtherm",
+          "ida",
+          "arat",
+          "pln",
+          "pts",
+          "hwp",
+          "hwp_notify",
+          "hwp_act_window",
+          "hwp_epp",
+          "hwp_pkg_req",
+          "hfi",
+          "vnmi",
+          "umip",
+          "pku",
+          "ospke",
+          "waitpkg",
+          "gfni",
+          "vaes",
+          "vpclmulqdq",
+          "rdpid",
+          "movdiri",
+          "movdir64b",
+          "fsrm",
+          "md_clear",
+          "serialize",
+          "arch_lbr",
+          "ibt",
+          "flush_l1d",
+          "arch_capabilities"
+        ],
+        "bogo": 5222.4
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 5,
+      "slot": {
+        "bus": 0,
+        "number": 2
+      },
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "CPU"
+      },
+      "hardware_class": "cpu",
+      "model": "13th Gen Intel(R) Core(TM) i7-1355U",
+      "unique_id": "+rIN.j8NaKXDZtZ6",
+      "detail": {
+        "type": "cpu",
+        "architecture": "x86_64",
+        "family": 6,
+        "model": 186,
+        "stepping": 3,
+        "cache": 12288,
+        "units": 64,
+        "vendor_name": "GenuineIntel",
+        "model_name": "13th Gen Intel(R) Core(TM) i7-1355U",
+        "platform": "",
+        "features": [
+          "fpu",
+          "vme",
+          "de",
+          "pse",
+          "tsc",
+          "msr",
+          "pae",
+          "mce",
+          "cx8",
+          "apic",
+          "sep",
+          "mtrr",
+          "pge",
+          "mca",
+          "cmov",
+          "pat",
+          "pse36",
+          "clflush",
+          "dts",
+          "acpi",
+          "mmx",
+          "fxsr",
+          "sse",
+          "sse2",
+          "ss",
+          "ht",
+          "tm",
+          "pbe",
+          "syscall",
+          "nx",
+          "pdpe1gb",
+          "rdtscp",
+          "lm",
+          "constant_tsc",
+          "art",
+          "arch_perfmon",
+          "pebs",
+          "bts",
+          "rep_good",
+          "nopl",
+          "xtopology",
+          "nonstop_tsc",
+          "cpuid",
+          "aperfmperf",
+          "tsc_known_freq",
+          "pni",
+          "pclmulqdq",
+          "dtes64",
+          "monitor",
+          "ds_cpl",
+          "vmx",
+          "smx",
+          "est",
+          "tm2",
+          "ssse3",
+          "sdbg",
+          "fma",
+          "cx16",
+          "xtpr",
+          "pdcm",
+          "sse4_1",
+          "sse4_2",
+          "x2apic",
+          "movbe",
+          "popcnt",
+          "tsc_deadline_timer",
+          "aes",
+          "xsave",
+          "avx",
+          "f16c",
+          "rdrand",
+          "lahf_lm",
+          "abm",
+          "3dnowprefetch",
+          "cpuid_fault",
+          "epb",
+          "ssbd",
+          "ibrs",
+          "ibpb",
+          "stibp",
+          "ibrs_enhanced",
+          "tpr_shadow",
+          "flexpriority",
+          "ept",
+          "vpid",
+          "ept_ad",
+          "fsgsbase",
+          "tsc_adjust",
+          "bmi1",
+          "avx2",
+          "smep",
+          "bmi2",
+          "erms",
+          "invpcid",
+          "rdseed",
+          "adx",
+          "smap",
+          "clflushopt",
+          "clwb",
+          "intel_pt",
+          "sha_ni",
+          "xsaveopt",
+          "xsavec",
+          "xgetbv1",
+          "xsaves",
+          "split_lock_detect",
+          "user_shstk",
+          "avx_vnni",
+          "dtherm",
+          "ida",
+          "arat",
+          "pln",
+          "pts",
+          "hwp",
+          "hwp_notify",
+          "hwp_act_window",
+          "hwp_epp",
+          "hwp_pkg_req",
+          "hfi",
+          "vnmi",
+          "umip",
+          "pku",
+          "ospke",
+          "waitpkg",
+          "gfni",
+          "vaes",
+          "vpclmulqdq",
+          "rdpid",
+          "movdiri",
+          "movdir64b",
+          "fsrm",
+          "md_clear",
+          "serialize",
+          "arch_lbr",
+          "ibt",
+          "flush_l1d",
+          "arch_capabilities"
+        ],
+        "bogo": 5222.4
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 6,
+      "slot": {
+        "bus": 0,
+        "number": 3
+      },
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "CPU"
+      },
+      "hardware_class": "cpu",
+      "model": "13th Gen Intel(R) Core(TM) i7-1355U",
+      "unique_id": "4zLr.j8NaKXDZtZ6",
+      "detail": {
+        "type": "cpu",
+        "architecture": "x86_64",
+        "family": 6,
+        "model": 186,
+        "stepping": 3,
+        "cache": 12288,
+        "units": 64,
+        "vendor_name": "GenuineIntel",
+        "model_name": "13th Gen Intel(R) Core(TM) i7-1355U",
+        "platform": "",
+        "features": [
+          "fpu",
+          "vme",
+          "de",
+          "pse",
+          "tsc",
+          "msr",
+          "pae",
+          "mce",
+          "cx8",
+          "apic",
+          "sep",
+          "mtrr",
+          "pge",
+          "mca",
+          "cmov",
+          "pat",
+          "pse36",
+          "clflush",
+          "dts",
+          "acpi",
+          "mmx",
+          "fxsr",
+          "sse",
+          "sse2",
+          "ss",
+          "ht",
+          "tm",
+          "pbe",
+          "syscall",
+          "nx",
+          "pdpe1gb",
+          "rdtscp",
+          "lm",
+          "constant_tsc",
+          "art",
+          "arch_perfmon",
+          "pebs",
+          "bts",
+          "rep_good",
+          "nopl",
+          "xtopology",
+          "nonstop_tsc",
+          "cpuid",
+          "aperfmperf",
+          "tsc_known_freq",
+          "pni",
+          "pclmulqdq",
+          "dtes64",
+          "monitor",
+          "ds_cpl",
+          "vmx",
+          "smx",
+          "est",
+          "tm2",
+          "ssse3",
+          "sdbg",
+          "fma",
+          "cx16",
+          "xtpr",
+          "pdcm",
+          "sse4_1",
+          "sse4_2",
+          "x2apic",
+          "movbe",
+          "popcnt",
+          "tsc_deadline_timer",
+          "aes",
+          "xsave",
+          "avx",
+          "f16c",
+          "rdrand",
+          "lahf_lm",
+          "abm",
+          "3dnowprefetch",
+          "cpuid_fault",
+          "epb",
+          "ssbd",
+          "ibrs",
+          "ibpb",
+          "stibp",
+          "ibrs_enhanced",
+          "tpr_shadow",
+          "flexpriority",
+          "ept",
+          "vpid",
+          "ept_ad",
+          "fsgsbase",
+          "tsc_adjust",
+          "bmi1",
+          "avx2",
+          "smep",
+          "bmi2",
+          "erms",
+          "invpcid",
+          "rdseed",
+          "adx",
+          "smap",
+          "clflushopt",
+          "clwb",
+          "intel_pt",
+          "sha_ni",
+          "xsaveopt",
+          "xsavec",
+          "xgetbv1",
+          "xsaves",
+          "split_lock_detect",
+          "user_shstk",
+          "avx_vnni",
+          "dtherm",
+          "ida",
+          "arat",
+          "pln",
+          "pts",
+          "hwp",
+          "hwp_notify",
+          "hwp_act_window",
+          "hwp_epp",
+          "hwp_pkg_req",
+          "hfi",
+          "vnmi",
+          "umip",
+          "pku",
+          "ospke",
+          "waitpkg",
+          "gfni",
+          "vaes",
+          "vpclmulqdq",
+          "rdpid",
+          "movdiri",
+          "movdir64b",
+          "fsrm",
+          "md_clear",
+          "serialize",
+          "arch_lbr",
+          "ibt",
+          "flush_l1d",
+          "arch_capabilities"
+        ],
+        "bogo": 5222.4
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 7,
+      "slot": {
+        "bus": 0,
+        "number": 4
+      },
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "CPU"
+      },
+      "hardware_class": "cpu",
+      "model": "13th Gen Intel(R) Core(TM) i7-1355U",
+      "unique_id": "94PJ.j8NaKXDZtZ6",
+      "detail": {
+        "type": "cpu",
+        "architecture": "x86_64",
+        "family": 6,
+        "model": 186,
+        "stepping": 3,
+        "cache": 12288,
+        "units": 64,
+        "vendor_name": "GenuineIntel",
+        "model_name": "13th Gen Intel(R) Core(TM) i7-1355U",
+        "platform": "",
+        "features": [
+          "fpu",
+          "vme",
+          "de",
+          "pse",
+          "tsc",
+          "msr",
+          "pae",
+          "mce",
+          "cx8",
+          "apic",
+          "sep",
+          "mtrr",
+          "pge",
+          "mca",
+          "cmov",
+          "pat",
+          "pse36",
+          "clflush",
+          "dts",
+          "acpi",
+          "mmx",
+          "fxsr",
+          "sse",
+          "sse2",
+          "ss",
+          "ht",
+          "tm",
+          "pbe",
+          "syscall",
+          "nx",
+          "pdpe1gb",
+          "rdtscp",
+          "lm",
+          "constant_tsc",
+          "art",
+          "arch_perfmon",
+          "pebs",
+          "bts",
+          "rep_good",
+          "nopl",
+          "xtopology",
+          "nonstop_tsc",
+          "cpuid",
+          "aperfmperf",
+          "tsc_known_freq",
+          "pni",
+          "pclmulqdq",
+          "dtes64",
+          "monitor",
+          "ds_cpl",
+          "vmx",
+          "smx",
+          "est",
+          "tm2",
+          "ssse3",
+          "sdbg",
+          "fma",
+          "cx16",
+          "xtpr",
+          "pdcm",
+          "sse4_1",
+          "sse4_2",
+          "x2apic",
+          "movbe",
+          "popcnt",
+          "tsc_deadline_timer",
+          "aes",
+          "xsave",
+          "avx",
+          "f16c",
+          "rdrand",
+          "lahf_lm",
+          "abm",
+          "3dnowprefetch",
+          "cpuid_fault",
+          "epb",
+          "ssbd",
+          "ibrs",
+          "ibpb",
+          "stibp",
+          "ibrs_enhanced",
+          "tpr_shadow",
+          "flexpriority",
+          "ept",
+          "vpid",
+          "ept_ad",
+          "fsgsbase",
+          "tsc_adjust",
+          "bmi1",
+          "avx2",
+          "smep",
+          "bmi2",
+          "erms",
+          "invpcid",
+          "rdseed",
+          "adx",
+          "smap",
+          "clflushopt",
+          "clwb",
+          "intel_pt",
+          "sha_ni",
+          "xsaveopt",
+          "xsavec",
+          "xgetbv1",
+          "xsaves",
+          "split_lock_detect",
+          "user_shstk",
+          "avx_vnni",
+          "dtherm",
+          "ida",
+          "arat",
+          "pln",
+          "pts",
+          "hwp",
+          "hwp_notify",
+          "hwp_act_window",
+          "hwp_epp",
+          "hwp_pkg_req",
+          "hfi",
+          "vnmi",
+          "umip",
+          "pku",
+          "ospke",
+          "waitpkg",
+          "gfni",
+          "vaes",
+          "vpclmulqdq",
+          "rdpid",
+          "movdiri",
+          "movdir64b",
+          "fsrm",
+          "md_clear",
+          "serialize",
+          "arch_lbr",
+          "ibt",
+          "flush_l1d",
+          "arch_capabilities"
+        ],
+        "bogo": 5222.4
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 8,
+      "slot": {
+        "bus": 0,
+        "number": 5
+      },
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "CPU"
+      },
+      "hardware_class": "cpu",
+      "model": "13th Gen Intel(R) Core(TM) i7-1355U",
+      "unique_id": "EBSn.j8NaKXDZtZ6",
+      "detail": {
+        "type": "cpu",
+        "architecture": "x86_64",
+        "family": 6,
+        "model": 186,
+        "stepping": 3,
+        "cache": 12288,
+        "units": 64,
+        "vendor_name": "GenuineIntel",
+        "model_name": "13th Gen Intel(R) Core(TM) i7-1355U",
+        "platform": "",
+        "features": [
+          "fpu",
+          "vme",
+          "de",
+          "pse",
+          "tsc",
+          "msr",
+          "pae",
+          "mce",
+          "cx8",
+          "apic",
+          "sep",
+          "mtrr",
+          "pge",
+          "mca",
+          "cmov",
+          "pat",
+          "pse36",
+          "clflush",
+          "dts",
+          "acpi",
+          "mmx",
+          "fxsr",
+          "sse",
+          "sse2",
+          "ss",
+          "ht",
+          "tm",
+          "pbe",
+          "syscall",
+          "nx",
+          "pdpe1gb",
+          "rdtscp",
+          "lm",
+          "constant_tsc",
+          "art",
+          "arch_perfmon",
+          "pebs",
+          "bts",
+          "rep_good",
+          "nopl",
+          "xtopology",
+          "nonstop_tsc",
+          "cpuid",
+          "aperfmperf",
+          "tsc_known_freq",
+          "pni",
+          "pclmulqdq",
+          "dtes64",
+          "monitor",
+          "ds_cpl",
+          "vmx",
+          "smx",
+          "est",
+          "tm2",
+          "ssse3",
+          "sdbg",
+          "fma",
+          "cx16",
+          "xtpr",
+          "pdcm",
+          "sse4_1",
+          "sse4_2",
+          "x2apic",
+          "movbe",
+          "popcnt",
+          "tsc_deadline_timer",
+          "aes",
+          "xsave",
+          "avx",
+          "f16c",
+          "rdrand",
+          "lahf_lm",
+          "abm",
+          "3dnowprefetch",
+          "cpuid_fault",
+          "epb",
+          "ssbd",
+          "ibrs",
+          "ibpb",
+          "stibp",
+          "ibrs_enhanced",
+          "tpr_shadow",
+          "flexpriority",
+          "ept",
+          "vpid",
+          "ept_ad",
+          "fsgsbase",
+          "tsc_adjust",
+          "bmi1",
+          "avx2",
+          "smep",
+          "bmi2",
+          "erms",
+          "invpcid",
+          "rdseed",
+          "adx",
+          "smap",
+          "clflushopt",
+          "clwb",
+          "intel_pt",
+          "sha_ni",
+          "xsaveopt",
+          "xsavec",
+          "xgetbv1",
+          "xsaves",
+          "split_lock_detect",
+          "user_shstk",
+          "avx_vnni",
+          "dtherm",
+          "ida",
+          "arat",
+          "pln",
+          "pts",
+          "hwp",
+          "hwp_notify",
+          "hwp_act_window",
+          "hwp_epp",
+          "hwp_pkg_req",
+          "hfi",
+          "vnmi",
+          "umip",
+          "pku",
+          "ospke",
+          "waitpkg",
+          "gfni",
+          "vaes",
+          "vpclmulqdq",
+          "rdpid",
+          "movdiri",
+          "movdir64b",
+          "fsrm",
+          "md_clear",
+          "serialize",
+          "arch_lbr",
+          "ibt",
+          "flush_l1d",
+          "arch_capabilities"
+        ],
+        "bogo": 5222.4
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 9,
+      "slot": {
+        "bus": 0,
+        "number": 6
+      },
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "CPU"
+      },
+      "hardware_class": "cpu",
+      "model": "13th Gen Intel(R) Core(TM) i7-1355U",
+      "unique_id": "JIVF.j8NaKXDZtZ6",
+      "detail": {
+        "type": "cpu",
+        "architecture": "x86_64",
+        "family": 6,
+        "model": 186,
+        "stepping": 3,
+        "cache": 12288,
+        "units": 64,
+        "vendor_name": "GenuineIntel",
+        "model_name": "13th Gen Intel(R) Core(TM) i7-1355U",
+        "platform": "",
+        "features": [
+          "fpu",
+          "vme",
+          "de",
+          "pse",
+          "tsc",
+          "msr",
+          "pae",
+          "mce",
+          "cx8",
+          "apic",
+          "sep",
+          "mtrr",
+          "pge",
+          "mca",
+          "cmov",
+          "pat",
+          "pse36",
+          "clflush",
+          "dts",
+          "acpi",
+          "mmx",
+          "fxsr",
+          "sse",
+          "sse2",
+          "ss",
+          "ht",
+          "tm",
+          "pbe",
+          "syscall",
+          "nx",
+          "pdpe1gb",
+          "rdtscp",
+          "lm",
+          "constant_tsc",
+          "art",
+          "arch_perfmon",
+          "pebs",
+          "bts",
+          "rep_good",
+          "nopl",
+          "xtopology",
+          "nonstop_tsc",
+          "cpuid",
+          "aperfmperf",
+          "tsc_known_freq",
+          "pni",
+          "pclmulqdq",
+          "dtes64",
+          "monitor",
+          "ds_cpl",
+          "vmx",
+          "smx",
+          "est",
+          "tm2",
+          "ssse3",
+          "sdbg",
+          "fma",
+          "cx16",
+          "xtpr",
+          "pdcm",
+          "sse4_1",
+          "sse4_2",
+          "x2apic",
+          "movbe",
+          "popcnt",
+          "tsc_deadline_timer",
+          "aes",
+          "xsave",
+          "avx",
+          "f16c",
+          "rdrand",
+          "lahf_lm",
+          "abm",
+          "3dnowprefetch",
+          "cpuid_fault",
+          "epb",
+          "ssbd",
+          "ibrs",
+          "ibpb",
+          "stibp",
+          "ibrs_enhanced",
+          "tpr_shadow",
+          "flexpriority",
+          "ept",
+          "vpid",
+          "ept_ad",
+          "fsgsbase",
+          "tsc_adjust",
+          "bmi1",
+          "avx2",
+          "smep",
+          "bmi2",
+          "erms",
+          "invpcid",
+          "rdseed",
+          "adx",
+          "smap",
+          "clflushopt",
+          "clwb",
+          "intel_pt",
+          "sha_ni",
+          "xsaveopt",
+          "xsavec",
+          "xgetbv1",
+          "xsaves",
+          "split_lock_detect",
+          "user_shstk",
+          "avx_vnni",
+          "dtherm",
+          "ida",
+          "arat",
+          "pln",
+          "pts",
+          "hwp",
+          "hwp_notify",
+          "hwp_act_window",
+          "hwp_epp",
+          "hwp_pkg_req",
+          "hfi",
+          "vnmi",
+          "umip",
+          "pku",
+          "ospke",
+          "waitpkg",
+          "gfni",
+          "vaes",
+          "vpclmulqdq",
+          "rdpid",
+          "movdiri",
+          "movdir64b",
+          "fsrm",
+          "md_clear",
+          "serialize",
+          "arch_lbr",
+          "ibt",
+          "flush_l1d",
+          "arch_capabilities"
+        ],
+        "bogo": 5222.4
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 10,
+      "slot": {
+        "bus": 0,
+        "number": 7
+      },
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "CPU"
+      },
+      "hardware_class": "cpu",
+      "model": "13th Gen Intel(R) Core(TM) i7-1355U",
+      "unique_id": "OPYj.j8NaKXDZtZ6",
+      "detail": {
+        "type": "cpu",
+        "architecture": "x86_64",
+        "family": 6,
+        "model": 186,
+        "stepping": 3,
+        "cache": 12288,
+        "units": 64,
+        "vendor_name": "GenuineIntel",
+        "model_name": "13th Gen Intel(R) Core(TM) i7-1355U",
+        "platform": "",
+        "features": [
+          "fpu",
+          "vme",
+          "de",
+          "pse",
+          "tsc",
+          "msr",
+          "pae",
+          "mce",
+          "cx8",
+          "apic",
+          "sep",
+          "mtrr",
+          "pge",
+          "mca",
+          "cmov",
+          "pat",
+          "pse36",
+          "clflush",
+          "dts",
+          "acpi",
+          "mmx",
+          "fxsr",
+          "sse",
+          "sse2",
+          "ss",
+          "ht",
+          "tm",
+          "pbe",
+          "syscall",
+          "nx",
+          "pdpe1gb",
+          "rdtscp",
+          "lm",
+          "constant_tsc",
+          "art",
+          "arch_perfmon",
+          "pebs",
+          "bts",
+          "rep_good",
+          "nopl",
+          "xtopology",
+          "nonstop_tsc",
+          "cpuid",
+          "aperfmperf",
+          "tsc_known_freq",
+          "pni",
+          "pclmulqdq",
+          "dtes64",
+          "monitor",
+          "ds_cpl",
+          "vmx",
+          "smx",
+          "est",
+          "tm2",
+          "ssse3",
+          "sdbg",
+          "fma",
+          "cx16",
+          "xtpr",
+          "pdcm",
+          "sse4_1",
+          "sse4_2",
+          "x2apic",
+          "movbe",
+          "popcnt",
+          "tsc_deadline_timer",
+          "aes",
+          "xsave",
+          "avx",
+          "f16c",
+          "rdrand",
+          "lahf_lm",
+          "abm",
+          "3dnowprefetch",
+          "cpuid_fault",
+          "epb",
+          "ssbd",
+          "ibrs",
+          "ibpb",
+          "stibp",
+          "ibrs_enhanced",
+          "tpr_shadow",
+          "flexpriority",
+          "ept",
+          "vpid",
+          "ept_ad",
+          "fsgsbase",
+          "tsc_adjust",
+          "bmi1",
+          "avx2",
+          "smep",
+          "bmi2",
+          "erms",
+          "invpcid",
+          "rdseed",
+          "adx",
+          "smap",
+          "clflushopt",
+          "clwb",
+          "intel_pt",
+          "sha_ni",
+          "xsaveopt",
+          "xsavec",
+          "xgetbv1",
+          "xsaves",
+          "split_lock_detect",
+          "user_shstk",
+          "avx_vnni",
+          "dtherm",
+          "ida",
+          "arat",
+          "pln",
+          "pts",
+          "hwp",
+          "hwp_notify",
+          "hwp_act_window",
+          "hwp_epp",
+          "hwp_pkg_req",
+          "hfi",
+          "vnmi",
+          "umip",
+          "pku",
+          "ospke",
+          "waitpkg",
+          "gfni",
+          "vaes",
+          "vpclmulqdq",
+          "rdpid",
+          "movdiri",
+          "movdir64b",
+          "fsrm",
+          "md_clear",
+          "serialize",
+          "arch_lbr",
+          "ibt",
+          "flush_l1d",
+          "arch_capabilities"
+        ],
+        "bogo": 5222.4
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 11,
+      "slot": {
+        "bus": 0,
+        "number": 8
+      },
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "CPU"
+      },
+      "hardware_class": "cpu",
+      "model": "13th Gen Intel(R) Core(TM) i7-1355U",
+      "unique_id": "TWbB.j8NaKXDZtZ6",
+      "detail": {
+        "type": "cpu",
+        "architecture": "x86_64",
+        "family": 6,
+        "model": 186,
+        "stepping": 3,
+        "cache": 12288,
+        "units": 64,
+        "vendor_name": "GenuineIntel",
+        "model_name": "13th Gen Intel(R) Core(TM) i7-1355U",
+        "platform": "",
+        "features": [
+          "fpu",
+          "vme",
+          "de",
+          "pse",
+          "tsc",
+          "msr",
+          "pae",
+          "mce",
+          "cx8",
+          "apic",
+          "sep",
+          "mtrr",
+          "pge",
+          "mca",
+          "cmov",
+          "pat",
+          "pse36",
+          "clflush",
+          "dts",
+          "acpi",
+          "mmx",
+          "fxsr",
+          "sse",
+          "sse2",
+          "ss",
+          "ht",
+          "tm",
+          "pbe",
+          "syscall",
+          "nx",
+          "pdpe1gb",
+          "rdtscp",
+          "lm",
+          "constant_tsc",
+          "art",
+          "arch_perfmon",
+          "pebs",
+          "bts",
+          "rep_good",
+          "nopl",
+          "xtopology",
+          "nonstop_tsc",
+          "cpuid",
+          "aperfmperf",
+          "tsc_known_freq",
+          "pni",
+          "pclmulqdq",
+          "dtes64",
+          "monitor",
+          "ds_cpl",
+          "vmx",
+          "smx",
+          "est",
+          "tm2",
+          "ssse3",
+          "sdbg",
+          "fma",
+          "cx16",
+          "xtpr",
+          "pdcm",
+          "sse4_1",
+          "sse4_2",
+          "x2apic",
+          "movbe",
+          "popcnt",
+          "tsc_deadline_timer",
+          "aes",
+          "xsave",
+          "avx",
+          "f16c",
+          "rdrand",
+          "lahf_lm",
+          "abm",
+          "3dnowprefetch",
+          "cpuid_fault",
+          "epb",
+          "ssbd",
+          "ibrs",
+          "ibpb",
+          "stibp",
+          "ibrs_enhanced",
+          "tpr_shadow",
+          "flexpriority",
+          "ept",
+          "vpid",
+          "ept_ad",
+          "fsgsbase",
+          "tsc_adjust",
+          "bmi1",
+          "avx2",
+          "smep",
+          "bmi2",
+          "erms",
+          "invpcid",
+          "rdseed",
+          "adx",
+          "smap",
+          "clflushopt",
+          "clwb",
+          "intel_pt",
+          "sha_ni",
+          "xsaveopt",
+          "xsavec",
+          "xgetbv1",
+          "xsaves",
+          "split_lock_detect",
+          "user_shstk",
+          "avx_vnni",
+          "dtherm",
+          "ida",
+          "arat",
+          "pln",
+          "pts",
+          "hwp",
+          "hwp_notify",
+          "hwp_act_window",
+          "hwp_epp",
+          "hwp_pkg_req",
+          "hfi",
+          "vnmi",
+          "umip",
+          "pku",
+          "ospke",
+          "waitpkg",
+          "gfni",
+          "vaes",
+          "vpclmulqdq",
+          "rdpid",
+          "movdiri",
+          "movdir64b",
+          "fsrm",
+          "md_clear",
+          "serialize",
+          "arch_lbr",
+          "ibt",
+          "flush_l1d",
+          "arch_capabilities"
+        ],
+        "bogo": 5222.4
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 12,
+      "slot": {
+        "bus": 0,
+        "number": 9
+      },
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "CPU"
+      },
+      "hardware_class": "cpu",
+      "model": "13th Gen Intel(R) Core(TM) i7-1355U",
+      "unique_id": "Ydef.j8NaKXDZtZ6",
+      "detail": {
+        "type": "cpu",
+        "architecture": "x86_64",
+        "family": 6,
+        "model": 186,
+        "stepping": 3,
+        "cache": 12288,
+        "units": 64,
+        "vendor_name": "GenuineIntel",
+        "model_name": "13th Gen Intel(R) Core(TM) i7-1355U",
+        "platform": "",
+        "features": [
+          "fpu",
+          "vme",
+          "de",
+          "pse",
+          "tsc",
+          "msr",
+          "pae",
+          "mce",
+          "cx8",
+          "apic",
+          "sep",
+          "mtrr",
+          "pge",
+          "mca",
+          "cmov",
+          "pat",
+          "pse36",
+          "clflush",
+          "dts",
+          "acpi",
+          "mmx",
+          "fxsr",
+          "sse",
+          "sse2",
+          "ss",
+          "ht",
+          "tm",
+          "pbe",
+          "syscall",
+          "nx",
+          "pdpe1gb",
+          "rdtscp",
+          "lm",
+          "constant_tsc",
+          "art",
+          "arch_perfmon",
+          "pebs",
+          "bts",
+          "rep_good",
+          "nopl",
+          "xtopology",
+          "nonstop_tsc",
+          "cpuid",
+          "aperfmperf",
+          "tsc_known_freq",
+          "pni",
+          "pclmulqdq",
+          "dtes64",
+          "monitor",
+          "ds_cpl",
+          "vmx",
+          "smx",
+          "est",
+          "tm2",
+          "ssse3",
+          "sdbg",
+          "fma",
+          "cx16",
+          "xtpr",
+          "pdcm",
+          "sse4_1",
+          "sse4_2",
+          "x2apic",
+          "movbe",
+          "popcnt",
+          "tsc_deadline_timer",
+          "aes",
+          "xsave",
+          "avx",
+          "f16c",
+          "rdrand",
+          "lahf_lm",
+          "abm",
+          "3dnowprefetch",
+          "cpuid_fault",
+          "epb",
+          "ssbd",
+          "ibrs",
+          "ibpb",
+          "stibp",
+          "ibrs_enhanced",
+          "tpr_shadow",
+          "flexpriority",
+          "ept",
+          "vpid",
+          "ept_ad",
+          "fsgsbase",
+          "tsc_adjust",
+          "bmi1",
+          "avx2",
+          "smep",
+          "bmi2",
+          "erms",
+          "invpcid",
+          "rdseed",
+          "adx",
+          "smap",
+          "clflushopt",
+          "clwb",
+          "intel_pt",
+          "sha_ni",
+          "xsaveopt",
+          "xsavec",
+          "xgetbv1",
+          "xsaves",
+          "split_lock_detect",
+          "user_shstk",
+          "avx_vnni",
+          "dtherm",
+          "ida",
+          "arat",
+          "pln",
+          "pts",
+          "hwp",
+          "hwp_notify",
+          "hwp_act_window",
+          "hwp_epp",
+          "hwp_pkg_req",
+          "hfi",
+          "vnmi",
+          "umip",
+          "pku",
+          "ospke",
+          "waitpkg",
+          "gfni",
+          "vaes",
+          "vpclmulqdq",
+          "rdpid",
+          "movdiri",
+          "movdir64b",
+          "fsrm",
+          "md_clear",
+          "serialize",
+          "arch_lbr",
+          "ibt",
+          "flush_l1d",
+          "arch_capabilities"
+        ],
+        "bogo": 5222.4
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 13,
+      "slot": {
+        "bus": 0,
+        "number": 10
+      },
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "CPU"
+      },
+      "hardware_class": "cpu",
+      "model": "13th Gen Intel(R) Core(TM) i7-1355U",
+      "unique_id": "dkh7.j8NaKXDZtZ6",
+      "detail": {
+        "type": "cpu",
+        "architecture": "x86_64",
+        "family": 6,
+        "model": 186,
+        "stepping": 3,
+        "cache": 12288,
+        "units": 64,
+        "vendor_name": "GenuineIntel",
+        "model_name": "13th Gen Intel(R) Core(TM) i7-1355U",
+        "platform": "",
+        "features": [
+          "fpu",
+          "vme",
+          "de",
+          "pse",
+          "tsc",
+          "msr",
+          "pae",
+          "mce",
+          "cx8",
+          "apic",
+          "sep",
+          "mtrr",
+          "pge",
+          "mca",
+          "cmov",
+          "pat",
+          "pse36",
+          "clflush",
+          "dts",
+          "acpi",
+          "mmx",
+          "fxsr",
+          "sse",
+          "sse2",
+          "ss",
+          "ht",
+          "tm",
+          "pbe",
+          "syscall",
+          "nx",
+          "pdpe1gb",
+          "rdtscp",
+          "lm",
+          "constant_tsc",
+          "art",
+          "arch_perfmon",
+          "pebs",
+          "bts",
+          "rep_good",
+          "nopl",
+          "xtopology",
+          "nonstop_tsc",
+          "cpuid",
+          "aperfmperf",
+          "tsc_known_freq",
+          "pni",
+          "pclmulqdq",
+          "dtes64",
+          "monitor",
+          "ds_cpl",
+          "vmx",
+          "smx",
+          "est",
+          "tm2",
+          "ssse3",
+          "sdbg",
+          "fma",
+          "cx16",
+          "xtpr",
+          "pdcm",
+          "sse4_1",
+          "sse4_2",
+          "x2apic",
+          "movbe",
+          "popcnt",
+          "tsc_deadline_timer",
+          "aes",
+          "xsave",
+          "avx",
+          "f16c",
+          "rdrand",
+          "lahf_lm",
+          "abm",
+          "3dnowprefetch",
+          "cpuid_fault",
+          "epb",
+          "ssbd",
+          "ibrs",
+          "ibpb",
+          "stibp",
+          "ibrs_enhanced",
+          "tpr_shadow",
+          "flexpriority",
+          "ept",
+          "vpid",
+          "ept_ad",
+          "fsgsbase",
+          "tsc_adjust",
+          "bmi1",
+          "avx2",
+          "smep",
+          "bmi2",
+          "erms",
+          "invpcid",
+          "rdseed",
+          "adx",
+          "smap",
+          "clflushopt",
+          "clwb",
+          "intel_pt",
+          "sha_ni",
+          "xsaveopt",
+          "xsavec",
+          "xgetbv1",
+          "xsaves",
+          "split_lock_detect",
+          "user_shstk",
+          "avx_vnni",
+          "dtherm",
+          "ida",
+          "arat",
+          "pln",
+          "pts",
+          "hwp",
+          "hwp_notify",
+          "hwp_act_window",
+          "hwp_epp",
+          "hwp_pkg_req",
+          "hfi",
+          "vnmi",
+          "umip",
+          "pku",
+          "ospke",
+          "waitpkg",
+          "gfni",
+          "vaes",
+          "vpclmulqdq",
+          "rdpid",
+          "movdiri",
+          "movdir64b",
+          "fsrm",
+          "md_clear",
+          "serialize",
+          "arch_lbr",
+          "ibt",
+          "flush_l1d",
+          "arch_capabilities"
+        ],
+        "bogo": 5222.4
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 14,
+      "slot": {
+        "bus": 0,
+        "number": 11
+      },
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "CPU"
+      },
+      "hardware_class": "cpu",
+      "model": "13th Gen Intel(R) Core(TM) i7-1355U",
+      "unique_id": "hrkb.j8NaKXDZtZ6",
+      "detail": {
+        "type": "cpu",
+        "architecture": "x86_64",
+        "family": 6,
+        "model": 186,
+        "stepping": 3,
+        "cache": 12288,
+        "units": 64,
+        "vendor_name": "GenuineIntel",
+        "model_name": "13th Gen Intel(R) Core(TM) i7-1355U",
+        "platform": "",
+        "features": [
+          "fpu",
+          "vme",
+          "de",
+          "pse",
+          "tsc",
+          "msr",
+          "pae",
+          "mce",
+          "cx8",
+          "apic",
+          "sep",
+          "mtrr",
+          "pge",
+          "mca",
+          "cmov",
+          "pat",
+          "pse36",
+          "clflush",
+          "dts",
+          "acpi",
+          "mmx",
+          "fxsr",
+          "sse",
+          "sse2",
+          "ss",
+          "ht",
+          "tm",
+          "pbe",
+          "syscall",
+          "nx",
+          "pdpe1gb",
+          "rdtscp",
+          "lm",
+          "constant_tsc",
+          "art",
+          "arch_perfmon",
+          "pebs",
+          "bts",
+          "rep_good",
+          "nopl",
+          "xtopology",
+          "nonstop_tsc",
+          "cpuid",
+          "aperfmperf",
+          "tsc_known_freq",
+          "pni",
+          "pclmulqdq",
+          "dtes64",
+          "monitor",
+          "ds_cpl",
+          "vmx",
+          "smx",
+          "est",
+          "tm2",
+          "ssse3",
+          "sdbg",
+          "fma",
+          "cx16",
+          "xtpr",
+          "pdcm",
+          "sse4_1",
+          "sse4_2",
+          "x2apic",
+          "movbe",
+          "popcnt",
+          "tsc_deadline_timer",
+          "aes",
+          "xsave",
+          "avx",
+          "f16c",
+          "rdrand",
+          "lahf_lm",
+          "abm",
+          "3dnowprefetch",
+          "cpuid_fault",
+          "epb",
+          "ssbd",
+          "ibrs",
+          "ibpb",
+          "stibp",
+          "ibrs_enhanced",
+          "tpr_shadow",
+          "flexpriority",
+          "ept",
+          "vpid",
+          "ept_ad",
+          "fsgsbase",
+          "tsc_adjust",
+          "bmi1",
+          "avx2",
+          "smep",
+          "bmi2",
+          "erms",
+          "invpcid",
+          "rdseed",
+          "adx",
+          "smap",
+          "clflushopt",
+          "clwb",
+          "intel_pt",
+          "sha_ni",
+          "xsaveopt",
+          "xsavec",
+          "xgetbv1",
+          "xsaves",
+          "split_lock_detect",
+          "user_shstk",
+          "avx_vnni",
+          "dtherm",
+          "ida",
+          "arat",
+          "pln",
+          "pts",
+          "hwp",
+          "hwp_notify",
+          "hwp_act_window",
+          "hwp_epp",
+          "hwp_pkg_req",
+          "hfi",
+          "vnmi",
+          "umip",
+          "pku",
+          "ospke",
+          "waitpkg",
+          "gfni",
+          "vaes",
+          "vpclmulqdq",
+          "rdpid",
+          "movdiri",
+          "movdir64b",
+          "fsrm",
+          "md_clear",
+          "serialize",
+          "arch_lbr",
+          "ibt",
+          "flush_l1d",
+          "arch_capabilities"
+        ],
+        "bogo": 5222.4
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 15,
+      "base_class": {
+        "value": 257,
+        "name": "Internally Used Class"
+      },
+      "sub_class": {
+        "value": 2,
+        "name": "Main Memory"
+      },
+      "hardware_class": "memory",
+      "model": "Main Memory",
+      "unique_id": "rdCR.CxwsZFjVASF",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 0,
+          "range": 33307246592,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "unknown"
+        },
+        {
+          "type": "phys_mem",
+          "range": 34359738368
+        }
+      ],
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 16,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 8
+      },
+      "base_class": {
+        "value": 8,
+        "name": "Generic system peripheral"
+      },
+      "sub_class": {
+        "value": 128,
+        "name": "System peripheral"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 42831,
+        "name": "GNA Scoring Accelerator module"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "unknown",
+      "model": "Intel GNA Scoring Accelerator module",
+      "sysfs_id": "/devices/pci0000:00/0000:00:08.0",
+      "sysfs_bus_id": "0000:00:08.0",
+      "unique_id": "RE4e.gzwRVNZHVTF",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 413342248960,
+          "range": 4096,
+          "enabled": false,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "irq",
+          "base": 255,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 0,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 8,
+        "function": 0,
+        "base_class": 8,
+        "sub_class": 128,
+        "prog_if": 0,
+        "device": 42831,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 255
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "module_alias": "pci:v00008086d0000A74Fsv000017AAsd00002315bc08sc80i00"
+    },
+    {
+      "index": 17,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 13
+      },
+      "base_class": {
+        "value": 12,
+        "name": "Serial bus controller"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "USB Controller"
+      },
+      "pci_interface": {
+        "value": 48,
+        "name": "XHCI"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 42782,
+        "name": "Raptor Lake-P Thunderbolt 4 USB Controller"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "usb_controller",
+      "model": "Intel Raptor Lake-P Thunderbolt 4 USB Controller",
+      "sysfs_id": "/devices/pci0000:00/0000:00:0d.0",
+      "sysfs_bus_id": "0000:00:0d.0",
+      "unique_id": "qnJ_.mDBwIoR4FY2",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 413342040064,
+          "range": 65536,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "irq",
+          "base": 125,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 1030,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 13,
+        "function": 0,
+        "base_class": 12,
+        "sub_class": 3,
+        "prog_if": 48,
+        "device": 42782,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 125
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "xhci_hcd",
+      "driver_module": "xhci_pci",
+      "drivers": [
+        "xhci_hcd"
+      ],
+      "driver_modules": [
+        "xhci_pci"
+      ],
+      "module_alias": "pci:v00008086d0000A71Esv000017AAsd00002315bc0Csc03i30"
+    },
+    {
+      "index": 18,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 31
+      },
+      "base_class": {
+        "value": 6,
+        "name": "Bridge"
+      },
+      "sub_class": {
+        "value": 1,
+        "name": "ISA bridge"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 20893,
+        "name": "Raptor Lake LPC/eSPI Controller"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "bridge",
+      "model": "Intel Raptor Lake LPC/eSPI Controller",
+      "sysfs_id": "/devices/pci0000:00/0000:00:1f.0",
+      "sysfs_bus_id": "0000:00:1f.0",
+      "unique_id": "BUZT.HOGfhnxbxM8",
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 1283,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 31,
+        "function": 0,
+        "base_class": 6,
+        "sub_class": 1,
+        "prog_if": 0,
+        "device": 20893,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 0
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "vfio-pci",
+      "driver_module": "vfio_pci",
+      "drivers": [
+        "vfio-pci"
+      ],
+      "driver_modules": [
+        "vfio_pci"
+      ],
+      "module_alias": "pci:v00008086d0000519Dsv000017AAsd00002315bc06sc01i00"
+    },
+    {
+      "index": 19,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 7
+      },
+      "base_class": {
+        "value": 6,
+        "name": "Bridge"
+      },
+      "sub_class": {
+        "value": 4,
+        "name": "PCI bridge"
+      },
+      "pci_interface": {
+        "name": "Normal decode"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 42799,
+        "name": "Raptor Lake-P Thunderbolt 4 PCI Express Root Port #2"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "bridge",
+      "model": "Intel Raptor Lake-P Thunderbolt 4 PCI Express Root Port #2",
+      "sysfs_id": "/devices/pci0000:00/0000:00:07.2",
+      "sysfs_bus_id": "0000:00:07.2",
+      "unique_id": "5n+q.CZybjUUGqU3",
+      "resources": [
+        {
+          "type": "irq",
+          "base": 124,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 1031,
+        "header_type": 1,
+        "secondary_bus": 80,
+        "bus": 0,
+        "slot": 7,
+        "function": 2,
+        "base_class": 6,
+        "sub_class": 4,
+        "prog_if": 0,
+        "device": 42799,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 124
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "pcieport",
+      "drivers": [
+        "pcieport"
+      ],
+      "module_alias": "pci:v00008086d0000A72Fsv000017AAsd00002315bc06sc04i00"
+    },
+    {
+      "index": 20,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 4
+      },
+      "base_class": {
+        "value": 17,
+        "name": "Signal processing controller"
+      },
+      "sub_class": {
+        "value": 128,
+        "name": "Signal processing controller"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 42781,
+        "name": "Raptor Lake Dynamic Platform and Thermal Framework Processor Participant"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "unknown",
+      "model": "Intel Raptor Lake Dynamic Platform and Thermal Framework Processor Participant",
+      "sysfs_id": "/devices/pci0000:00/0000:00:04.0",
+      "sysfs_bus_id": "0000:00:04.0",
+      "unique_id": "8otl.1djD6PM28UB",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 413341843456,
+          "range": 131072,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "irq",
+          "base": 16,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 6,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 4,
+        "function": 0,
+        "base_class": 17,
+        "sub_class": 128,
+        "prog_if": 0,
+        "device": 42781,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 16
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "proc_thermal_pci",
+      "driver_module": "processor_thermal_device_pci",
+      "drivers": [
+        "proc_thermal_pci"
+      ],
+      "driver_modules": [
+        "processor_thermal_device_pci"
+      ],
+      "module_alias": "pci:v00008086d0000A71Dsv000017AAsd00002315bc11sc80i00"
+    },
+    {
+      "index": 21,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 20
+      },
+      "base_class": {
+        "value": 2,
+        "name": "Network controller"
+      },
+      "sub_class": {
+        "value": 128,
+        "name": "Network controller"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "device": {
+        "type": "pci",
+        "value": 20977,
+        "name": "Raptor Lake PCH CNVi WiFi"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 144
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "network",
+      "model": "Intel Raptor Lake PCH CNVi WiFi",
+      "sysfs_id": "/devices/pci0000:00/0000:00:14.3",
+      "sysfs_bus_id": "0000:00:14.3",
+      "unique_id": "yX7n.DPjbZR4krX7",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 413342187520,
+          "range": 16384,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "irq",
+          "base": 16,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 1286,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 20,
+        "function": 3,
+        "base_class": 2,
+        "sub_class": 128,
+        "prog_if": 0,
+        "device": 20977,
+        "vendor": 32902,
+        "sub_device": 144,
+        "sub_vendor": 32902,
+        "revision": 1,
+        "irq": 16
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "vfio-pci",
+      "driver_module": "vfio_pci",
+      "drivers": [
+        "vfio-pci"
+      ],
+      "driver_modules": [
+        "vfio_pci"
+      ],
+      "module_alias": "pci:v00008086d000051F1sv00008086sd00000090bc02sc80i00"
+    },
+    {
+      "index": 22,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 22
+      },
+      "base_class": {
+        "value": 7,
+        "name": "Communication controller"
+      },
+      "sub_class": {
+        "value": 128,
+        "name": "Communication controller"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 20960,
+        "name": "Alder Lake PCH HECI Controller"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "unknown",
+      "model": "Intel Alder Lake PCH HECI Controller",
+      "sysfs_id": "/devices/pci0000:00/0000:00:16.0",
+      "sysfs_bus_id": "0000:00:16.0",
+      "unique_id": "WnlC.KS2x277RjV9",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 413342228480,
+          "range": 4096,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "irq",
+          "base": 170,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 1030,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 22,
+        "function": 0,
+        "base_class": 7,
+        "sub_class": 128,
+        "prog_if": 0,
+        "device": 20960,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 170
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "mei_me",
+      "driver_module": "mei_me",
+      "drivers": [
+        "mei_me"
+      ],
+      "driver_modules": [
+        "mei_me"
+      ],
+      "module_alias": "pci:v00008086d000051E0sv000017AAsd00002315bc07sc80i00"
+    },
+    {
+      "index": 23,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 7
+      },
+      "base_class": {
+        "value": 6,
+        "name": "Bridge"
+      },
+      "sub_class": {
+        "value": 4,
+        "name": "PCI bridge"
+      },
+      "pci_interface": {
+        "name": "Normal decode"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 42862,
+        "name": "Raptor Lake-P Thunderbolt 4 PCI Express Root Port #0"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "bridge",
+      "model": "Intel Raptor Lake-P Thunderbolt 4 PCI Express Root Port #0",
+      "sysfs_id": "/devices/pci0000:00/0000:00:07.0",
+      "sysfs_bus_id": "0000:00:07.0",
+      "unique_id": "M71A.hfQo_Gd70o8",
+      "resources": [
+        {
+          "type": "irq",
+          "base": 123,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 1031,
+        "header_type": 1,
+        "secondary_bus": 32,
+        "bus": 0,
+        "slot": 7,
+        "function": 0,
+        "base_class": 6,
+        "sub_class": 4,
+        "prog_if": 0,
+        "device": 42862,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 123
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "pcieport",
+      "drivers": [
+        "pcieport"
+      ],
+      "module_alias": "pci:v00008086d0000A76Esv000017AAsd00002315bc06sc04i00"
+    },
+    {
+      "index": 24,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 31
+      },
+      "base_class": {
+        "value": 12,
+        "name": "Serial bus controller"
+      },
+      "sub_class": {
+        "value": 128,
+        "name": "Serial bus controller"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 20900,
+        "name": "Alder Lake-P PCH SPI Controller"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "unknown",
+      "model": "Intel Alder Lake-P PCH SPI Controller",
+      "sysfs_id": "/devices/pci0000:00/0000:00:1f.5",
+      "sysfs_bus_id": "0000:00:1f.5",
+      "unique_id": "W60f.T0BZoPpwJK2",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 2692743168,
+          "range": 4096,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 1282,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 31,
+        "function": 5,
+        "base_class": 12,
+        "sub_class": 128,
+        "prog_if": 0,
+        "device": 20900,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 0
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "vfio-pci",
+      "driver_module": "vfio_pci",
+      "drivers": [
+        "vfio-pci"
+      ],
+      "driver_modules": [
+        "vfio_pci"
+      ],
+      "module_alias": "pci:v00008086d000051A4sv000017AAsd00002315bc0Csc80i00"
+    },
+    {
+      "index": 25,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 25
+      },
+      "base_class": {
+        "value": 12,
+        "name": "Serial bus controller"
+      },
+      "sub_class": {
+        "value": 128,
+        "name": "Serial bus controller"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 20933,
+        "name": "Alder Lake-P Serial IO I2C Controller #0"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "unknown",
+      "model": "Intel Alder Lake-P Serial IO I2C Controller #0",
+      "sysfs_id": "/devices/pci0000:00/0000:00:19.0",
+      "sysfs_bus_id": "0000:00:19.0",
+      "unique_id": "kpGf.UhKHf93QiYD",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 275263787008,
+          "range": 4096,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "irq",
+          "base": 31,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 6,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 25,
+        "function": 0,
+        "base_class": 12,
+        "sub_class": 128,
+        "prog_if": 0,
+        "device": 20933,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 31
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "intel-lpss",
+      "driver_module": "intel_lpss_pci",
+      "drivers": [
+        "intel-lpss"
+      ],
+      "driver_modules": [
+        "intel_lpss_pci"
+      ],
+      "module_alias": "pci:v00008086d000051C5sv000017AAsd00002315bc0Csc80i00"
+    },
+    {
+      "index": 26,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 13
+      },
+      "base_class": {
+        "value": 12,
+        "name": "Serial bus controller"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "USB Controller"
+      },
+      "pci_interface": {
+        "value": 64,
+        "name": "USB4 Host Interface"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 42861,
+        "name": "Raptor Lake-P Thunderbolt 4 NHI #1"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "usb_controller",
+      "model": "Intel Raptor Lake-P Thunderbolt 4 NHI #1",
+      "sysfs_id": "/devices/pci0000:00/0000:00:0d.3",
+      "sysfs_bus_id": "0000:00:0d.3",
+      "unique_id": "QmnU.lyYBPCLNU74",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 413341319168,
+          "range": 262144,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "mem",
+          "base": 413342240768,
+          "range": 4096,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "irq",
+          "base": 16,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 1031,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 13,
+        "function": 3,
+        "base_class": 12,
+        "sub_class": 3,
+        "prog_if": 64,
+        "device": 42861,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 16
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "thunderbolt",
+      "driver_module": "thunderbolt",
+      "drivers": [
+        "thunderbolt"
+      ],
+      "driver_modules": [
+        "thunderbolt"
+      ],
+      "module_alias": "pci:v00008086d0000A76Dsv000017AAsd00002315bc0Csc03i40"
+    },
+    {
+      "index": 27,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 31
+      },
+      "base_class": {
+        "value": 4,
+        "name": "Multimedia controller"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "Audio device"
+      },
+      "pci_interface": {
+        "value": 128
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 20938,
+        "name": "Raptor Lake-P/U/H cAVS"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "sound",
+      "model": "Intel Raptor Lake-P/U/H cAVS",
+      "sysfs_id": "/devices/pci0000:00/0000:00:1f.3",
+      "sysfs_bus_id": "0000:00:1f.3",
+      "unique_id": "nS1_.UWugxemBHO1",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 413342171136,
+          "range": 16384,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "mem",
+          "base": 413340270592,
+          "range": 1048576,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "irq",
+          "base": 172,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 1286,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 31,
+        "function": 3,
+        "base_class": 4,
+        "sub_class": 3,
+        "prog_if": 128,
+        "device": 20938,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 172
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "vfio-pci",
+      "driver_module": "vfio_pci",
+      "drivers": [
+        "vfio-pci"
+      ],
+      "driver_modules": [
+        "vfio_pci"
+      ],
+      "module_alias": "pci:v00008086d000051CAsv000017AAsd00002315bc04sc03i80"
+    },
+    {
+      "index": 28,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "base_class": {
+        "value": 6,
+        "name": "Bridge"
+      },
+      "sub_class": {
+        "name": "Host bridge"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 42760,
+        "name": "Raptor Lake-P/U 2p+8e cores Host Bridge/DRAM Controller"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "bridge",
+      "model": "Intel Raptor Lake-P/U 2p+8e cores Host Bridge/DRAM Controller",
+      "sysfs_id": "/devices/pci0000:00/0000:00:00.0",
+      "sysfs_bus_id": "0000:00:00.0",
+      "unique_id": "qLht.1ZNYxCWKTU9",
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 6,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 0,
+        "function": 0,
+        "base_class": 6,
+        "sub_class": 0,
+        "prog_if": 0,
+        "device": 42760,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 0
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "igen6_edac",
+      "driver_module": "igen6_edac",
+      "drivers": [
+        "igen6_edac"
+      ],
+      "driver_modules": [
+        "igen6_edac"
+      ],
+      "module_alias": "pci:v00008086d0000A708sv000017AAsd00002315bc06sc00i00"
+    },
+    {
+      "index": 29,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 21
+      },
+      "base_class": {
+        "value": 12,
+        "name": "Serial bus controller"
+      },
+      "sub_class": {
+        "value": 128,
+        "name": "Serial bus controller"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 20968,
+        "name": "Alder Lake PCH Serial IO I2C Controller #0"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "unknown",
+      "model": "Intel Alder Lake PCH Serial IO I2C Controller #0",
+      "sysfs_id": "/devices/pci0000:00/0000:00:15.0",
+      "sysfs_bus_id": "0000:00:15.0",
+      "unique_id": "Rgik.XBNVT2YJ8Y9",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 275263782912,
+          "range": 4096,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "irq",
+          "base": 27,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 6,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 21,
+        "function": 0,
+        "base_class": 12,
+        "sub_class": 128,
+        "prog_if": 0,
+        "device": 20968,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 27
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "intel-lpss",
+      "driver_module": "intel_lpss_pci",
+      "drivers": [
+        "intel-lpss"
+      ],
+      "driver_modules": [
+        "intel_lpss_pci"
+      ],
+      "module_alias": "pci:v00008086d000051E8sv000017AAsd00002315bc0Csc80i00"
+    },
+    {
+      "index": 30,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 6
+      },
+      "base_class": {
+        "value": 6,
+        "name": "Bridge"
+      },
+      "sub_class": {
+        "value": 4,
+        "name": "PCI bridge"
+      },
+      "pci_interface": {
+        "name": "Normal decode"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 42829,
+        "name": "Raptor Lake PCIe 4.0 Graphics Port"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "bridge",
+      "model": "Intel Raptor Lake PCIe 4.0 Graphics Port",
+      "sysfs_id": "/devices/pci0000:00/0000:00:06.0",
+      "sysfs_bus_id": "0000:00:06.0",
+      "unique_id": "H0_h.g_G48XNedZD",
+      "resources": [
+        {
+          "type": "irq",
+          "base": 122,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 1287,
+        "header_type": 1,
+        "secondary_bus": 4,
+        "bus": 0,
+        "slot": 6,
+        "function": 0,
+        "base_class": 6,
+        "sub_class": 4,
+        "prog_if": 0,
+        "device": 42829,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 122
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "pcieport",
+      "drivers": [
+        "pcieport"
+      ],
+      "module_alias": "pci:v00008086d0000A74Dsv000017AAsd00002315bc06sc04i00"
+    },
+    {
+      "index": 31,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 20
+      },
+      "base_class": {
+        "value": 5,
+        "name": "Memory controller"
+      },
+      "sub_class": {
+        "name": "RAM memory"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 20975,
+        "name": "Alder Lake PCH Shared SRAM"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "unknown",
+      "model": "Intel Alder Lake PCH Shared SRAM",
+      "sysfs_id": "/devices/pci0000:00/0000:00:14.2",
+      "sysfs_bus_id": "0000:00:14.2",
+      "unique_id": "5Dex.1ggSprwY_d1",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 413342203904,
+          "range": 16384,
+          "enabled": false,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "mem",
+          "base": 413342236672,
+          "range": 4096,
+          "enabled": false,
+          "access": "read_write",
+          "prefetch": "no"
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 0,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 20,
+        "function": 2,
+        "base_class": 5,
+        "sub_class": 0,
+        "prog_if": 0,
+        "device": 20975,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 0
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "module_alias": "pci:v00008086d000051EFsv000017AAsd00002315bc05sc00i00"
+    },
+    {
+      "index": 32,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 4,
+        "number": 0
+      },
+      "base_class": {
+        "value": 1,
+        "name": "Mass storage controller"
+      },
+      "sub_class": {
+        "value": 8,
+        "name": "Non-Volatile memory controller"
+      },
+      "pci_interface": {
+        "value": 2,
+        "name": "NVM Express"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 5197,
+        "name": "Samsung Electronics Co Ltd"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 5197,
+        "name": "Samsung Electronics Co Ltd"
+      },
+      "device": {
+        "type": "pci",
+        "value": 43018,
+        "name": "NVMe SSD Controller PM9A1/PM9A3/980PRO"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 43009,
+        "name": "SSD 980 PRO"
+      },
+      "hardware_class": "storage_ctrl",
+      "model": "Samsung Electronics SSD 980 PRO",
+      "attached_to": 30,
+      "sysfs_id": "/devices/pci0000:00/0000:00:06.0/0000:04:00.0",
+      "sysfs_bus_id": "0000:04:00.0",
+      "unique_id": "YmUS.Cm975qxIKm7",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 3156213760,
+          "range": 16384,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "irq",
+          "base": 16,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 1030,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 4,
+        "slot": 0,
+        "function": 0,
+        "base_class": 1,
+        "sub_class": 8,
+        "prog_if": 2,
+        "device": 43018,
+        "vendor": 5197,
+        "sub_device": 43009,
+        "sub_vendor": 5197,
+        "revision": 0,
+        "irq": 16
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "nvme",
+      "driver_module": "nvme",
+      "drivers": [
+        "nvme"
+      ],
+      "driver_modules": [
+        "nvme"
+      ],
+      "module_alias": "pci:v0000144Dd0000A80Asv0000144Dsd0000A801bc01sc08i02"
+    },
+    {
+      "index": 33,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 2
+      },
+      "base_class": {
+        "value": 3,
+        "name": "Display controller"
+      },
+      "sub_class": {
+        "name": "VGA compatible controller"
+      },
+      "pci_interface": {
+        "name": "VGA"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 42913,
+        "name": "Raptor Lake-P [Iris Xe Graphics]"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 4
+      },
+      "hardware_class": "graphics_card",
+      "model": "Intel Raptor Lake-P [Iris Xe Graphics]",
+      "sysfs_id": "/devices/pci0000:00/0000:00:02.0",
+      "sysfs_bus_id": "0000:00:02.0",
+      "unique_id": "_Znp.QyFgY1yX3a4",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 413323493376,
+          "range": 16777216,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "mem",
+          "base": 274877906944,
+          "range": 268435456,
+          "enabled": true,
+          "access": "read_only",
+          "prefetch": "no"
+        },
+        {
+          "type": "io",
+          "base": 8192,
+          "range": 64,
+          "enabled": true,
+          "access": "read_write"
+        },
+        {
+          "type": "mem",
+          "base": 786432,
+          "range": 131072,
+          "enabled": false,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "irq",
+          "base": 171,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 1031,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 2,
+        "function": 0,
+        "base_class": 3,
+        "sub_class": 0,
+        "prog_if": 0,
+        "device": 42913,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 4,
+        "irq": 171
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "vfio-pci",
+      "driver_module": "vfio_pci",
+      "drivers": [
+        "vfio-pci"
+      ],
+      "driver_modules": [
+        "vfio_pci"
+      ],
+      "module_alias": "pci:v00008086d0000A7A1sv000017AAsd00002315bc03sc00i00"
+    },
+    {
+      "index": 34,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 20
+      },
+      "base_class": {
+        "value": 12,
+        "name": "Serial bus controller"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "USB Controller"
+      },
+      "pci_interface": {
+        "value": 48,
+        "name": "XHCI"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 20973,
+        "name": "Alder Lake PCH USB 3.2 xHCI Host Controller"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "usb_controller",
+      "model": "Intel Alder Lake PCH USB 3.2 xHCI Host Controller",
+      "sysfs_id": "/devices/pci0000:00/0000:00:14.0",
+      "sysfs_bus_id": "0000:00:14.0",
+      "unique_id": "MZfG.PtNm95aPZ6F",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 413341974528,
+          "range": 65536,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "irq",
+          "base": 133,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 1030,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 20,
+        "function": 0,
+        "base_class": 12,
+        "sub_class": 3,
+        "prog_if": 48,
+        "device": 20973,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 133
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "xhci_hcd",
+      "driver_module": "xhci_pci",
+      "drivers": [
+        "xhci_hcd"
+      ],
+      "driver_modules": [
+        "xhci_pci"
+      ],
+      "module_alias": "pci:v00008086d000051EDsv000017AAsd00002315bc0Csc03i30"
+    },
+    {
+      "index": 35,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 31
+      },
+      "base_class": {
+        "value": 12,
+        "name": "Serial bus controller"
+      },
+      "sub_class": {
+        "value": 5,
+        "name": "SMBus"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 20899,
+        "name": "Alder Lake PCH-P SMBus Host Controller"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "unknown",
+      "model": "Intel Alder Lake PCH-P SMBus Host Controller",
+      "sysfs_id": "/devices/pci0000:00/0000:00:1f.4",
+      "sysfs_bus_id": "0000:00:1f.4",
+      "unique_id": "fnWp.Xd0Uiy1YZJ0",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 413342220288,
+          "range": 256,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "io",
+          "base": 61344,
+          "range": 32,
+          "enabled": true,
+          "access": "read_write"
+        },
+        {
+          "type": "irq",
+          "base": 16,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 259,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 31,
+        "function": 4,
+        "base_class": 12,
+        "sub_class": 5,
+        "prog_if": 0,
+        "device": 20899,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 16
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "vfio-pci",
+      "driver_module": "vfio_pci",
+      "drivers": [
+        "vfio-pci"
+      ],
+      "driver_modules": [
+        "vfio_pci"
+      ],
+      "module_alias": "pci:v00008086d000051A3sv000017AAsd00002315bc0Csc05i00"
+    },
+    {
+      "index": 36,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 13
+      },
+      "base_class": {
+        "value": 12,
+        "name": "Serial bus controller"
+      },
+      "sub_class": {
+        "value": 3,
+        "name": "USB Controller"
+      },
+      "pci_interface": {
+        "value": 64,
+        "name": "USB4 Host Interface"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 42814,
+        "name": "Raptor Lake-P Thunderbolt 4 NHI #0"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "usb_controller",
+      "model": "Intel Raptor Lake-P Thunderbolt 4 NHI #0",
+      "sysfs_id": "/devices/pci0000:00/0000:00:0d.2",
+      "sysfs_bus_id": "0000:00:0d.2",
+      "unique_id": "ZRIf.WUB_pTR0kX3",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 413341581312,
+          "range": 262144,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "mem",
+          "base": 413342244864,
+          "range": 4096,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        },
+        {
+          "type": "irq",
+          "base": 16,
+          "triggered": 0,
+          "enabled": true
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 1031,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 13,
+        "function": 2,
+        "base_class": 12,
+        "sub_class": 3,
+        "prog_if": 64,
+        "device": 42814,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 16
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "thunderbolt",
+      "driver_module": "thunderbolt",
+      "drivers": [
+        "thunderbolt"
+      ],
+      "driver_modules": [
+        "thunderbolt"
+      ],
+      "module_alias": "pci:v00008086d0000A73Esv000017AAsd00002315bc0Csc03i40"
+    },
+    {
+      "index": 37,
+      "bus": {
+        "value": 4,
+        "name": "PCI"
+      },
+      "slot": {
+        "bus": 0,
+        "number": 10
+      },
+      "base_class": {
+        "value": 17,
+        "name": "Signal processing controller"
+      },
+      "sub_class": {
+        "value": 128,
+        "name": "Signal processing controller"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 32902,
+        "name": "Intel Corporation"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 6058,
+        "name": "Lenovo"
+      },
+      "device": {
+        "type": "pci",
+        "value": 42877,
+        "name": "Raptor Lake Crashlog and Telemetry"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 8981
+      },
+      "revision": {
+        "value": 1
+      },
+      "hardware_class": "unknown",
+      "model": "Intel Raptor Lake Crashlog and Telemetry",
+      "sysfs_id": "/devices/pci0000:00/0000:00:0a.0",
+      "sysfs_bus_id": "0000:00:0a.0",
+      "unique_id": "bSAa.XOL8ExkOi+B",
+      "resources": [
+        {
+          "type": "mem",
+          "base": 413342105600,
+          "range": 32768,
+          "enabled": true,
+          "access": "read_write",
+          "prefetch": "no"
+        }
+      ],
+      "detail": {
+        "type": "pci",
+        "Log": "",
+        "command": 2,
+        "header_type": 0,
+        "secondary_bus": 0,
+        "bus": 0,
+        "slot": 10,
+        "function": 0,
+        "base_class": 17,
+        "sub_class": 128,
+        "prog_if": 0,
+        "device": 42877,
+        "vendor": 32902,
+        "sub_device": 8981,
+        "sub_vendor": 6058,
+        "revision": 1,
+        "irq": 0
+      },
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "intel_vsec",
+      "driver_module": "intel_vsec",
+      "drivers": [
+        "intel_vsec"
+      ],
+      "driver_modules": [
+        "intel_vsec"
+      ],
+      "module_alias": "pci:v00008086d0000A77Dsv000017AAsd00002315bc11sc80i00"
+    },
+    {
+      "index": 38,
+      "bus": {
+        "value": 150,
+        "name": "NVME"
+      },
+      "base_class": {
+        "value": 262,
+        "name": "Mass Storage Device"
+      },
+      "sub_class": {
+        "name": "Disk"
+      },
+      "vendor": {
+        "type": "pci",
+        "value": 5197,
+        "name": "Samsung Electronics Co Ltd"
+      },
+      "sub_vendor": {
+        "type": "pci",
+        "value": 5197,
+        "name": "Samsung Electronics Co Ltd"
+      },
+      "device": {
+        "type": "pci",
+        "value": 43018,
+        "name": "NVMe SSD Controller PM9A1/PM9A3/980PRO"
+      },
+      "sub_device": {
+        "type": "pci",
+        "value": 43009,
+        "name": "SSD 980 PRO"
+      },
+      "hardware_class": "disk",
+      "model": "Samsung Electronics SSD 980 PRO",
+      "attached_to": 32,
+      "sysfs_id": "/class/block/nvme0n1",
+      "sysfs_bus_id": "nvme0",
+      "sysfs_device_link": "/devices/pci0000:00/0000:00:06.0/0000:04:00.0/nvme/nvme0",
+      "unix_device_name": "/dev/nvme0n1",
+      "unix_device_number": {
+        "type": 98,
+        "major": 259,
+        "minor": 0,
+        "range": 0
+      },
+      "unique_id": "GP4z.Ifco1xqm6n6",
+      "resources": [
+        {
+          "type": "disk_geo",
+          "cylinders": 976762,
+          "heads": 64,
+          "sectors": 32,
+          "size": 0,
+          "geo_type": "logical"
+        },
+        {
+          "type": "size",
+          "unit": "sectors",
+          "value_1": 2000409264,
+          "value_2": 512
+        }
+      ],
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "nvme",
+      "driver_module": "nvme",
+      "drivers": [
+        "nvme"
+      ],
+      "driver_modules": [
+        "nvme"
+      ]
+    },
+    {
+      "index": 39,
+      "base_class": {
+        "value": 262,
+        "name": "Mass Storage Device"
+      },
+      "sub_class": {
+        "name": "Disk"
+      },
+      "hardware_class": "disk",
+      "model": "Disk",
+      "sysfs_id": "/class/block/zd0",
+      "unix_device_name": "/dev/zd0",
+      "unix_device_number": {
+        "type": 98,
+        "major": 230,
+        "minor": 0,
+        "range": 16
+      },
+      "unique_id": "XQ0S.Fxp0d3BezAE",
+      "resources": [
+        {
+          "type": "disk_geo",
+          "cylinders": 101,
+          "heads": 16,
+          "sectors": 63,
+          "size": 0,
+          "geo_type": "logical"
+        },
+        {
+          "type": "size",
+          "unit": "sectors",
+          "value_1": 102400,
+          "value_2": 512
+        }
+      ],
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 40,
+      "bus": {
+        "value": 132,
+        "name": "SCSI"
+      },
+      "base_class": {
+        "value": 262,
+        "name": "Mass Storage Device"
+      },
+      "sub_class": {
+        "name": "Disk"
+      },
+      "vendor": {
+        "name": "Samsung"
+      },
+      "device": {
+        "name": "PSSD T7"
+      },
+      "revision": {
+        "name": "0"
+      },
+      "hardware_class": "disk",
+      "model": "Samsung PSSD T7",
+      "attached_to": 34,
+      "sysfs_id": "/class/block/sda",
+      "sysfs_bus_id": "0:0:0:0",
+      "sysfs_device_link": "/devices/pci0000:00/0000:00:14.0/usb4/4-2/4-2:1.0/host0/target0:0:0/0:0:0:0",
+      "unix_device_name": "/dev/sda",
+      "unix_device_number": {
+        "type": 98,
+        "major": 8,
+        "minor": 0,
+        "range": 16
+      },
+      "unique_id": "R7kM.WdjfUjX7wiE",
+      "resources": [
+        {
+          "type": "disk_geo",
+          "cylinders": 60801,
+          "heads": 255,
+          "sectors": 63,
+          "size": 0,
+          "geo_type": "logical"
+        },
+        {
+          "type": "size",
+          "unit": "sectors",
+          "value_1": 976773168,
+          "value_2": 512
+        }
+      ],
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "uas",
+      "driver_module": "uas",
+      "drivers": [
+        "uas",
+        "sd"
+      ],
+      "driver_modules": [
+        "uas",
+        "sd_mod"
+      ]
+    },
+    {
+      "index": 41,
+      "bus": {
+        "value": 134,
+        "name": "USB"
+      },
+      "base_class": {
+        "value": 262,
+        "name": "Mass Storage Device"
+      },
+      "sub_class": {
+        "name": "Disk"
+      },
+      "vendor": {
+        "type": "usb",
+        "value": 1256,
+        "name": "Samsung Electronics Co., Ltd"
+      },
+      "device": {
+        "type": "usb",
+        "value": 16385,
+        "name": "PSSD T7"
+      },
+      "revision": {
+        "name": "1.00"
+      },
+      "hardware_class": "disk",
+      "model": "Samsung Electronics PSSD T7",
+      "attached_to": 48,
+      "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb4/4-2/4-2:1.0",
+      "sysfs_bus_id": "4-2:1.0",
+      "unique_id": "rg_L.8dPSA8OzfYB",
+      "detail": {
+        "type": "usb",
+        "bus": 0,
+        "device_number": 0,
+        "lev": 0,
+        "parent": 0,
+        "port": 0,
+        "count": 0,
+        "connections": 0,
+        "used_connections": 0,
+        "interface_descriptor": 0,
+        "speed": 0,
+        "vendor": 1256,
+        "device": 16385,
+        "revision": 256,
+        "manufacturer": "Samsung",
+        "product": "PSSD T7",
+        "raw_descriptor": {
+          "start": 0,
+          "size": 0,
+          "data": ""
+        },
+        "interface_class": "mass_storage",
+        "interface_subclass": 6,
+        "interface_protocol": 98,
+        "country": 0
+      },
+      "hotplug": "usb",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "uas",
+      "driver_module": "uas",
+      "drivers": [
+        "uas"
+      ],
+      "driver_modules": [
+        "uas"
+      ],
+      "module_alias": "usb:v04E8p4001d0100dc00dsc00dp00ic08isc06ip62in00"
+    },
+    {
+      "index": 42,
+      "bus": {
+        "value": 134,
+        "name": "USB"
+      },
+      "base_class": {
+        "name": "Unclassified device"
+      },
+      "sub_class": {
+        "name": "Unclassified device"
+      },
+      "vendor": {
+        "type": "usb",
+        "value": 1266,
+        "name": "Chicony Electronics Co., Ltd"
+      },
+      "device": {
+        "type": "usb",
+        "value": 46929,
+        "name": "Integrated Camera"
+      },
+      "revision": {
+        "name": "74.20"
+      },
+      "hardware_class": "unknown",
+      "model": "Chicony Electronics Integrated Camera",
+      "attached_to": 44,
+      "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb3/3-8/3-8:1.4",
+      "sysfs_bus_id": "3-8:1.4",
+      "unique_id": "xB+X.j5PRys948DC",
+      "resources": [
+        {
+          "type": "baud",
+          "speed": 480000000,
+          "bits": 0,
+          "stop_bits": 0,
+          "parity": 0,
+          "handshake": 0
+        }
+      ],
+      "detail": {
+        "type": "usb",
+        "bus": 0,
+        "device_number": 0,
+        "lev": 0,
+        "parent": 0,
+        "port": 0,
+        "count": 0,
+        "connections": 0,
+        "used_connections": 0,
+        "interface_descriptor": 4,
+        "speed": 480000000,
+        "vendor": 1266,
+        "device": 46929,
+        "revision": 29728,
+        "manufacturer": "Chicony Electronics Co.,Ltd.",
+        "product": "Integrated Camera",
+        "raw_descriptor": {
+          "start": 0,
+          "size": 0,
+          "data": ""
+        },
+        "device_class": "miscellaneous",
+        "device_subclass": 2,
+        "device_protocol": 1,
+        "interface_class": "application",
+        "interface_subclass": 1,
+        "interface_protocol": 1,
+        "country": 0
+      },
+      "hotplug": "usb",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "usbfs",
+      "drivers": [
+        "usbfs"
+      ],
+      "module_alias": "usb:v04F2pB751d7420dcEFdsc02dp01icFEisc01ip01in04"
+    },
+    {
+      "index": 44,
+      "bus": {
+        "value": 134,
+        "name": "USB"
+      },
+      "base_class": {
+        "value": 266,
+        "name": "Hub"
+      },
+      "vendor": {
+        "type": "usb",
+        "value": 7531,
+        "name": "Linux Foundation"
+      },
+      "device": {
+        "type": "usb",
+        "value": 2,
+        "name": "2.0 root hub"
+      },
+      "revision": {
+        "name": "6.08"
+      },
+      "hardware_class": "hub",
+      "model": "Linux Foundation 2.0 root hub",
+      "attached_to": 34,
+      "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb3/3-0:1.0",
+      "sysfs_bus_id": "3-0:1.0",
+      "unique_id": "uIhY.2DFUsyrieMD",
+      "resources": [
+        {
+          "type": "baud",
+          "speed": 480000000,
+          "bits": 0,
+          "stop_bits": 0,
+          "parity": 0,
+          "handshake": 0
+        }
+      ],
+      "detail": {
+        "type": "usb",
+        "bus": 0,
+        "device_number": 0,
+        "lev": 0,
+        "parent": 0,
+        "port": 0,
+        "count": 0,
+        "connections": 0,
+        "used_connections": 0,
+        "interface_descriptor": 0,
+        "speed": 480000000,
+        "vendor": 7531,
+        "device": 2,
+        "revision": 1544,
+        "manufacturer": "Linux 6.8.12 xhci-hcd",
+        "product": "xHCI Host Controller",
+        "raw_descriptor": {
+          "start": 0,
+          "size": 0,
+          "data": ""
+        },
+        "device_class": "hub",
+        "device_protocol": 1,
+        "interface_class": "hub",
+        "country": 0
+      },
+      "hotplug": "usb",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "hub",
+      "drivers": [
+        "hub"
+      ],
+      "module_alias": "usb:v1D6Bp0002d0608dc09dsc00dp01ic09isc00ip00in00"
+    },
+    {
+      "index": 45,
+      "bus": {
+        "value": 134,
+        "name": "USB"
+      },
+      "base_class": {
+        "value": 2,
+        "name": "Network controller"
+      },
+      "sub_class": {
+        "name": "Ethernet controller"
+      },
+      "vendor": {
+        "type": "usb",
+        "value": 9047,
+        "name": "TP-Link"
+      },
+      "device": {
+        "type": "usb",
+        "value": 1537,
+        "name": "UE300 10/100/1000 LAN (ethernet mode) [Realtek RTL8153]"
+      },
+      "revision": {
+        "name": "30.00"
+      },
+      "hardware_class": "network",
+      "model": "TP-Link UE300 10/100/1000 LAN (ethernet mode) [Realtek RTL8153]",
+      "attached_to": 49,
+      "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9.3/3-9.3:1.0",
+      "sysfs_bus_id": "3-9.3:1.0",
+      "unix_device_name": "enp0s20f0u9u3",
+      "unique_id": "bTTG.AXHV+Nl7go1",
+      "resources": [
+        {
+          "type": "baud",
+          "speed": 480000000,
+          "bits": 0,
+          "stop_bits": 0,
+          "parity": 0,
+          "handshake": 0
+        },
+        {
+          "type": "hwaddr",
+          "address": 51
+        },
+        {
+          "type": "phwaddr",
+          "address": 51
+        },
+        {
+          "Type": "link",
+          "connected": true
+        }
+      ],
+      "detail": {
+        "type": "usb",
+        "bus": 0,
+        "device_number": 0,
+        "lev": 0,
+        "parent": 0,
+        "port": 0,
+        "count": 0,
+        "connections": 0,
+        "used_connections": 0,
+        "interface_descriptor": 0,
+        "speed": 480000000,
+        "vendor": 9047,
+        "device": 1537,
+        "revision": 12288,
+        "manufacturer": "TP-Link",
+        "product": "USB 10/100/1000 LAN",
+        "raw_descriptor": {
+          "start": 0,
+          "size": 0,
+          "data": ""
+        },
+        "interface_class": "vendor_spec",
+        "interface_subclass": 255,
+        "country": 0
+      },
+      "hotplug": "usb",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "r8152",
+      "driver_module": "r8152",
+      "drivers": [
+        "r8152"
+      ],
+      "driver_modules": [
+        "r8152"
+      ],
+      "module_alias": "usb:v2357p0601d3000dc00dsc00dp00icFFiscFFip00in00"
+    },
+    {
+      "index": 46,
+      "bus": {
+        "value": 134,
+        "name": "USB"
+      },
+      "base_class": {
+        "value": 277,
+        "name": "Bluetooth Device"
+      },
+      "vendor": {
+        "type": "usb",
+        "value": 32903,
+        "name": "Intel Corp."
+      },
+      "device": {
+        "type": "usb",
+        "value": 51,
+        "name": "AX211 Bluetooth"
+      },
+      "hardware_class": "bluetooth",
+      "model": "Intel AX211 Bluetooth",
+      "attached_to": 44,
+      "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb3/3-10/3-10:1.0",
+      "sysfs_bus_id": "3-10:1.0",
+      "unique_id": "t1E6._vBIiMryCW3",
+      "resources": [
+        {
+          "type": "baud",
+          "speed": 12000000,
+          "bits": 0,
+          "stop_bits": 0,
+          "parity": 0,
+          "handshake": 0
+        }
+      ],
+      "detail": {
+        "type": "usb",
+        "bus": 0,
+        "device_number": 0,
+        "lev": 0,
+        "parent": 0,
+        "port": 0,
+        "count": 0,
+        "connections": 0,
+        "used_connections": 0,
+        "interface_descriptor": 0,
+        "speed": 12000000,
+        "vendor": 32903,
+        "device": 51,
+        "revision": 0,
+        "raw_descriptor": {
+          "start": 0,
+          "size": 0,
+          "data": ""
+        },
+        "device_class": "wireless",
+        "device_subclass": 1,
+        "device_protocol": 1,
+        "interface_class": "wireless",
+        "interface_subclass": 1,
+        "interface_protocol": 1,
+        "country": 0
+      },
+      "hotplug": "usb",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "btusb",
+      "driver_module": "btusb",
+      "drivers": [
+        "btusb"
+      ],
+      "driver_modules": [
+        "btusb"
+      ],
+      "module_alias": "usb:v8087p0033d0000dcE0dsc01dp01icE0isc01ip01in00"
+    },
+    {
+      "index": 48,
+      "bus": {
+        "value": 134,
+        "name": "USB"
+      },
+      "base_class": {
+        "value": 266,
+        "name": "Hub"
+      },
+      "vendor": {
+        "type": "usb",
+        "value": 7531,
+        "name": "Linux Foundation"
+      },
+      "device": {
+        "type": "usb",
+        "value": 3,
+        "name": "3.0 root hub"
+      },
+      "revision": {
+        "name": "6.08"
+      },
+      "hardware_class": "hub",
+      "model": "Linux Foundation 3.0 root hub",
+      "attached_to": 34,
+      "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb4/4-0:1.0",
+      "sysfs_bus_id": "4-0:1.0",
+      "unique_id": "zPk0.xYNhIwdOaa6",
+      "detail": {
+        "type": "usb",
+        "bus": 0,
+        "device_number": 0,
+        "lev": 0,
+        "parent": 0,
+        "port": 0,
+        "count": 0,
+        "connections": 0,
+        "used_connections": 0,
+        "interface_descriptor": 0,
+        "speed": 0,
+        "vendor": 7531,
+        "device": 3,
+        "revision": 1544,
+        "manufacturer": "Linux 6.8.12 xhci-hcd",
+        "product": "xHCI Host Controller",
+        "raw_descriptor": {
+          "start": 0,
+          "size": 0,
+          "data": ""
+        },
+        "device_class": "hub",
+        "device_protocol": 3,
+        "interface_class": "hub",
+        "country": 0
+      },
+      "hotplug": "usb",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "hub",
+      "drivers": [
+        "hub"
+      ],
+      "module_alias": "usb:v1D6Bp0003d0608dc09dsc00dp03ic09isc00ip00in00"
+    },
+    {
+      "index": 49,
+      "bus": {
+        "value": 134,
+        "name": "USB"
+      },
+      "base_class": {
+        "value": 266,
+        "name": "Hub"
+      },
+      "vendor": {
+        "type": "usb",
+        "value": 1507,
+        "name": "Genesys Logic, Inc."
+      },
+      "device": {
+        "type": "usb",
+        "value": 1544,
+        "name": "Hub"
+      },
+      "revision": {
+        "name": "60.90"
+      },
+      "hardware_class": "hub",
+      "model": "Genesys Logic Hub",
+      "attached_to": 44,
+      "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9:1.0",
+      "sysfs_bus_id": "3-9:1.0",
+      "unique_id": "YccR.d7FDLX76qXB",
+      "resources": [
+        {
+          "type": "baud",
+          "speed": 480000000,
+          "bits": 0,
+          "stop_bits": 0,
+          "parity": 0,
+          "handshake": 0
+        }
+      ],
+      "detail": {
+        "type": "usb",
+        "bus": 0,
+        "device_number": 0,
+        "lev": 0,
+        "parent": 0,
+        "port": 0,
+        "count": 0,
+        "connections": 0,
+        "used_connections": 0,
+        "interface_descriptor": 0,
+        "speed": 480000000,
+        "vendor": 1507,
+        "device": 1544,
+        "revision": 24720,
+        "product": "USB2.0 Hub",
+        "raw_descriptor": {
+          "start": 0,
+          "size": 0,
+          "data": ""
+        },
+        "device_class": "hub",
+        "device_protocol": 1,
+        "interface_class": "hub",
+        "country": 0
+      },
+      "hotplug": "usb",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "hub",
+      "drivers": [
+        "hub"
+      ],
+      "module_alias": "usb:v05E3p0608d6090dc09dsc00dp01ic09isc00ip00in00"
+    },
+    {
+      "index": 51,
+      "bus": {
+        "value": 134,
+        "name": "USB"
+      },
+      "base_class": {
+        "value": 266,
+        "name": "Hub"
+      },
+      "vendor": {
+        "type": "usb",
+        "value": 7531,
+        "name": "Linux Foundation"
+      },
+      "device": {
+        "type": "usb",
+        "value": 2,
+        "name": "2.0 root hub"
+      },
+      "revision": {
+        "name": "6.08"
+      },
+      "hardware_class": "hub",
+      "model": "Linux Foundation 2.0 root hub",
+      "attached_to": 17,
+      "sysfs_id": "/devices/pci0000:00/0000:00:0d.0/usb1/1-0:1.0",
+      "sysfs_bus_id": "1-0:1.0",
+      "unique_id": "k4bc.PHlrgc2WtEA",
+      "resources": [
+        {
+          "type": "baud",
+          "speed": 480000000,
+          "bits": 0,
+          "stop_bits": 0,
+          "parity": 0,
+          "handshake": 0
+        }
+      ],
+      "detail": {
+        "type": "usb",
+        "bus": 0,
+        "device_number": 0,
+        "lev": 0,
+        "parent": 0,
+        "port": 0,
+        "count": 0,
+        "connections": 0,
+        "used_connections": 0,
+        "interface_descriptor": 0,
+        "speed": 480000000,
+        "vendor": 7531,
+        "device": 2,
+        "revision": 1544,
+        "manufacturer": "Linux 6.8.12 xhci-hcd",
+        "product": "xHCI Host Controller",
+        "raw_descriptor": {
+          "start": 0,
+          "size": 0,
+          "data": ""
+        },
+        "device_class": "hub",
+        "device_protocol": 1,
+        "interface_class": "hub",
+        "country": 0
+      },
+      "hotplug": "usb",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "hub",
+      "drivers": [
+        "hub"
+      ],
+      "module_alias": "usb:v1D6Bp0002d0608dc09dsc00dp01ic09isc00ip00in00"
+    },
+    {
+      "index": 54,
+      "bus": {
+        "value": 134,
+        "name": "USB"
+      },
+      "base_class": {
+        "name": "Unclassified device"
+      },
+      "sub_class": {
+        "name": "Unclassified device"
+      },
+      "vendor": {
+        "type": "usb",
+        "value": 1739,
+        "name": "Synaptics, Inc."
+      },
+      "device": {
+        "type": "usb",
+        "value": 252,
+        "name": "Prometheus Fingerprint Reader"
+      },
+      "hardware_class": "unknown",
+      "model": "Synaptics Prometheus Fingerprint Reader",
+      "attached_to": 44,
+      "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb3/3-6/3-6:1.0",
+      "sysfs_bus_id": "3-6:1.0",
+      "unique_id": "W5SY.WXkCo1o5lb2",
+      "resources": [
+        {
+          "type": "baud",
+          "speed": 12000000,
+          "bits": 0,
+          "stop_bits": 0,
+          "parity": 0,
+          "handshake": 0
+        }
+      ],
+      "detail": {
+        "type": "usb",
+        "bus": 0,
+        "device_number": 0,
+        "lev": 0,
+        "parent": 0,
+        "port": 0,
+        "count": 0,
+        "connections": 0,
+        "used_connections": 0,
+        "interface_descriptor": 0,
+        "speed": 12000000,
+        "vendor": 1739,
+        "device": 252,
+        "revision": 0,
+        "raw_descriptor": {
+          "start": 0,
+          "size": 0,
+          "data": ""
+        },
+        "device_class": "vendor_spec",
+        "device_subclass": 16,
+        "device_protocol": 255,
+        "interface_class": "vendor_spec",
+        "country": 0
+      },
+      "hotplug": "usb",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "usbfs",
+      "drivers": [
+        "usbfs"
+      ],
+      "module_alias": "usb:v06CBp00FCd0000dcFFdsc10dpFFicFFisc00ip00in00"
+    },
+    {
+      "index": 55,
+      "bus": {
+        "value": 134,
+        "name": "USB"
+      },
+      "base_class": {
+        "value": 266,
+        "name": "Hub"
+      },
+      "vendor": {
+        "type": "usb",
+        "value": 7531,
+        "name": "Linux Foundation"
+      },
+      "device": {
+        "type": "usb",
+        "value": 3,
+        "name": "3.0 root hub"
+      },
+      "revision": {
+        "name": "6.08"
+      },
+      "hardware_class": "hub",
+      "model": "Linux Foundation 3.0 root hub",
+      "attached_to": 17,
+      "sysfs_id": "/devices/pci0000:00/0000:00:0d.0/usb2/2-0:1.0",
+      "sysfs_bus_id": "2-0:1.0",
+      "unique_id": "pBe4.Idt27aqBpS3",
+      "detail": {
+        "type": "usb",
+        "bus": 0,
+        "device_number": 0,
+        "lev": 0,
+        "parent": 0,
+        "port": 0,
+        "count": 0,
+        "connections": 0,
+        "used_connections": 0,
+        "interface_descriptor": 0,
+        "speed": 0,
+        "vendor": 7531,
+        "device": 3,
+        "revision": 1544,
+        "manufacturer": "Linux 6.8.12 xhci-hcd",
+        "product": "xHCI Host Controller",
+        "raw_descriptor": {
+          "start": 0,
+          "size": 0,
+          "data": ""
+        },
+        "device_class": "hub",
+        "device_protocol": 3,
+        "interface_class": "hub",
+        "country": 0
+      },
+      "hotplug": "usb",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "hub",
+      "drivers": [
+        "hub"
+      ],
+      "module_alias": "usb:v1D6Bp0003d0608dc09dsc00dp03ic09isc00ip00in00"
+    },
+    {
+      "index": 61,
+      "base_class": {
+        "value": 263,
+        "name": "Network Interface"
+      },
+      "sub_class": {
+        "name": "Loopback"
+      },
+      "hardware_class": "network_interface",
+      "model": "Loopback network interface",
+      "sysfs_id": "/class/net/lo",
+      "unix_device_name": "lo",
+      "unique_id": "ZsBS.GQNx7L4uPNA",
+      "resources": [
+        {
+          "Type": "link",
+          "connected": true
+        }
+      ],
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {}
+    },
+    {
+      "index": 66,
+      "base_class": {
+        "value": 263,
+        "name": "Network Interface"
+      },
+      "sub_class": {
+        "value": 1,
+        "name": "Ethernet"
+      },
+      "hardware_class": "network_interface",
+      "model": "Ethernet network interface",
+      "attached_to": 45,
+      "sysfs_id": "/class/net/enp0s20f0u9u3",
+      "sysfs_device_link": "/devices/pci0000:00/0000:00:14.0/usb3/3-9/3-9.3/3-9.3:1.0",
+      "unix_device_name": "enp0s20f0u9u3",
+      "unique_id": "t8Cl.ndpeucax6V1",
+      "resources": [
+        {
+          "type": "hwaddr",
+          "address": 51
+        },
+        {
+          "type": "phwaddr",
+          "address": 51
+        },
+        {
+          "Type": "link",
+          "connected": true
+        }
+      ],
+      "hotplug": "none",
+      "hotplug_slot": 0,
+      "is": {},
+      "driver": "r8152",
+      "driver_module": "r8152",
+      "drivers": [
+        "r8152"
+      ],
+      "driver_modules": [
+        "r8152"
+      ]
+    }
+  ]
+}
