@@ -36,7 +36,7 @@ let
     remove
     splitString
     subtractLists
-    uniqueStrings
+    unique
   ;
 
   inherit (import ../../build-support/lib/cmake.nix { inherit lib stdenv; }) makeCMakeFlags;
@@ -260,7 +260,7 @@ let
 
   hardeningDisable' = if any (x: x == "fortify") hardeningDisable
     # disabling fortify implies fortify3 should also be disabled
-    then uniqueStrings (hardeningDisable ++ [ "fortify3" ])
+    then unique (hardeningDisable ++ [ "fortify3" ])
     else hardeningDisable;
   defaultHardeningFlags =
     (if stdenv.hasCC then stdenv.cc else {}).defaultHardeningFlags or
@@ -432,22 +432,22 @@ else let
             allPropagatedDependencies;
 
         computedImpureHostDeps =
-          uniqueStrings (concatMap (input: input.__propagatedImpureHostDeps or [])
+          unique (concatMap (input: input.__propagatedImpureHostDeps or [])
             (stdenv.extraNativeBuildInputs
             ++ stdenv.extraBuildInputs
             ++ allDependencies));
 
         computedPropagatedImpureHostDeps =
-          uniqueStrings (concatMap (input: input.__propagatedImpureHostDeps or [])
+          unique (concatMap (input: input.__propagatedImpureHostDeps or [])
             allPropagatedDependencies);
     in {
       inherit __darwinAllowLocalNetworking;
       # TODO: remove `unique` once nix has a list canonicalization primitive
       __sandboxProfile =
       let profiles = [ stdenv.extraSandboxProfile ] ++ computedSandboxProfile ++ computedPropagatedSandboxProfile ++ [ propagatedSandboxProfile sandboxProfile ];
-          final = concatStringsSep "\n" (filter (x: x != "") (uniqueStrings profiles));
+          final = concatStringsSep "\n" (filter (x: x != "") (unique profiles));
       in final;
-      __propagatedSandboxProfile = uniqueStrings (computedPropagatedSandboxProfile ++ [ propagatedSandboxProfile ]);
+      __propagatedSandboxProfile = unique (computedPropagatedSandboxProfile ++ [ propagatedSandboxProfile ]);
       __impureHostDeps = computedImpureHostDeps ++ computedPropagatedImpureHostDeps ++ __propagatedImpureHostDeps ++ __impureHostDeps ++ stdenv.__extraImpureHostDeps ++ [
         "/dev/zero"
         "/dev/random"
