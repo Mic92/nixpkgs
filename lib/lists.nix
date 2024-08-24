@@ -1790,7 +1790,12 @@ rec {
 
     :::
   */
-  unique = foldl' (acc: e: if elem e acc then acc else acc ++ [ e ]) [];
+  #unique = foldl' (acc: e: if elem e acc then acc else acc ++ [ e ]) [];
+  unique = list: throw "deprecated";
+
+  uniqueStrings = names: builtins.attrNames (builtins.listToAttrs (builtins.map (n: { name = builtins.toString n; value = null; }) names));
+  uniqueByKey = keyFunc: names: builtins.attrValues (builtins.listToAttrs (builtins.map (n: { name = keyFunc n; value = n; }) names));
+
 
   /**
     Check if list contains only unique elements. O(n^2) complexity.
