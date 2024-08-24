@@ -121,7 +121,7 @@ let
 
       # Check that every extension has a unqiue .name attribute
       # and an extid attribute
-      extensions = if nameArray != (lib.uniqueStrings nameArray) then
+      extensions = if nameArray != (lib.unique nameArray) then
         throw "Firefox addon name needs to be unique"
       else if browser.requireSigning || !browser.allowAddonSideload then
         throw "Nix addons are only supported with signature enforcement disabled and addon sideloading enabled (eg. LibreWolf)"
