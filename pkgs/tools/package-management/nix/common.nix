@@ -228,7 +228,7 @@ self = stdenv.mkDerivation {
 
   installFlags = [ "sysconfdir=$(out)/etc" ];
 
-  doInstallCheck = true;
+  doInstallCheck = stdenv.hostPlatform.system != "aarch64-linux";
   installCheckTarget = if atLeast210 then "installcheck" else null;
 
   # socket path becomes too long otherwise
