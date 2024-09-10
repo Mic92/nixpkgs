@@ -185,8 +185,8 @@ in lib.makeExtensible (self: ({
   };
 
   nix_2_24 = ((common {
-    version = "2.24.5";
-    hash = "sha256-mYvdPwl4gcc17UAomkbbOJEgxBQpowmJDrRMWtlYzFY=";
+    version = "2.24.6";
+    hash = "sha256-kgq3B+olx62bzGD5C6ighdAoDweLq+AebxVHcDnKH4w=";
     self_attribute_name = "nix_2_24";
   }).override (lib.optionalAttrs (stdenv.isDarwin && stdenv.isx86_64) {
     # Fix the following error with the default x86_64-darwin SDK:
@@ -222,11 +222,7 @@ in lib.makeExtensible (self: ({
     # allocation function Clang uses with this setting actually works
     # all the way back to 10.6.
     stdenv = overrideSDK stdenv { darwinMinVersion = "10.13"; };
-  })).overrideAttrs (o: {
-    meta.knownVulnerabilities = [
-      "Nix >= 2.24.0 and master have a vulnerability. Please downgrade from nixVersions.git to nixVersions.nix_2_23"
-    ];
-  });
+  }));
 
   latest = self.nix_2_23;
 
