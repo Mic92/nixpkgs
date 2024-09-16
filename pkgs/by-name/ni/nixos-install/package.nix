@@ -6,6 +6,8 @@
   nix,
   jq,
   nixos-enter,
+  man,
+  stdenv,
   util-linuxMinimal,
 }:
 substituteAll {
@@ -14,20 +16,29 @@ substituteAll {
 
   inherit runtimeShell nix;
 
+  nativeBuildInputs = [ installShellFiles ];
+
   path = lib.makeBinPath [
     jq
     nixos-enter
+    man
     util-linuxMinimal
   ];
 
   dir = "bin";
   isExecutable = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  manbin = lib.getExe man;
+  nixosInstallManpage = "${placeholder "out"}/share/man/man8/nixos-install.8";
 
-  postInstall = ''
-    installManPage ${./nixos-install.8}
-  '';
+  postInstall =
+    ''
+      installManPage ${./nixos-install.8}
+    ''
+    + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+      $out/bin/nixos-install --help >/dev/null
+    '';
+
 
   meta.mainProgram = "nixos-install";
 }

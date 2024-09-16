@@ -90,7 +90,7 @@ while [ "$#" -gt 0 ]; do
             extraBuildFlags+=("$i")
             ;;
         --help)
-            exec man nixos-install
+            exec @manbin@ -l @nixosInstallManpage@
             exit 1
             ;;
         --debug)
