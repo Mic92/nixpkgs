@@ -3,6 +3,8 @@
 
 set -e
 
+export PATH=@path@:$PATH
+
 # Re-exec ourselves in a private mount namespace so that our bind
 # mounts get cleaned up automatically.
 if [ -z "$NIXOS_ENTER_REEXEC" ]; then
@@ -30,7 +32,7 @@ while [ "$#" -gt 0 ]; do
             system="$1"; shift 1
             ;;
         --help)
-            exec man nixos-enter
+            exec @manbin@ -l @nixosEnterManpage@
             exit 1
             ;;
         --command|-c)
