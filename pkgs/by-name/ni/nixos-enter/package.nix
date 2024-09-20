@@ -31,5 +31,11 @@ substituteAll {
     ''}
   '';
 
-  meta.mainProgram = "nixos-enter";
+  meta.mainProgram = {
+    description = "Run a command in a NixOS chroot environment";
+    homepage = "https://github.com/NixOS/nixpkgs/tree/master/pkgs/by-name/in/nixos-enter";
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
+    mainProgram = "nixos-enter";
+  };
 }
