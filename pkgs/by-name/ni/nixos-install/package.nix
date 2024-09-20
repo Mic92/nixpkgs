@@ -39,6 +39,10 @@ substituteAll {
       $out/bin/nixos-install --help >/dev/null
     '';
 
-
-  meta.mainProgram = "nixos-install";
+  meta = {
+    description = "Install bootloader and NixOS";
+    homepage = "https://github.com/NixOS/nixpkgs/tree/master/pkgs/by-name/in/nixos-install";
+    license = lib.licenses.mit;
+    mainProgram = "nixos-install";
+  };
 }
