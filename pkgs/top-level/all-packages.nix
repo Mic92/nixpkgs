@@ -3297,6 +3297,8 @@ with pkgs;
 
   maskromtool = qt6Packages.callPackage ../tools/graphics/maskromtool { };
 
+  matrix-sliding-sync = callPackage ../servers/matrix-synapse/sliding-sync { };
+
   matrix-synapse-plugins = recurseIntoAttrs matrix-synapse-unwrapped.plugins;
 
   maubot = with python3Packages; toPythonApplication maubot;
