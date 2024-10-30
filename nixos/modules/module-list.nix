@@ -768,6 +768,7 @@
   ./services/matrix/hookshot.nix
   ./services/matrix/lk-jwt-service.nix
   ./services/matrix/matrix-alertmanager.nix
+  ./services/matrix/matrix-sliding-sync.nix
   ./services/matrix/maubot.nix
   ./services/matrix/mautrix-discord.nix
   ./services/matrix/mautrix-meta.nix
@@ -777,6 +778,8 @@
   ./services/matrix/mjolnir.nix
   ./services/matrix/mx-puppet-discord.nix
   ./services/matrix/pantalaimon.nix
+  ./services/matrix/matrix-sliding-sync.nix
+  ./services/matrix/synapse.nix
   ./services/matrix/synapse-auto-compressor.nix
   ./services/matrix/synapse.nix
   ./services/misc/airsonic.nix
