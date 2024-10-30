@@ -190,9 +190,6 @@ in
       "marathon"
     ] "The corresponding package was removed from nixpkgs.")
     (mkRemovedOptionModule [ "services" "mathics" ] "The Mathics module has been removed")
-    (mkRemovedOptionModule [ "services" "matrix-sliding-sync" ]
-      "The matrix-sliding-sync package has been removed, since matrix-synapse incorporated its functionality. Remove `services.sliding-sync` from your NixOS Configuration, and the `.well-known` record for `org.matrix.msc3575.proxy` from your webserver"
-    )
     (mkRemovedOptionModule [
       "services"
       "mx-puppet-discord"
