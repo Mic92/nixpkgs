@@ -829,6 +829,7 @@
   ./services/matrix/lk-jwt-service.nix
   ./services/matrix/matrix-alertmanager.nix
   ./services/matrix/matrix-authentication-service.nix
+  ./services/matrix/matrix-sliding-sync.nix
   ./services/matrix/maubot.nix
   ./services/matrix/mautrix-discord.nix
   ./services/matrix/mautrix-meta.nix

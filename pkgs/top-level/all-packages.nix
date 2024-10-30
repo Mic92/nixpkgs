@@ -2344,6 +2344,8 @@ with pkgs;
 
   kzipmix = pkgsi686Linux.callPackage ../tools/compression/kzipmix { };
 
+  matrix-sliding-sync = callPackage ../servers/matrix-synapse/sliding-sync { };
+
   matrix-synapse-plugins = recurseIntoAttrs matrix-synapse-unwrapped.plugins;
 
   md2gemini = with python3.pkgs; toPythonApplication md2gemini;
