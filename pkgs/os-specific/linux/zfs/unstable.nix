@@ -2,7 +2,6 @@
 , kernel ? null
 , stdenv
 , nixosTests
-, fetchpatch
 , ...
 } @ args:
 
