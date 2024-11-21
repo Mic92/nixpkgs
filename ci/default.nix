@@ -9,9 +9,10 @@ in
 let
   nixpkgs' =
     if nixpkgs == null then
-      fetchTarball {
-        url = "https://github.com/NixOS/nixpkgs/archive/${pinnedNixpkgs.rev}.tar.gz";
-        sha256 = pinnedNixpkgs.sha256;
+      builtins.fetchGit {
+        url = "https://github.com/NixOS/nixpkgs";
+        rev = pinnedNixpkgs.rev;
+        shallow = true;
       }
     else
       nixpkgs;
