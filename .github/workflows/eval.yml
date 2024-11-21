@@ -16,6 +16,11 @@ on:
       - haskell-updates
       - python-updates
 
+# Cancel previous if someone pushed an update
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions: {}
 
 jobs:
