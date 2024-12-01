@@ -256,13 +256,18 @@ let
       }
       ''
         mkdir $out
-        jq -n -f ${./compare.jq} \
+        jq -n -f ${./compare-outpaths.jq} \
           --slurpfile before ${beforeResultDir}/outpaths.json \
           --slurpfile after ${afterResultDir}/outpaths.json \
           > $out/changed-paths.json
 
-        jq -n -f ${./generate-step-summary.jq} < $out/changed-paths.json > $out/step-summary.md
-        # TODO: Compare eval stats
+        jq -n -f ${./compare-eval-stats.jq} \
+          --slurpfile before ${beforeResultDir}/outpaths.json \
+          --slurpfile after ${afterResultDir}/outpaths.json \
+          > $out/changed-paths.json
+
+        jq -n -f ${./changed-paths-markdown.jq} < $out/changed-paths.json > $out/step-summary.md
+        jq -n -f ${./eval-stats-markdown.jq} < $out/changed-paths.json >> $out/step-summary.md
       '';
 
   full =
