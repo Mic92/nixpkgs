@@ -3,7 +3,14 @@ rec {
   # Borrowed from https://github.com/NixOS/nixpkgs/pull/355616
   uniqueStrings = list: builtins.attrNames (builtins.groupBy lib.id list);
 
-  _processSystemPath =
+  # Turns
+  #   "hello.aarch64-linux"
+  # into
+  #   {
+  #     name = "hello";
+  #     system = "aarch64-linux";
+  #   }
+  processSystemPath =
     packageSystemPath:
     let
       # python312Packages.torch.aarch64-linux -> ["python312Packages" "torch" "aarch64-linux"]
@@ -41,7 +48,7 @@ rec {
     packageSystemPaths:
     builtins.attrNames (
       builtins.removeAttrs (builtins.groupBy (
-        packageSystemPath: (_processSystemPath packageSystemPath).name
+        packageSystemPath: (processSystemPath packageSystemPath).name
       ) packageSystemPaths) [ "" ]
     );
 
@@ -71,35 +78,54 @@ rec {
 
   # Turns
   # [
-  #   "hello.aarch64-linux"
-  #   "hello.x86_64-linux"
-  #   "hello.aarch64-darwin"
-  #   "hello.x86_64-darwin"
-  #   "bye.x86_64-darwin"
-  #   "bye.aarch64-darwin"
+  #   { name = "hello"; system = "aarch64-linux"; }
+  #   { name = "hello"; system = "x86_64-linux"; }
+  #   { name = "hello"; system = "aarch64-darwin"; }
+  #   { name = "hello"; system = "x86_64-darwin"; }
+  #   { name = "bye"; system = "aarch64-darwin"; }
+  #   { name = "bye"; system = "x86_64-darwin"; }
   # ]
   #
   # into
   #
   # {
-  #   linux = [
-  #     "hello"
-  #   ];
-  #   darwin = [
-  #     "hello"
-  #     "bye"
-  #   ];
+  #   aarch64-linux = [ "hello" ];
+  #   x86_64-linux = [ "hello" ];
+  #   aarch64-darwin = [ "hello" "bye" ];
+  #   x86_64-darwin = [ "hello" "bye" ];
+  # }
+  groupByPlatform =
+    systemPaths:
+    let
+      systemPathsByPlatform = builtins.groupBy (systemPath: systemPath.system) systemPaths;
+      extractPackageNames = map (systemPath: systemPath.name);
+    in
+    lib.mapAttrs (_: extractPackageNames) systemPathsByPlatform;
+
+  # Turns
+  # [
+  #   { name = "hello"; system = "aarch64-linux"; }
+  #   { name = "hello"; system = "x86_64-linux"; }
+  #   { name = "hello"; system = "aarch64-darwin"; }
+  #   { name = "hello"; system = "x86_64-darwin"; }
+  #   { name = "bye"; system = "aarch64-darwin"; }
+  #   { name = "bye"; system = "x86_64-darwin"; }
+  # ]
+  #
+  # into
+  #
+  # {
+  #   linux = [ "hello" ];
+  #   darwin = [ "hello" "bye" ];
   # }
   groupByKernel =
     systemPaths:
     let
-      systemPaths' = builtins.map _processSystemPath systemPaths;
-
       filterKernel =
         kernel:
         builtins.attrNames (
           builtins.groupBy (systemPath: systemPath.name) (
-            builtins.filter (systemPath: lib.hasSuffix kernel systemPath.system) systemPaths'
+            builtins.filter (systemPath: lib.hasSuffix kernel systemPath.system) systemPaths
           )
         );
     in

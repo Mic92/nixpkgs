@@ -11,6 +11,8 @@ let
   inherit (import ./utils.nix { inherit lib; })
     diff
     groupByKernel
+    processSystemPath
+    groupByPlatform
     extractPackageNames
     getLabels
     uniqueStrings
@@ -25,8 +27,10 @@ let
   changed-paths =
     let
       rebuilds = uniqueStrings (diffAttrs.added ++ diffAttrs.changed);
+      rebuildsAttrs = builtins.map processSystemPath rebuilds;
 
-      rebuildsByKernel = groupByKernel rebuilds;
+      rebuildsByPlatform = groupByPlatform rebuildsAttrs;
+      rebuildsByKernel = groupByKernel rebuildsAttrs;
       rebuildCountByKernel = lib.mapAttrs (
         kernel: kernelRebuilds: lib.length kernelRebuilds
       ) rebuildsByKernel;
@@ -34,7 +38,7 @@ let
     writeText "changed-paths.json" (
       builtins.toJSON {
         attrdiff = lib.mapAttrs (_: v: extractPackageNames v) diffAttrs;
-        inherit rebuildsByKernel rebuildCountByKernel;
+        inherit rebuildsByPlatform rebuildsByKernel rebuildCountByKernel;
         labels = getLabels rebuildCountByKernel;
       }
     );
