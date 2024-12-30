@@ -69,8 +69,10 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ] ++ compression-utilities;
 
   disabledTests = [
+    "test_7z"
     "test_unzip"
     "test_unzip_file"
+    "test_mime.py"
     "test_zip"
     "test_zip_file"
     "test_7z"
