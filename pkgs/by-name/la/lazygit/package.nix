@@ -8,13 +8,13 @@
 # Regression in go1.23 see https://github.com/jesseduffield/lazygit/issues/4002
 buildGo122Module rec {
   pname = "lazygit";
-  version = "0.45.2";
+  version = "0.45.2-unstable-2025-01-27";
 
   src = fetchFromGitHub {
     owner = "jesseduffield";
     repo = pname;
-    tag = "v${version}";
-    hash = "sha256-B8z0NqCFdCAYVZnujfDJ9Y4qFXuhy5A/RG51Qb2J4ts=";
+    rev =  "372282429833f29f114dd149a4d19078c33a9e5c";
+    hash = "sha256-cwGzb1aCoiXQ83uQjffaTv/7Q+oUlhEA3nNVoYs2sos=";
   };
 
   vendorHash = null;
