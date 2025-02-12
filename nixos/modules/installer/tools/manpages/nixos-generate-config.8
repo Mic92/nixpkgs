@@ -12,6 +12,7 @@
 .Op Fl -force
 .Op Fl -root Ar root
 .Op Fl -dir Ar dir
+.Op Fl -flake Ar flake
 .
 .
 .
@@ -68,7 +69,17 @@ instead of
 .It Fl -force
 Overwrite
 .Pa /etc/nixos/configuration.nix
-if it already exists.
+(and
+.Pa /etc/nixos/flake.nix
+if
+.Bd -literal
+--flake
+.Ed
+is passed) if already present.
+.
+.It Fl -flake
+Also generate
+.Pa /etc/nixos/flake.nix
 .
 .It Fl -no-filesystems
 Omit everything concerning file systems and swap devices from the hardware configuration.
