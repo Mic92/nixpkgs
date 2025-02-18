@@ -64,9 +64,9 @@ def test_build_flake(mock_run: Mock, monkeypatch: MonkeyPatch, tmpdir: Path) -> 
     mock_run.assert_called_with(
         [
             "nix",
+            "build",
             "--extra-experimental-features",
             "nix-command flakes",
-            "build",
             "--print-out-paths",
             ".#nixosConfigurations.hostname.config.system.build.toplevel",
             "--no-link",
@@ -214,9 +214,9 @@ def test_build_remote_flake(
             call(
                 [
                     "nix",
+                    "build",
                     "--extra-experimental-features",
                     "nix-command flakes",
-                    "build",
                     "/path/to/file^*",
                     "--print-out-paths",
                     "--build",

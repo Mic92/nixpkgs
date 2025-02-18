@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import shutil
 import textwrap
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
@@ -30,6 +31,14 @@ from .utils import Args, dict_to_flags
 FLAKE_FLAGS: Final = ["--extra-experimental-features", "nix-command flakes"]
 FLAKE_REPL_TEMPLATE: Final = "repl.nix.template"
 logger = logging.getLogger(__name__)
+
+
+def nix_nom_tool() -> str:
+    "Return `nom` and `nom-shell` if found in $PATH"
+    if shutil.which("nom") and shutil.which("nom-shell"):
+        return "nom"
+
+    return "nix"
 
 
 def build(
@@ -62,9 +71,9 @@ def build_flake(
     Returns the built attribute as path.
     """
     run_args = [
-        "nix",
-        *FLAKE_FLAGS,
+        nix_nom_tool(),
         "build",
+        *FLAKE_FLAGS,
         "--print-out-paths",
         flake.to_attr(attr),
         *dict_to_flags(flake_build_flags),
