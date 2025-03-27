@@ -4,6 +4,8 @@
   buildFHSEnv,
   fetchzip,
   nix-update-script,
+  autoPatchelfHook,
+  stdenv,
 }:
 
 let
@@ -52,6 +54,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-8nB8vlrSy+949HiJRCa9yFqu/GAaluFH1VzE63AUUs8=";
     stripRoot = false;
   };
+
+  buildInputs = [ stdenv.cc.cc ];
+
+  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
   installPhase = ''
     runHook preInstall
