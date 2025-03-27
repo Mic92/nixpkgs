@@ -3,6 +3,8 @@
   stdenvNoCC,
   fetchzip,
   nix-update-script,
+  autoPatchelfHook,
+  stdenv,
 }:
 
 let
@@ -37,6 +39,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   npmDepsHash = "sha256-PLX/mN7xu8gMh2BkkyTncP3+rJ3nBmX+pHxl0ONXbe4=";
+
+  buildInputs = [ stdenv.cc.cc ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+
   installPhase = ''
     runHook preInstall
 
