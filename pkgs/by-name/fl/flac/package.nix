@@ -27,13 +27,18 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
     doxygen
     graphviz
-    pandoc
     pkg-config
-  ];
+  ] ++ lib.optional (!stdenv.buildPlatform.isRiscV64) pandoc;
 
   buildInputs = [ libogg ];
 
-  cmakeFlags = lib.optionals (!stdenv.hostPlatform.isStatic) [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags =
+    lib.optionals (!stdenv.hostPlatform.isStatic) [
+      "-DBUILD_SHARED_LIBS=ON"
+    ]
+    ++ lib.optionals (stdenv.buildPlatform.isRiscV64) [
+      "-DINSTALL_MANPAGES=OFF"
+    ];
 
   CFLAGS = [
     "-O3"
@@ -44,13 +49,16 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [ ./package.patch ];
   doCheck = true;
 
-  outputs = [
-    "bin"
-    "dev"
-    "doc"
-    "man"
-    "out"
-  ];
+  outputs =
+    [
+      "bin"
+      "dev"
+      "doc"
+      "out"
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.isRiscV64) [
+      "man"
+    ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
