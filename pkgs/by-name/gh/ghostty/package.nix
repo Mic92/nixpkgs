@@ -21,6 +21,7 @@
   versionCheckHook,
   wrapGAppsHook4,
   zig_0_13,
+  fetchpatch2,
   # Usually you would override `zig.hook` with this, but we do that internally
   # since upstream recommends a non-default level
   # https://github.com/ghostty-org/ghostty/blob/4b4d4062dfed7b37424c7210d1230242c709e990/PACKAGING.md#build-options
@@ -62,6 +63,13 @@ stdenv.mkDerivation (finalAttrs: {
     name = "${finalAttrs.pname}-cache-${finalAttrs.version}";
     zig = zig_0_13;
   };
+
+  patches = [
+    (fetchpatch2 {
+      url = "https://patch-diff.githubusercontent.com/raw/ghostty-org/ghostty/pull/7430.patch";
+      hash = "sha256-KLIdoQR3cmLLew2kGXpMqc9hmRBhBwS3eGkquFrIDEc=";
+    })
+  ];
 
   strictDeps = true;
 
