@@ -43,7 +43,7 @@ jobs:
              in pkgsAndTests' --argstr packages '${{ inputs.packages }}'
 
       - name: Post build status comment if part of a pull request
-        uses: actions/github-script@4020e461acd7a80762cdfff123a1fde368246fa4
+        uses: actions/github-script@5ee2b97722aeebb4c5d5c867345a6745cd868065
         with:
           script: |
             const { context, github } = require('@actions/github');
