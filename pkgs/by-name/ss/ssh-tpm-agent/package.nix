@@ -4,6 +4,7 @@
   fetchFromGitHub,
   nix-update-script,
   openssl,
+  fetchpatch2
 }:
 
 buildGoModule rec {
@@ -18,6 +19,14 @@ buildGoModule rec {
   };
 
   proxyVendor = true;
+
+  patches = [
+    # https://github.com/Foxboron/ssh-tpm-agent/pull/94
+    (fetchpatch2 {
+      url = "https://github.com/Foxboron/ssh-tpm-agent/commit/5546f4a934f010bee4ef8cd0d7920132ed09308a.patch";
+      hash = "";
+    })
+  ];
 
   vendorHash = "sha256-njKyBfTG/QCPBBsj3Aom42cv2XqLv4YeS4DhwNQNaLA=";
 
