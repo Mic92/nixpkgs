@@ -324,6 +324,31 @@ let
         ''
     )}
 
+    ${lib.optionalString cfg.virtiofs.enable ''
+      # Start virtiofsd daemons for each shared directory
+      ${concatStringsSep "\n" (
+        mapAttrsToList (tag: share: ''
+           ${hostPkgs.virtiofsd}/bin/virtiofsd \
+            --xattr \
+            --socket-path virtiofs-${config.system.name}-${tag}.sock \
+            --sandbox none \
+            --seccomp none \
+            --no-announce-submounts \
+            --shared-dir ${share.source} &
+        '') config.virtualisation.sharedDirectories
+      )}
+
+      # Give virtiofsd daemons time to initialize before starting QEMU
+      ${concatStringsSep "\n" (
+        mapAttrsToList (tag: share: ''
+          while [ ! -e "virtiofs-${config.system.name}-${tag}.sock" ]; do
+            echo "Waiting for virtiofs-${config.system.name}-${tag}.sock to be created..."
+            sleep 1
+          done
+        '') config.virtualisation.sharedDirectories
+      )}
+    ''}
+
     # Start QEMU.
     exec ${
       qemu-common.qemuBinaryWith {
@@ -337,12 +362,22 @@ let
         -device virtio-rng-pci \
         ${concatStringsSep " " config.virtualisation.qemu.networkingOptions} \
         ${
-          concatStringsSep " \\\n    " (
-            mapAttrsToList (
-              tag: share:
-              "-virtfs local,path=${share.source},security_model=${share.securityModel},mount_tag=${tag}"
-            ) config.virtualisation.sharedDirectories
-          )
+          if cfg.virtiofs.enable then
+            # Use virtiofs with vhost-user-fs devices
+            concatStringsSep " \\\n    " (
+              mapAttrsToList (
+                tag: share:
+                "-chardev socket,id=${tag},path=virtiofs-${config.system.name}-${tag}.sock -device vhost-user-fs-pci,queue-size=1024,chardev=${tag},tag=${tag}"
+              ) config.virtualisation.sharedDirectories
+            )
+          else
+            # Use traditional 9P virtfs
+            concatStringsSep " \\\n    " (
+              mapAttrsToList (
+                tag: share:
+                "-virtfs local,path=${share.source},security_model=${share.securityModel},mount_tag=${tag}"
+              ) config.virtualisation.sharedDirectories
+            )
         } \
         ${drivesCmdLine config.virtualisation.qemu.drives} \
         ${concatStringsSep " \\\n    " config.virtualisation.qemu.options} \
@@ -597,6 +632,12 @@ in
         virtual machine using VirtFS (9P filesystem over VirtIO).
         The attribute name will be used as the 9P mount tag.
       '';
+    };
+
+    virtualisation.virtiofs = {
+      enable = mkEnableOption "virtiofs support for sharing filesystems between QEMU host and guest" // {
+        default = false;
+      };
     };
 
     virtualisation.additionalPaths = mkOption {
@@ -1249,6 +1290,11 @@ in
     boot.initrd.availableKernelModules =
       optional (cfg.qemu.diskInterface == "scsi") "sym53c8xx" ++ optional (cfg.tpm.enable) "tpm_tis";
 
+    boot.initrd.kernelModules = optional cfg.virtiofs.enable "virtiofs";
+
+    # virtiofs requires a shared memory backend for vhost-user devices
+    virtualisation.qemu.enableSharedMemory = mkIf cfg.virtiofs.enable (mkDefault true);
+
     virtualisation.additionalPaths = [ config.system.build.toplevel ];
 
     virtualisation.sharedDirectories = {
@@ -1319,19 +1365,19 @@ in
         "-machine memory-backend=mem0"
       ])
       (
-        let
-          alphaNumericChars = lowerChars ++ upperChars ++ (map toString (range 0 9));
-          # Replace all non-alphanumeric characters with underscores
-          sanitizeShellIdent =
-            s:
-            concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (stringToCharacters s);
-        in
-        mkIf cfg.directBoot.enable [
-          "-kernel \${NIXPKGS_QEMU_KERNEL_${sanitizeShellIdent config.system.name}:-${config.system.build.toplevel}/kernel}"
-          "-initrd ${cfg.directBoot.initrd}"
-          ''-append "$(cat ${config.system.build.toplevel}/kernel-params) init=${config.system.build.toplevel}/init regInfo=${regInfo}/registration ${consoles} $QEMU_KERNEL_PARAMS"''
-        ]
-      )
+      let
+        alphaNumericChars = lowerChars ++ upperChars ++ (map toString (range 0 9));
+        # Replace all non-alphanumeric characters with underscores
+        sanitizeShellIdent =
+          s:
+          concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (stringToCharacters s);
+      in
+      mkIf cfg.directBoot.enable [
+        "-kernel \${NIXPKGS_QEMU_KERNEL_${sanitizeShellIdent config.system.name}:-${config.system.build.toplevel}/kernel}"
+        "-initrd ${cfg.directBoot.initrd}"
+        ''-append "$(cat ${config.system.build.toplevel}/kernel-params) init=${config.system.build.toplevel}/init regInfo=${regInfo}/registration ${consoles} $QEMU_KERNEL_PARAMS"''
+      ]
+    )
       (mkIf cfg.useEFIBoot [
         "-drive if=pflash,format=raw,unit=0,readonly=on,file=${cfg.efi.firmware}"
         "-drive if=pflash,format=raw,unit=1,readonly=off,file=$NIX_EFI_VARS"
@@ -1408,15 +1454,22 @@ in
         mkSharedDir = tag: share: {
           name = share.target;
           value.device = tag;
-          value.fsType = "9p";
+          value.fsType = if cfg.virtiofs.enable then "virtiofs" else "9p";
           value.neededForBoot = true;
-          value.options = [
-            "trans=virtio"
-            "version=9p2000.L"
-            "msize=${toString cfg.msize}"
-            "x-systemd.requires=modprobe@9pnet_virtio.service"
-          ]
-          ++ lib.optional (tag == "nix-store") "cache=${cfg.nixStore9pCache}";
+          value.options =
+            if cfg.virtiofs.enable then
+              [
+                "defaults"
+                "x-systemd.requires=modprobe@virtiofs.service"
+              ]
+            else
+              [
+                "trans=virtio"
+                "version=9p2000.L"
+                "msize=${toString cfg.msize}"
+                "x-systemd.requires=modprobe@9pnet_virtio.service"
+              ]
+              ++ lib.optional (tag == "nix-store") "cache=${cfg.nixStore9pCache}";
           value.noCheck = true;
         };
       in
@@ -1547,6 +1600,9 @@ in
       ]
       ++ optionals (cfg.writableStore) [
         (isEnabled "OVERLAY_FS")
+      ]
+      ++ optionals cfg.virtiofs.enable [
+        (isEnabled "VIRTIO_FS")
       ];
 
   };
