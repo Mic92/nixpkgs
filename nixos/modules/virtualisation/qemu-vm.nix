@@ -305,6 +305,20 @@ let
       (builtins.concatStringsSep "")
     ]}
 
+    ${lib.optionalString cfg.virtiofs.enable ''
+      # Start virtiofsd daemons for each shared directory
+      ${concatStringsSep "\n" (
+        mapAttrsToList (tag: share: ''
+          ${hostPkgs.virtiofsd}/bin/virtiofsd \
+            --xattr \
+            --socket-path virtiofs-${tag}.sock \
+            --sandbox none \
+            --seccomp none \
+            --shared-dir ${share.source} &
+        '') config.virtualisation.sharedDirectories
+      )}
+    ''}
+
     # Start QEMU.
     exec ${qemu-common.qemuBinary qemu} \
         -name ${config.system.name} \
@@ -313,12 +327,22 @@ let
         -device virtio-rng-pci \
         ${concatStringsSep " " config.virtualisation.qemu.networkingOptions} \
         ${
-          concatStringsSep " \\\n    " (
-            mapAttrsToList (
-              tag: share:
-              "-virtfs local,path=${share.source},security_model=${share.securityModel},mount_tag=${tag}"
-            ) config.virtualisation.sharedDirectories
-          )
+          if cfg.virtiofs.enable then
+            # Use virtiofs with vhost-user-fs devices
+            concatStringsSep " \\\n    " (
+              mapAttrsToList (
+                tag: share:
+                "-chardev socket,id=${tag},path=virtiofs-${tag}.sock -device vhost-user-fs-pci,chardev=${tag},tag=${tag}"
+              ) config.virtualisation.sharedDirectories
+            )
+          else
+            # Use traditional 9P virtfs
+            concatStringsSep " \\\n    " (
+              mapAttrsToList (
+                tag: share:
+                "-virtfs local,path=${share.source},security_model=${share.securityModel},mount_tag=${tag}"
+              ) config.virtualisation.sharedDirectories
+            )
         } \
         ${drivesCmdLine config.virtualisation.qemu.drives} \
         ${concatStringsSep " \\\n    " config.virtualisation.qemu.options} \
@@ -558,6 +582,12 @@ in
         virtual machine using VirtFS (9P filesystem over VirtIO).
         The attribute name will be used as the 9P mount tag.
       '';
+    };
+
+    virtualisation.virtiofs = {
+      enable = mkEnableOption "virtiofs support for sharing filesystems between QEMU host and guest" // {
+        default = false;
+      };
     };
 
     virtualisation.additionalPaths = mkOption {
@@ -928,7 +958,7 @@ in
 
     virtualisation.useBootLoader = mkOption {
       type = types.bool;
-      default = false;
+      default = config.virtualisation.virtiofs.enable;
       description = ''
         Use a boot loader to boot the system.
         This allows, among other things, testing the boot loader.
@@ -1186,7 +1216,8 @@ in
 
     boot.initrd.availableKernelModules =
       optional (cfg.qemu.diskInterface == "scsi") "sym53c8xx"
-      ++ optional (cfg.tpm.enable) "tpm_tis";
+      ++ optional (cfg.tpm.enable) "tpm_tis"
+      ++ optional cfg.virtiofs.enable "virtiofs";
 
     virtualisation.additionalPaths = [ config.system.build.toplevel ];
 
@@ -1253,6 +1284,11 @@ in
         "-device usb-ehci,id=usb0"
         "-device usb-kbd"
         "-device usb-tablet"
+      ])
+      # Shared memory backend for virtiofs (same as runInLinuxVM)
+      (mkIf cfg.virtiofs.enable [
+        "-object memory-backend-file,id=mem,size=${toString cfg.memorySize}M,mem-path=/dev/shm,share=on"
+        "-machine memory-backend=mem"
       ])
       (
         let
@@ -1330,14 +1366,19 @@ in
         mkSharedDir = tag: share: {
           name = share.target;
           value.device = tag;
-          value.fsType = "9p";
-          value.neededForBoot = true;
-          value.options = [
-            "trans=virtio"
-            "version=9p2000.L"
-            "msize=${toString cfg.msize}"
-            "x-systemd.requires=modprobe@9pnet_virtio.service"
-          ] ++ lib.optional (tag == "nix-store") "cache=loose";
+          value.fsType = if cfg.virtiofs.enable then "virtiofs" else "9p";
+          value.neededForBoot = if cfg.virtiofs.enable then (builtins.elem tag ["nix-store" "xchg" "shared"]) else true;
+          value.options =
+            if cfg.virtiofs.enable then
+              [ "defaults" ]
+            else
+              [
+                "trans=virtio"
+                "version=9p2000.L"
+                "msize=${toString cfg.msize}"
+                "x-systemd.requires=modprobe@9pnet_virtio.service"
+              ]
+              ++ lib.optional (tag == "nix-store") "cache=loose";
         };
       in
       lib.mkMerge [
@@ -1466,6 +1507,9 @@ in
       ]
       ++ optionals (cfg.writableStore) [
         (isEnabled "OVERLAY_FS")
+      ]
+      ++ optionals cfg.virtiofs.enable [
+        (isEnabled "VIRTIO_FS")
       ];
 
   };
