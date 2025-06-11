@@ -1364,6 +1364,7 @@ in
             "x-systemd.requires=modprobe@9pnet_virtio.service"
           ]
           ++ lib.optional (tag == "nix-store") "cache=loose";
+          value.noCheck = true;
         };
       in
       lib.mkMerge [
