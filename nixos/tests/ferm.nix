@@ -10,6 +10,7 @@
       { pkgs, ... }:
       with pkgs.lib;
       {
+        virtualisation.virtiofs.enable = true;
         networking = {
           dhcpcd.enable = false;
           interfaces.eth1.ipv6.addresses = mkOverride 0 [
@@ -30,6 +31,7 @@
       { pkgs, ... }:
       with pkgs.lib;
       {
+        virtualisation.virtiofs.enable = true;
         networking = {
           dhcpcd.enable = false;
           useNetworkd = true;
