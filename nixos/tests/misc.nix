@@ -11,6 +11,7 @@ in
   nodes.machine =
     { lib, ... }:
     {
+      virtualisation.virtiofs.enable = true;
       swapDevices = lib.mkOverride 0 [
         {
           device = "/root/swapfile";
