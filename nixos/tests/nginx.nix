@@ -17,6 +17,7 @@
     webserver =
       { pkgs, lib, ... }:
       {
+        virtualisation.virtiofs.enable = true;
         services.nginx.enable = true;
         services.nginx.commonHttpConfig = ''
           log_format ceeformat '@cee: {"status":"$status",'
