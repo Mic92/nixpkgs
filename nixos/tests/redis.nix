@@ -26,6 +26,7 @@ let
           { lib, ... }:
 
           {
+            virtualisation.virtiofs.enable = true;
             services = {
               redis = {
                 inherit package;

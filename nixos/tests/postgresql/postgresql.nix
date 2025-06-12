@@ -6,6 +6,8 @@
 }:
 
 let
+  
+
   makeTestFor =
     package:
     lib.recurseIntoAttrs {
@@ -43,6 +45,7 @@ let
         nodes.machine =
           { config, ... }:
           {
+            virtualisation.virtiofs.enable = true;
             services.postgresql = {
               inherit package;
               enable = true;
