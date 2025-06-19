@@ -34,7 +34,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "test_no_xattr"
     "test_no_perms"
   ];
-  checkFlags = lib.optionals (stdenv.isDarwin) [
+  checkFlags = [
+    "--test-threads=1"
+  ] ++ lib.optionals (stdenv.isDarwin) [
     # failures:
     #
     # ---- test_socket_file::test_with_parallel_file_driver stdout ----
