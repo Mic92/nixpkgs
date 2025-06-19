@@ -42,7 +42,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   # had concurrency issues on 64 cores, also tests are quite fast compared to build
   dontUseCargoParallelTests = true;
-  checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [
+  checkFlags = [
+    "--test-threads=1"
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     # failing in sandbox
     # match on the test function only, test-case >= 3.4 prefixes generated names with `test_case_<n>_`
     "--skip=dir_copy_deref_symlinks::"
