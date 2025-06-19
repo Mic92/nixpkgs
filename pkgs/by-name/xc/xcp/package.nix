@@ -38,7 +38,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   # had concurrency issues on 64 cores, also tests are quite fast compared to build
   dontUseCargoParallelTests = true;
-  checkFlags = lib.optionals stdenv.isDarwin [
+  checkFlags = [
+    "--test-threads=1"
+  ] ++ lib.optionals stdenv.isDarwin [
     # ---- test_socket_file::test_with_parallel_file_driver stdout ----
     # STDOUT: 12:20:56 [WARN] Socket copy not supported by this OS: /private/tmp/nix-build-xcp-0.24.1.drv-0/source/targ>
     #
