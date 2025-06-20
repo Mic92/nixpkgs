@@ -38,28 +38,30 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   # had concurrency issues on 64 cores, also tests are quite fast compared to build
   dontUseCargoParallelTests = true;
-  checkFlags = [
-    "--test-threads=1"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # ---- test_socket_file::test_with_parallel_file_driver stdout ----
-    # STDOUT: 12:20:56 [WARN] Socket copy not supported by this OS: /private/tmp/nix-build-xcp-0.24.1.drv-0/source/targ>
-    #
-    # STDERR:
-    #
-    # thread 'test_socket_file::test_with_parallel_file_driver' panicked at tests/common.rs:1149:5:
-    # assertion failed: to.exists()
-    # note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
-    "--skip=test_socket_file::test_with_parallel_file_driver"
+  checkFlags =
+    [
+      "--test-threads=1"
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      # ---- test_socket_file::test_with_parallel_file_driver stdout ----
+      # STDOUT: 12:20:56 [WARN] Socket copy not supported by this OS: /private/tmp/nix-build-xcp-0.24.1.drv-0/source/targ>
+      #
+      # STDERR:
+      #
+      # thread 'test_socket_file::test_with_parallel_file_driver' panicked at tests/common.rs:1149:5:
+      # assertion failed: to.exists()
+      # note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+      "--skip=test_socket_file::test_with_parallel_file_driver"
 
-    # ---- test_sockets_dir::test_with_parallel_file_driver stdout ----
-    # STDOUT: 12:20:56 [WARN] Socket copy not supported by this OS: /private/tmp/nix-build-xcp-0.24.1.drv-0/source/targ>
-    #
-    # STDERR:
-    #
-    # thread 'test_sockets_dir::test_with_parallel_file_driver' panicked at tests/common.rs:1178:5:
-    # assertion failed: to.exists()
-    "--skip=test_sockets_dir::test_with_parallel_file_driver"
-  ];
+      # ---- test_sockets_dir::test_with_parallel_file_driver stdout ----
+      # STDOUT: 12:20:56 [WARN] Socket copy not supported by this OS: /private/tmp/nix-build-xcp-0.24.1.drv-0/source/targ>
+      #
+      # STDERR:
+      #
+      # thread 'test_sockets_dir::test_with_parallel_file_driver' panicked at tests/common.rs:1178:5:
+      # assertion failed: to.exists()
+      "--skip=test_sockets_dir::test_with_parallel_file_driver"
+    ];
 
   postInstall = ''
     installShellCompletion --cmd xcp \
