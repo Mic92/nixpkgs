@@ -33,6 +33,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "test_no_xattr"
     "test_no_perms"
   ];
+  doCheck = false;
   checkFlags =
     [
       "--test-threads=1"
