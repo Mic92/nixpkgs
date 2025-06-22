@@ -6,7 +6,6 @@
   fetchpatch,
   pyopenssl,
   webcolors,
-  future,
   atomicwrites,
   attrs,
   logbook,
@@ -55,7 +54,6 @@ buildPythonPackage {
   propagatedBuildInputs = [
     pyopenssl
     webcolors
-    future
     atomicwrites
     attrs
     logbook
