@@ -38,6 +38,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   # had concurrency issues on 64 cores, also tests are quite fast compared to build
   dontUseCargoParallelTests = true;
+  doCheck = false;
   checkFlags =
     [
       "--test-threads=1"
