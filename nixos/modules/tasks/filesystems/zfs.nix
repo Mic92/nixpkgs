@@ -919,7 +919,23 @@ in
             "zfs-share"
             "zfs-zed"
           ]
-        );
+        )
+        // {
+          # Override zfs-zed to use /run/booted-system if available to avoid kernel compatibility issues
+          "zfs-zed" = {
+            after = [ "systemd-modules-load.service" ];
+            wantedBy = [ "zfs.target" ];
+            serviceConfig = {
+              ExecStart = lib.mkForce (pkgs.writeShellScript "zfs-zed-wrapper" ''
+                if [[ -x /run/booted-system/sw/bin/zed ]]; then
+                  exec /run/booted-system/sw/bin/zed -F
+                else
+                  exec ${cfgZfs.package}/sbin/zed -F
+                fi
+              '');
+            };
+          };
+        };
 
       systemd.targets.zfs-import.wantedBy = [ "zfs.target" ];
 
