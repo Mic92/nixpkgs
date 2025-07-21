@@ -174,18 +174,6 @@ if [[ "$isCxx" = 1 ]]; then
     fi
 fi
 
-# Check if any optimization flag is present in params for fortify hardening
-NIX_CC_WRAPPER_HAS_OPTIMIZATION_@suffixSalt@=0
-for p in "${params[@]:-}"; do
-    case "$p" in
-        -O[1-9] | -O[1-9][0-9]* | -Os | -Oz | -Ofast)
-            NIX_CC_WRAPPER_HAS_OPTIMIZATION_@suffixSalt@=1
-            break
-            ;;
-    esac
-done
-export NIX_CC_WRAPPER_HAS_OPTIMIZATION_@suffixSalt@
-
 source @out@/nix-support/add-hardening.sh
 
 # Add the flags for the C compiler proper.
