@@ -74,41 +74,26 @@ fi
 for flag in "${!hardeningEnableMap[@]}"; do
   case $flag in
     fortify | fortify3)
-      # Check if optimization is enabled via environment variable set by cc-wrapper
-      hasOptimization="${NIX_CC_WRAPPER_HAS_OPTIMIZATION_@suffixSalt@:-0}"
-
       # Use -U_FORTIFY_SOURCE to avoid warnings on toolchains that explicitly
       # set -D_FORTIFY_SOURCE=0 (like 'clang -fsanitize=address').
-      if [[ $hasOptimization -eq 0 ]]; then
-        # Only add -O2 if no optimization flag is present
-        hardeningCFlagsBefore+=('-O2' '-U_FORTIFY_SOURCE')
-      else
-        # If optimization is present, only undefine existing _FORTIFY_SOURCE
-        hardeningCFlagsBefore+=('-U_FORTIFY_SOURCE')
-      fi
-      
+      hardeningCFlagsBefore+=('-O2' '-U_FORTIFY_SOURCE')
       # Unset any _FORTIFY_SOURCE values the command-line may have set before
       # enforcing our own value, avoiding (potentially fatal) redefinition
       # warnings
       hardeningCFlagsAfter+=('-U_FORTIFY_SOURCE')
-      
-      # Only add fortify flags if optimization is enabled (either from command line or added by us)
-      if [[ $hasOptimization -eq 1 ]] || [[ $hasOptimization -eq 0 ]]; then
-        # If no optimization was present, we added -O2, so fortify is safe
-        case $flag in
-          fortify)
-            if (( "${NIX_DEBUG:-0}" >= 1 )); then echo HARDENING: enabling fortify >&2; fi
-            hardeningCFlagsAfter+=('-D_FORTIFY_SOURCE=2')
+      case $flag in
+        fortify)
+          if (( "${NIX_DEBUG:-0}" >= 1 )); then echo HARDENING: enabling fortify >&2; fi
+          hardeningCFlagsAfter+=('-D_FORTIFY_SOURCE=2')
+        ;;
+        fortify3)
+          if (( "${NIX_DEBUG:-0}" >= 1 )); then echo HARDENING: enabling fortify3 >&2; fi
+          hardeningCFlagsAfter+=('-D_FORTIFY_SOURCE=3')
+        ;;
+        *)
+          # Ignore unsupported.
           ;;
-          fortify3)
-            if (( "${NIX_DEBUG:-0}" >= 1 )); then echo HARDENING: enabling fortify3 >&2; fi
-            hardeningCFlagsAfter+=('-D_FORTIFY_SOURCE=3')
-          ;;
-          *)
-            # Ignore unsupported.
-            ;;
-        esac
-      fi
+      esac
       ;;
     shadowstack)
       if (( "${NIX_DEBUG:-0}" >= 1 )); then echo HARDENING: enabling shadowstack >&2; fi
