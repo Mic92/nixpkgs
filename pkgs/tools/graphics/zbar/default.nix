@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
 
   # fix iconv linking on macOS
   preConfigure = lib.optionalString stdenv.hostPlatform.isDarwin ''
-    export LDFLAGS="-liconv"
+    export NIX_LDFLAGS="$NIX_LDFLAGS -liconv"
   '';
 
   # Note: postConfigure instead of postPatch in order to include some
