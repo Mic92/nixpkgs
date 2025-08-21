@@ -5,7 +5,7 @@
   git,
   lib,
   libffi,
-  llvmPackages_13,
+  llvmPackages_18,
   makeWrapper,
   ncurses,
   python3,
@@ -34,21 +34,29 @@
 let
   stdenv = clangStdenv;
 
+  llvmPackages = llvmPackages_18;
+
   # The patched clang lives in the LLVM megarepo
   clangSrc = fetchFromGitHub {
     owner = "root-project";
     repo = "llvm-project";
-    # cling-llvm13 branch
-    rev = "3610201fbe0352a63efb5cb45f4ea4987702c735";
-    sha256 = "sha256-Cb7BvV7yobG+mkaYe7zD2KcnPvm8/vmVATNWssklXyk=";
+    # cling-llvm18 branch
+    rev = "156e947058a46ecc1785f98aa9abb8cbfaa45aa7";
+    sha256 = "sha256-sk/KJn0KiQ7Jz1VXdcO3Omu2eJMcpmfnxyVwD4vI0Dk=";
     sparseCheckout = [ "clang" ];
   };
 
-  llvm = llvmPackages_13.llvm.override { enableSharedLibraries = false; };
+  llvm = (llvmPackages.llvm.override {
+    enableSharedLibraries = false;
+  }).overrideAttrs (old: {
+    cmakeFlags = old.cmakeFlags ++ [
+      "-DLLVM_TARGETS_TO_BUILD=host;NVPTX"
+    ];
+  });
 
   unwrapped = stdenv.mkDerivation rec {
     pname = "cling-unwrapped";
-    version = "1.0";
+    version = "1.2";
 
     src = "${clangSrc}/clang";
 
@@ -56,7 +64,7 @@ let
       owner = "root-project";
       repo = "cling";
       rev = "v${version}";
-      sha256 = "sha256-Ye8EINzt+dyNvUIRydACXzb/xEPLm0YSkz08Xxw3xp4=";
+      sha256 = "sha256-ay9FXANJmB/+AdnCR4WOKHuPm6P88wLqoOgiKJwJ8JM=";
     };
 
     prePatch = ''
@@ -80,6 +88,9 @@ let
       ncurses
       zlib
     ];
+
+    # cling's cmake file requires LLVM's cmake file to be in scope.
+    propagatedBuildInputs = [ llvm ];
 
     strictDeps = true;
 
@@ -150,15 +161,15 @@ let
     "${llvm.lib}/lib"
 
     "-isystem"
-    "${lib.getLib unwrapped}/lib/clang/${llvmPackages_13.clang.version}/include"
+    "${lib.getLib unwrapped}/lib/clang/${llvmPackages.clang.version}/include"
   ]
   ++ lib.optionals useLLVMLibcxx [
     "-I"
-    "${lib.getDev llvmPackages_13.libcxx}/include/c++/v1"
+    "${lib.getDev llvmPackages.libcxx}/include/c++/v1"
     "-L"
-    "${llvmPackages_13.libcxx}/lib"
+    "${llvmPackages.libcxx}/lib"
     "-l"
-    "${llvmPackages_13.libcxx}/lib/libc++${stdenv.hostPlatform.extensions.sharedLibrary}"
+    "${llvmPackages.libcxx}/lib/libc++${stdenv.hostPlatform.extensions.sharedLibrary}"
   ]
   ++ lib.optionals (!useLLVMLibcxx) [
     "-I"
