@@ -122,7 +122,8 @@ in
 
       pgdumpOptions = lib.mkOption {
         type = lib.types.separatedString " ";
-        default = "-C";
+        default = lib.optionalString (!cfg.backupAll) "-C";
+        defaultText = "-C (if not backing up all databases)";
         description = ''
           Command line options for pg_dump. This options is not used if
           `config.services.postgresqlBackup.backupAll` is enabled. Note that
