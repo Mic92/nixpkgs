@@ -315,6 +315,9 @@ python.pkgs.buildPythonApplication rec {
     export HOME=$(mktemp -d)
     export XDG_DATA_DIRS="${liberation_ttf}/share:$XDG_DATA_DIRS"
     export PAPERLESS_NLTK_DIR=${passthru.nltkDataDir}
+    # Limit threads per worker based on NIX_BUILD_CORES, capped at 256
+    # ocrmypdf has an internal limit of 256 jobs and will fail with more
+    export PAPERLESS_THREADS_PER_WORKER=$(( NIX_BUILD_CORES > 256 ? 256 : NIX_BUILD_CORES ))
   '';
 
   disabledTests = [
