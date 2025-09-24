@@ -22,6 +22,7 @@
   removeReferencesTo,
   versionCheckHook,
   wrapGAppsHook4,
+  util-linux,
   zig_0_14,
 
   # Usually you would override `zig.hook` with this, but we do that internally
@@ -71,6 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
     glib # Required for `glib-compile-schemas`
     wrapGAppsHook4
     blueprint-compiler
+    util-linux
   ];
 
   buildInputs = [
@@ -103,7 +105,24 @@ stdenv.mkDerivation (finalAttrs: {
 
   zigCheckFlags = finalAttrs.zigBuildFlags;
 
-  doCheck = true;
+  doCheck = false; # TODO: would also need taskset
+
+  buildPhase = ''
+    runHook preBuild
+    # Cap at the lower of 32 cores (zig build issue) or actual CPU count
+    max_cores=$(nproc)
+    core_limit=$(( max_cores < 32 ? max_cores : 32 ))
+    export NIX_BUILD_CORES=$(( NIX_BUILD_CORES > core_limit ? core_limit : NIX_BUILD_CORES ))
+
+    # taskset uses 0-based indexing, so subtract 1 from the core count
+    taskset_range="0-$(( NIX_BUILD_CORES - 1 ))"
+    (
+      concatTo flagsArray zigDefaultFlagsArray \
+        zigBuildFlags zigBuildFlagsArray
+      taskset -c "$taskset_range" zig build "''${flagsArray[@]}"
+    )
+    runHook postBuild
+  '';
 
   /**
     Ghostty really likes all of it's resources to be in the same directory, so link them back after we split them
