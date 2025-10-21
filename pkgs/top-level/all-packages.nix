@@ -10838,8 +10838,6 @@ with pkgs;
     confd-calico
     ;
 
-  carla = libsForQt5.callPackage ../applications/audio/carla { };
-
   cb2bib = libsForQt5.callPackage ../applications/office/cb2bib { };
 
   cbconvert-gui = cbconvert.gui;
