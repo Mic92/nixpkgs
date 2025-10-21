@@ -11770,10 +11770,6 @@ with pkgs;
     python3Packages.callPackage ../applications/networking/instant-messengers/matrix-commander
       { };
 
-  mbrola = callPackage ../applications/audio/mbrola { };
-
-  mbrola-voices = callPackage ../applications/audio/mbrola/voices.nix { };
-
   mediaelch-qt5 = callPackage ../by-name/me/mediaelch/package.nix { qtVersion = 5; };
   mediaelch-qt6 = mediaelch;
 
