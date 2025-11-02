@@ -18,7 +18,9 @@ let
       canTouchEfiVariables = efi.canTouchEfiVariables;
       efiSupport = cfg.efiSupport;
       efiRemovable = cfg.efiInstallAsRemovable;
-      secureBoot = cfg.secureBoot;
+      secureBoot = cfg.secureBoot // {
+        configFile = if cfg.secureBoot.configFile != null then toString cfg.secureBoot.configFile else null;
+      };
       biosSupport = cfg.biosSupport;
       biosDevice = cfg.biosDevice;
       partitionIndex = cfg.partitionIndex;
@@ -221,6 +223,23 @@ in
 
           Afterwards turn setup mode off and enable secure boot.
           :::
+        '';
+      };
+
+      configFile = lib.mkOption {
+        type = lib.types.nullOr lib.types.path;
+        default = null;
+        example = lib.literalExpression ''
+          pkgs.writeText "sbctl.conf" '''
+            keydir: ''${config.clan.core.vars.generators.secureboot.directory}/keys
+          '''
+        '';
+        description = ''
+          Path to sbctl configuration file.
+          If specified, this will be passed to sbctl via the --config flag.
+
+          The configuration file should specify at minimum the keydir location.
+          See sbctl.conf(5) for all available options.
         '';
       };
 
@@ -467,7 +486,7 @@ in
         partOf = [ "fwupd.service" ];
         before = [ "fwupd.service" ];
 
-        unitConfig.ConditionPathIsDirectory = "/var/lib/sbctl";
+        unitConfig.ConditionPathIsDirectory = lib.mkIf (cfg.secureBoot.configFile == null) "/var/lib/sbctl";
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
@@ -477,7 +496,7 @@ in
         script = ''
           cp ${config.services.fwupd.package.fwupd-efi}/libexec/fwupd/efi/fwupd*.efi /run/fwupd-efi/
           chmod +w /run/fwupd-efi/fwupd*.efi
-          ${lib.getExe cfg.secureBoot.sbctl} sign /run/fwupd-efi/fwupd*.efi
+          ${lib.getExe cfg.secureBoot.sbctl} ${lib.optionalString (cfg.secureBoot.configFile != null) "--config ${cfg.secureBoot.configFile}"} sign /run/fwupd-efi/fwupd*.efi
         '';
       };
 
