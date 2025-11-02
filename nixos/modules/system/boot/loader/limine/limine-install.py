@@ -487,13 +487,11 @@ def install_bootloader() -> None:
         """)
         )
 
-    if (
-        config("secureBoot", "enable")
-        and not config("secureBoot", "autoGenerateKeys")
-        and not os.path.exists("/var/lib/sbctl")
-    ):
-        print("There are no sbctl secure boot keys present. Please generate some.")
-        sys.exit(1)
+    # Check if sbctl keys exist (only if not using custom config)
+    if config("secureBoot", "enable") and not config("secureBoot", "autoGenerateKeys"):
+        if config("secureBoot", "configFile") is None and not os.path.exists("/var/lib/sbctl"):
+            print("There are no sbctl secure boot keys present at /var/lib/sbctl. Please generate some or specify a configFile.")
+            sys.exit(1)
 
     if not os.path.exists(limine_install_dir):
         os.makedirs(limine_install_dir)
@@ -670,18 +668,24 @@ def install_bootloader() -> None:
 
         if config("secureBoot", "enable"):
             sbctl = os.path.join(str(config("secureBoot", "sbctl")), "bin", "sbctl")
+            sbctl_args = []
+
+            # If using a custom config file, pass it to sbctl
+            if config('secureBoot', 'configFile') is not None:
+                sbctl_args = ['--config', config('secureBoot', 'configFile')]
+
             if not os.path.exists("/var/lib/sbctl/keys") and config(
                 "secureBoot", "autoGenerateKeys"
             ):
                 print("auto generating keys")
                 try:
-                    subprocess.run([sbctl, "create-keys"])
+                    subprocess.run([sbctl] + sbctl_args + ["create-keys"])
                 except:
                     print("error: failed to create keys", file=sys.stderr)
                     sys.exit(1)
                 if config("secureBoot", "autoEnrollKeys", "enable"):
                     try:
-                        command = [sbctl, "enroll-keys"]
+                        command = [sbctl] + sbctl_args + ["enroll-keys"]
                         command.extend(
                             config("secureBoot", "autoEnrollKeys", "extraArgs")
                         )
@@ -692,7 +696,7 @@ def install_bootloader() -> None:
 
             print("signing limine...")
             try:
-                subprocess.run([sbctl, "sign", dest_path])
+                subprocess.run([sbctl] + sbctl_args + ["sign", dest_path])
             except:
                 print("error: failed to sign limine", file=sys.stderr)
                 sys.exit(1)
