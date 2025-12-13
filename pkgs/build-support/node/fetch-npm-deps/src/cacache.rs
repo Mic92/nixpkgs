@@ -24,7 +24,14 @@ pub(super) struct Key {
 #[derive(Serialize, Deserialize)]
 pub(super) struct Metadata {
     pub(super) url: Url,
+    #[serde(rename = "reqHeaders", skip_serializing_if = "Option::is_none")]
+    pub(super) req_headers: Option<ReqHeaders>,
     pub(super) options: Options,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct ReqHeaders {
+    pub accept: String,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -58,6 +65,7 @@ impl Cache {
         url: Url,
         data: &[u8],
         integrity: Option<String>,
+        req_headers: Option<ReqHeaders>,
     ) -> anyhow::Result<()> {
         let (algo, hash, integrity) = if let Some(integrity) = integrity {
             let (algo, hash) = integrity
@@ -115,13 +123,16 @@ impl Cache {
             size: data.len(),
             metadata: Metadata {
                 url,
+                req_headers,
                 options: Options { compress: true },
             },
         })?;
 
         let mut file = File::options().append(true).create(true).open(index_path)?;
 
-        write!(file, "{:x}\t{data}", Sha1::new().chain(&data).finalize())?;
+        // cacache format uses newline as prefix separator (see cacache entry-index.js)
+        // This allows multiple entries in the same file, with each entry on its own line
+        write!(file, "\n{:x}\t{data}", Sha1::new().chain(&data).finalize())?;
 
         Ok(())
     }
