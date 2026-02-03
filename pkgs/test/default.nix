@@ -165,6 +165,8 @@ in
 
   checkpointBuildTools = callPackage ./checkpointBuild { };
 
+  kernelCheckpointBuild = callPackage ./kernelCheckpointBuild { };
+
   kernel-config = callPackage ./kernel.nix { };
 
   ld-library-path = callPackage ./ld-library-path { };
