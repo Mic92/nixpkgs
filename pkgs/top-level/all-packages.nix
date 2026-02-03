@@ -371,6 +371,8 @@ with pkgs;
 
   checkpointBuildTools = callPackage ../build-support/checkpoint-build.nix { };
 
+  kernelCheckpointTools = callPackage ../os-specific/linux/kernel/checkpoint.nix { };
+
   celeste-classic-pm = pkgs.celeste-classic.override {
     practiceMod = true;
   };
