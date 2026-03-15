@@ -1,7 +1,7 @@
 {
   lib,
   fetchFromGitHub,
-  nss,
+  nss_latest,
   nixosTests,
   nix-update-script,
   stdenv,
@@ -30,7 +30,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     "--prefix"
     (if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH")
     ":"
-    (lib.makeLibraryPath [ nss ])
+    (lib.makeLibraryPath [ nss_latest ])
   ];
 
   checkPhase = ''
@@ -39,7 +39,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     patchShebangs tests
     (cd tests && ${
       if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH"
-    }=${lib.makeLibraryPath [ nss ]} ./run_all)
+    }=${lib.makeLibraryPath [ nss_latest ]} ./run_all)
 
     runHook postCheck
   '';
