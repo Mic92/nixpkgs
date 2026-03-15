@@ -25,20 +25,20 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "n8n";
-  version = "2.10.4";
+  version = "2.11.4";
 
   src = fetchFromGitHub {
     owner = "n8n-io";
     repo = "n8n";
     tag = "n8n@${finalAttrs.version}";
-    hash = "sha256-/UJ6+EpNh+jr8digBFKltxahebAeJKGwj3rbkXO0vm8=";
+    hash = "sha256-mhfVipTAoHCY1BPSV5Ge1iQpa/LaUCw2aiI3KFkW0CI=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 3;
-    hash = "sha256-2m5ftzOKzXpRDdeUDfoWkpYY982cyqHB7uTZ3/3dhsk=";
+    hash = "sha256-fWE/uJTs7lawbVu7iDSrpufqFaOkzFc5jjTD8u3Drok=";
   };
 
   nativeBuildInputs = [
@@ -65,6 +65,10 @@ stdenv.mkDerivation (finalAttrs: {
 
     pushd node_modules/sqlite3
     node-gyp rebuild
+    popd
+
+    pushd node_modules/isolated-vm
+    node-gyp rebuild --release
     popd
 
     # TODO: use deploy after resolved https://github.com/pnpm/pnpm/issues/5315
