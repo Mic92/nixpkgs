@@ -30,6 +30,14 @@ in
   options = {
 
     i18n = {
+      imperativeLocale = lib.mkEnableOption ''
+        imperative locale and keyboard management via localectl.
+        When enabled, locale and keyboard settings can be changed at runtime
+        using `localectl set-locale` and `localectl set-keymap`.
+        When disabled (the default), these settings are managed declaratively
+        through {option}`i18n.defaultLocale`, {option}`i18n.extraLocaleSettings`,
+        and {option}`console.keyMap`
+      '';
       glibcLocales = lib.mkOption {
         type = lib.types.path;
         default = pkgs.glibcLocales.override {
@@ -183,7 +191,11 @@ in
       LOCALE_ARCHIVE = "${config.i18n.glibcLocales}/lib/locale/locale-archive";
     };
 
-    # ‘/etc/locale.conf’ is used by systemd.
+    systemd.services.systemd-localed.environment = lib.optionalAttrs (!config.i18n.imperativeLocale) {
+      NIXOS_STATIC_LOCALE = "1";
+    };
+
+    # '/etc/locale.conf' is used by systemd.
     environment.etc."locale.conf".source = pkgs.writeText "locale.conf" ''
       LANG=${config.i18n.defaultLocale}
       ${lib.concatStringsSep "\n" (
