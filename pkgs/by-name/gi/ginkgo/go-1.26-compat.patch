@@ -1,0 +1,61 @@
+From 1f064a3cb912c47b3a636e8203b815cb3cdfac0a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=B6rg=20Thalheim?= <joerg@thalheim.io>
+Date: Tue, 24 Mar 2026 23:01:25 +0100
+Subject: [PATCH] Add ArtifactDir() to support Go 1.26 testing.TB interface
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Go 1.26 added ArtifactDir() string to the testing.TB interface.
+This adds the method to GinkgoTInterface, GinkgoTBWrapper, and
+ginkgoTestingTProxy to maintain compatibility.
+
+Signed-off-by: Jörg Thalheim <joerg@thalheim.io>
+---
+ ginkgo_t_dsl.go                           | 5 +++++
+ internal/testingtproxy/testing_t_proxy.go | 9 +++++++++
+ 2 files changed, 14 insertions(+)
+
+diff --git a/ginkgo_t_dsl.go b/ginkgo_t_dsl.go
+index 40d1e1a..a2196ca 100644
+--- a/ginkgo_t_dsl.go
++++ b/ginkgo_t_dsl.go
+@@ -72,6 +72,7 @@ type GinkgoTInterface interface {
+ 	TempDir() string
+ 	Attr(key, value string)
+ 	Output() io.Writer
++	ArtifactDir() string
+ }
+ 
+ /*
+@@ -196,3 +197,7 @@ func (g *GinkgoTBWrapper) Attr(key, value string) {
+ func (g *GinkgoTBWrapper) Output() io.Writer {
+ 	return g.GinkgoT.Output()
+ }
++
++func (g *GinkgoTBWrapper) ArtifactDir() string {
++	return g.GinkgoT.ArtifactDir()
++}
+diff --git a/internal/testingtproxy/testing_t_proxy.go b/internal/testingtproxy/testing_t_proxy.go
+index 5704f0f..e6fbaee 100644
+--- a/internal/testingtproxy/testing_t_proxy.go
++++ b/internal/testingtproxy/testing_t_proxy.go
+@@ -181,6 +181,15 @@ func (t *ginkgoTestingTProxy) TempDir() string {
+ 	return tmpDir
+ }
+ 
++func (t *ginkgoTestingTProxy) ArtifactDir() string {
++	artifactDir, err := os.MkdirTemp("", "ginkgo")
++	if err != nil {
++		t.fail(fmt.Sprintf("Failed to create artifact directory: %v", err), 1)
++		return ""
++	}
++	return artifactDir
++}
++
+ // FullGinkgoTInterface
+ func (t *ginkgoTestingTProxy) AddReportEntryVisibilityAlways(name string, args ...any) {
+ 	finalArgs := []any{internal.Offset(1), types.ReportEntryVisibilityAlways}
+-- 
+2.53.0
+

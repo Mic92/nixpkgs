@@ -18,6 +18,11 @@ buildGoModule (finalAttrs: {
   };
   vendorHash = "sha256-I3n1FPINb/nhi4QUzRFEspn7REN1dQEPg8Bhb3PemQU=";
 
+  patches = [
+    # Add ArtifactDir() to support Go 1.26 testing.TB interface
+    ./go-1.26-compat.patch
+  ];
+
   # integration tests expect more file changes
   # types tests are missing CodeLocation
   excludedPackages = [
