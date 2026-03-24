@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  fetchpatch,
   testers,
   ginkgo,
 }:
@@ -20,7 +21,11 @@ buildGoModule (finalAttrs: {
 
   patches = [
     # Add ArtifactDir() to support Go 1.26 testing.TB interface
-    ./go-1.26-compat.patch
+    # https://github.com/onsi/ginkgo/pull/1648
+    (fetchpatch {
+      url = "https://github.com/onsi/ginkgo/pull/1648.patch";
+      hash = "sha256-O8YWPAvf0ukPWSTm6+YKnV/L+qSL0RCoBswmiQVXOKI=";
+    })
   ];
 
   # integration tests expect more file changes
