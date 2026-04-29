@@ -204,10 +204,6 @@ in
       LOCALE_ARCHIVE = "${cfg.glibcLocales}/lib/locale/locale-archive";
     };
 
-    systemd.services.systemd-localed.environment = lib.mkIf (!cfg.imperativeLocale) {
-      NIXOS_STATIC_LOCALE = "1";
-    };
-
     # ‘/etc/locale.conf’ is used by systemd.
     # If imperative, see below
     environment.etc."locale.conf" = lib.mkIf (!cfg.imperativeLocale) {
