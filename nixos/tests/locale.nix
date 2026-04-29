@@ -1,6 +1,6 @@
 { ... }:
 {
-  name = "imperative-locale";
+  name = "locale";
   meta.maintainers = [ ];
 
   nodes = {
@@ -49,5 +49,10 @@
           node_imperative.shutdown()
           node_imperative.wait_for_unit("dbus.socket")
           node_imperative.succeed("localectl status | grep -q 'System Locale: LANG=en_US.UTF-8'")
+
+      with subtest("imperative - login shell inherits imperative locale"):
+          node_imperative.wait_for_unit("multi-user.target")
+          out = node_imperative.succeed("su -l root -c 'echo $LANG'").strip()
+          assert out == "en_US.UTF-8", f"expected en_US.UTF-8, got {out!r}"
     '';
 }

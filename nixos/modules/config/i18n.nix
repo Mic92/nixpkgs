@@ -188,17 +188,23 @@ in
       # We increase the priority a little, so that plain glibc in systemPackages can't win.
       lib.optional (cfg.supportedLocales != [ ]) (lib.setPrio (-1) cfg.glibcLocales);
 
+    # When imperative, leave LANG/LC_* to pam_systemd so /etc/set-environment
+    # does not override what localectl wrote to /etc/locale.conf.
     environment.sessionVariables = {
-      LANG = cfg.defaultLocale;
       LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
     }
-    // cfg.extraLocaleSettings;
+    // lib.optionalAttrs (!cfg.imperativeLocale) (
+      {
+        LANG = cfg.defaultLocale;
+      }
+      // cfg.extraLocaleSettings
+    );
 
     systemd.globalEnvironment = lib.mkIf (cfg.supportedLocales != [ ]) {
       LOCALE_ARCHIVE = "${cfg.glibcLocales}/lib/locale/locale-archive";
     };
 
-    systemd.services.systemd-localed.environment = lib.optionalAttrs (!cfg.imperativeLocale) {
+    systemd.services.systemd-localed.environment = lib.mkIf (!cfg.imperativeLocale) {
       NIXOS_STATIC_LOCALE = "1";
     };
 
