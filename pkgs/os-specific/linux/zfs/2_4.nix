@@ -32,6 +32,8 @@ callPackage ./generic.nix args {
       url = "https://github.com/openzfs/zfs/commit/223b8bc446851e5e796e5446ac24d03bbf468f43.patch?full_index=1";
       hash = "sha256-I29A+NLYLzy7cMC8FQpBdSYbjFu/kscgTW8mAauPVf4=";
     })
+    # FIDEDUPERANGE support, sent upstream
+    ./fideduperange.patch
   ];
 
   tests = {
