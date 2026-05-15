@@ -18,7 +18,10 @@ callPackage ./generic.nix args {
   version = "2.4.4";
 
   # if adding a patch here, check if it also needs to be applied to zfs_unstable
-  extraPatches = [ ];
+  extraPatches = [
+    # FIDEDUPERANGE support, sent upstream
+    ./fideduperange.patch
+  ];
 
   tests = {
     inherit (nixosTests.zfs) series_2_4;
