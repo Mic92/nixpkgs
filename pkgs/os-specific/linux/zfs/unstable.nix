@@ -20,7 +20,10 @@ callPackage ./generic.nix args {
   # rev = "";
 
   # if adding a patch here, check if it also needs to be applied to the stable branches
-  extraPatches = [ ];
+  extraPatches = [
+    # FIDEDUPERANGE support, sent upstream
+    ./fideduperange.patch
+  ];
 
   tests = {
     inherit (nixosTests.zfs) unstable;
