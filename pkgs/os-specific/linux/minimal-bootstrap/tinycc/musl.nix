@@ -16,7 +16,7 @@ let
 
   src = fetchurl {
     url = "https://repo.or.cz/tinycc.git/snapshot/${rev}.tar.gz";
-    hash = "sha256-/msQdywtkzrj1CdMTQEbfL0x9Bto/qQr8HWj15JGPzo=";
+    hash = "sha256-MRuqq3TKcfIahtUWdhAcYhqDiGPkAjS8UTMsDE+/jGU=";
   };
 
   tccTarget =
