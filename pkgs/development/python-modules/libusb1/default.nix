@@ -18,7 +18,7 @@ buildPythonPackage rec {
     owner = "vpelletier";
     repo = "python-libusb1";
     tag = version;
-    hash = "sha256-nytxew6KogpEpSnRtmY0UNH+07x0k0XLZ/MRC9NSpDg=";
+    hash = "sha256-rpsnYsE9f7BWN+a/BTT/JR0AWEOoYZIo5EY8tzbUGD4=";
   };
 
   patches = [
