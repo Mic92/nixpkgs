@@ -23,9 +23,9 @@ lib.fix (
 
     src = fetchurl {
       urls = [
+        # aleksey.com is behind a Cloudflare browser challenge; the GitHub release asset is the same tarball
+        "https://github.com/lsh123/xmlsec/releases/download/${finalAttrs.version}/xmlsec1-${finalAttrs.version}.tar.gz"
         "https://www.aleksey.com/xmlsec/download/xmlsec1-${finalAttrs.version}.tar.gz"
-
-        # for when the ${finalAttrs.version} gets older than the last two
         "https://www.aleksey.com/xmlsec/download/older-releases/xmlsec1-${finalAttrs.version}.tar.gz"
       ];
       hash = "sha256-2C6TtpuKogWmFrYpF6JpMiv2Oj6q+zd1AU5hdSsgE+o=";
