@@ -23,6 +23,9 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-6H0KpLin+DqwEg5bdzaxj2CoNSneZ/ET43MTrrdF3h8=";
 
+  # `go generate` in preBuild trips over the upstream vendor/ before goModules has a chance to revendor
+  overrideModAttrs.preBuild = "rm -rf vendor";
+
   nativeBuildInputs = [
     asciidoctor
     installShellFiles
