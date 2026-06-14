@@ -9,7 +9,10 @@ stdenvNoCC.mkDerivation {
   version = "2.0";
 
   src = fetchzip {
-    url = "https://www.latofonts.com/files/Lato2OFL.zip";
+    urls = [
+      "https://www.latofonts.com/files/Lato2OFL.zip"
+      "https://web.archive.org/web/2024id_/https://www.latofonts.com/files/Lato2OFL.zip"
+    ];
     hash = "sha256-n1TsqigCQIGqyGLGTjLtjHuBf/iCwRlnqh21IHfAuXI=";
     stripRoot = false;
   };
