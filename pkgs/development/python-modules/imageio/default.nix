@@ -36,7 +36,7 @@ let
     repo = "test_images";
     rev = "f676c96b1af7e04bb1eed1e4551e058eb2f14acd";
     leaveDotGit = true;
-    hash = "sha256-Kh8DowuhcCT5C04bE5yJa2C+efilLxP0AM31XjnHRf4=";
+    hash = "sha256-XpZ0iIuygSqfgpdj4AX7gXXv8OfzJ8b7rbsgFWtuq/E=";
   };
   libgl = "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
 in
