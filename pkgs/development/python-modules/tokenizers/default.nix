@@ -83,7 +83,7 @@ buildPythonPackage rec {
     owner = "huggingface";
     repo = "tokenizers";
     tag = "v${version}";
-    hash = "sha256-krc+FUA5H3J7L4D1xyjyFMpjXMU8TEfwdfRT4+uvti8=";
+    hash = "sha256-XAb3YBaW3hJHFHhRBBCt1KurCijn3O3FQQ/fBuvckVU=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
