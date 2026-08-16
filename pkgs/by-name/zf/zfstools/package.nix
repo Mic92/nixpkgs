@@ -1,54 +1,37 @@
 {
   lib,
-  bundlerEnv,
   stdenv,
+  python3Packages,
   fetchFromGitHub,
   zfs,
   freebsd,
-  makeWrapper,
 }:
-let
-  rubyEnv = bundlerEnv {
-    name = "zfstools-gems";
-    gemdir = ./.;
-  };
-in
 
-stdenv.mkDerivation (finalAttrs: {
+python3Packages.buildPythonApplication {
   pname = "zfstools";
-  version = "0.3.6";
+  version = "0.1.0";
+  pyproject = true;
 
   src = fetchFromGitHub {
-    owner = "bdrewery";
-    repo = "zfstools";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-z8umKWn8vUb2lLattbtSn4BCHD0W92hRvuL2uvrgm5o=";
+    owner = "Mic92";
+    repo = "zfstools-py";
+    rev = "971770144309cf7f1d49316d1341396040992e1a";
+    hash = "sha256-JYXqAlmZQUB5LVsSvQzjKDIQsz2oZgyOLOErTy8p4Bg=";
   };
 
-  buildInputs = [ rubyEnv.wrappedRuby ];
-  nativeBuildInputs = [ makeWrapper ];
+  build-system = [ python3Packages.hatchling ];
 
-  installPhase = ''
-    mkdir -p $out/bin
-    cp bin/* $out/bin/
+  makeWrapperArgs = [
+    "--prefix PATH : ${lib.makeBinPath [ (if stdenv.hostPlatform.isFreeBSD then freebsd.zfs else zfs) ]}"
+  ];
 
-    cp -R lib $out/
-
-    for f in $out/bin/*; do
-      wrapProgram $f \
-        --set RUBYLIB $out/lib \
-        --prefix PATH : ${if stdenv.hostPlatform.isFreeBSD then freebsd.zfs else zfs}/bin
-    done
-  '';
+  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
 
   meta = {
     description = "OpenSolaris-compatible auto-snapshotting script for ZFS";
-    homepage = "https://github.com/bdrewery/zfstools";
-    longDescription = ''
-      zfstools is an OpenSolaris-like and compatible auto snapshotting script
-      for ZFS, which also supports auto snapshotting mysql databases.
-    '';
+    homepage = "https://github.com/Mic92/zfstools-py";
     license = lib.licenses.bsd2;
+    mainProgram = "zfs-auto-snapshot";
     platforms = lib.platforms.linux ++ lib.platforms.freebsd;
   };
-})
+}
