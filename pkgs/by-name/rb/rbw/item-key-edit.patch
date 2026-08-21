@@ -1,0 +1,294 @@
+From fa41a105f7a5237764b12bd9a6b162667b233338 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=B6rg=20Thalheim?= <joerg@thalheim.io>
+Date: Fri, 21 Aug 2026 08:40:52 +0200
+Subject: [PATCH] edit: encrypt with item key when entry has one
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+rbw edit re-encrypted password/notes with the user/org key while the
+server kept the entry's individual item key, corrupting the entry for
+all clients (doy/rbw#364).
+
+Signed-off-by: Jörg Thalheim <joerg@thalheim.io>
+---
+ src/actions.rs               |  4 ++++
+ src/api.rs                   |  3 +++
+ src/bin/rbw-agent/actions.rs | 15 ++++++++++++++-
+ src/bin/rbw-agent/agent.rs   |  7 ++++++-
+ src/bin/rbw/actions.rs       |  2 ++
+ src/bin/rbw/commands.rs      | 36 +++++++++++++++++++++++-------------
+ src/protocol.rs              |  1 +
+ 7 files changed, 53 insertions(+), 15 deletions(-)
+
+diff --git a/src/actions.rs b/src/actions.rs
+index 79d304d..efab185 100644
+--- a/src/actions.rs
++++ b/src/actions.rs
+@@ -204,6 +204,7 @@ pub fn edit(
+     notes: Option<&str>,
+     folder_uuid: Option<&str>,
+     history: &[crate::db::HistoryEntry],
++    key: Option<&str>,
+ ) -> Result<(Option<String>, ())> {
+     with_exchange_refresh_token(access_token, refresh_token, |access_token| {
+         edit_once(
+@@ -216,6 +217,7 @@ pub fn edit(
+             notes,
+             folder_uuid,
+             history,
++            key,
+         )
+     })
+ }
+@@ -230,6 +232,7 @@ fn edit_once(
+     notes: Option<&str>,
+     folder_uuid: Option<&str>,
+     history: &[crate::db::HistoryEntry],
++    key: Option<&str>,
+ ) -> Result<()> {
+     let (client, _) = api_client()?;
+     client.edit(
+@@ -242,6 +245,7 @@ fn edit_once(
+         notes,
+         folder_uuid,
+         history,
++        key,
+     )?;
+     Ok(())
+ }
+diff --git a/src/api.rs b/src/api.rs
+index a817fb2..88fe9bd 100644
+--- a/src/api.rs
++++ b/src/api.rs
+@@ -780,6 +780,7 @@ struct CiphersPutReq {
+     secure_note: Option<CipherSecureNote>,
+     #[serde(rename = "passwordHistory")]
+     password_history: Vec<CiphersPutReqHistory>,
++    key: Option<String>,
+ }
+ 
+ #[derive(serde::Serialize, Debug)]
+@@ -1328,6 +1329,7 @@ impl Client {
+         notes: Option<&str>,
+         folder_uuid: Option<&str>,
+         history: &[crate::db::HistoryEntry],
++        key: Option<&str>,
+     ) -> Result<()> {
+         let mut req = CiphersPutReq {
+             ty: match data {
+@@ -1361,6 +1363,7 @@ impl Client {
+                     password: entry.password.clone(),
+                 })
+                 .collect(),
++            key: key.map(std::string::ToString::to_string),
+         };
+         match data {
+             crate::db::EntryData::Login {
+diff --git a/src/bin/rbw-agent/actions.rs b/src/bin/rbw-agent/actions.rs
+index 9ddd2ad..17ea072 100644
+--- a/src/bin/rbw-agent/actions.rs
++++ b/src/bin/rbw-agent/actions.rs
+@@ -692,6 +692,7 @@ pub async fn encrypt(
+     sock: &mut crate::sock::Sock,
+     state: std::sync::Arc<tokio::sync::Mutex<crate::state::State>>,
+     plaintext: &str,
++    entry_key: Option<&str>,
+     org_id: Option<&str>,
+ ) -> anyhow::Result<()> {
+     let state = state.lock().await;
+@@ -700,8 +701,20 @@ pub async fn encrypt(
+             "failed to find encryption keys in in-memory state"
+         ));
+     };
++    let entry_keys = if let Some(entry_key) = entry_key {
++        let key_cipherstring =
++            rbw::cipherstring::CipherString::new(entry_key)
++                .context("failed to parse individual item encryption key")?;
++        Some(rbw::locked::Keys::new(
++            key_cipherstring.decrypt_locked_symmetric(keys).context(
++                "failed to decrypt individual item encryption key",
++            )?,
++        ))
++    } else {
++        None
++    };
+     let cipherstring = rbw::cipherstring::CipherString::encrypt_symmetric(
+-        keys,
++        entry_keys.as_ref().unwrap_or(keys),
+         plaintext.as_bytes(),
+     )
+     .context("failed to encrypt plaintext secret")?;
+diff --git a/src/bin/rbw-agent/agent.rs b/src/bin/rbw-agent/agent.rs
+index 1691ed5..aac7de5 100644
+--- a/src/bin/rbw-agent/agent.rs
++++ b/src/bin/rbw-agent/agent.rs
+@@ -162,11 +162,16 @@ async fn handle_request(
+             .await?;
+             true
+         }
+-        rbw::protocol::Action::Encrypt { plaintext, org_id } => {
++        rbw::protocol::Action::Encrypt {
++            plaintext,
++            entry_key,
++            org_id,
++        } => {
+             crate::actions::encrypt(
+                 sock,
+                 state.clone(),
+                 plaintext,
++                entry_key.as_deref(),
+                 org_id.as_deref(),
+             )
+             .await?;
+diff --git a/src/bin/rbw/actions.rs b/src/bin/rbw/actions.rs
+index a0a34e8..1edd396 100644
+--- a/src/bin/rbw/actions.rs
++++ b/src/bin/rbw/actions.rs
+@@ -107,6 +107,7 @@ pub fn decrypt(
+ 
+ pub fn encrypt(
+     plaintext: &str,
++    entry_key: Option<&str>,
+     org_id: Option<&str>,
+ ) -> anyhow::Result<String> {
+     let mut sock = connect()?;
+@@ -114,6 +115,7 @@ pub fn encrypt(
+         get_environment(),
+         rbw::protocol::Action::Encrypt {
+             plaintext: plaintext.to_string(),
++            entry_key: entry_key.map(std::string::ToString::to_string),
+             org_id: org_id.map(std::string::ToString::to_string),
+         },
+     ))?;
+diff --git a/src/bin/rbw/commands.rs b/src/bin/rbw/commands.rs
+index bddf0ef..da87017 100644
+--- a/src/bin/rbw/commands.rs
++++ b/src/bin/rbw/commands.rs
+@@ -1569,26 +1569,26 @@ pub fn add(
+     let mut access_token = db.access_token.as_ref().unwrap().clone();
+     let refresh_token = db.refresh_token.as_ref().unwrap();
+ 
+-    let name = crate::actions::encrypt(name, None)?;
++    let name = crate::actions::encrypt(name, None, None)?;
+ 
+     let username = username
+-        .map(|username| crate::actions::encrypt(username, None))
++        .map(|username| crate::actions::encrypt(username, None, None))
+         .transpose()?;
+ 
+     let contents = rbw::edit::edit("", HELP_PW)?;
+ 
+     let (password, notes) = parse_editor(&contents);
+     let password = password
+-        .map(|password| crate::actions::encrypt(&password, None))
++        .map(|password| crate::actions::encrypt(&password, None, None))
+         .transpose()?;
+     let notes = notes
+-        .map(|notes| crate::actions::encrypt(&notes, None))
++        .map(|notes| crate::actions::encrypt(&notes, None, None))
+         .transpose()?;
+     let uris: Vec<_> = uris
+         .iter()
+         .map(|uri| {
+             Ok(rbw::db::Uri {
+-                uri: crate::actions::encrypt(&uri.0, None)?,
++                uri: crate::actions::encrypt(&uri.0, None, None)?,
+                 match_type: uri.1,
+             })
+         })
+@@ -1621,7 +1621,7 @@ pub fn add(
+             let (new_access_token, id) = rbw::actions::create_folder(
+                 &access_token,
+                 refresh_token,
+-                &crate::actions::encrypt(folder_name, None)?,
++                &crate::actions::encrypt(folder_name, None, None)?,
+             )?;
+             if let Some(new_access_token) = new_access_token {
+                 access_token.clone_from(&new_access_token);
+@@ -1674,16 +1674,16 @@ pub fn generate(
+         let mut access_token = db.access_token.as_ref().unwrap().clone();
+         let refresh_token = db.refresh_token.as_ref().unwrap();
+ 
+-        let name = crate::actions::encrypt(name, None)?;
++        let name = crate::actions::encrypt(name, None, None)?;
+         let username = username
+-            .map(|username| crate::actions::encrypt(username, None))
++            .map(|username| crate::actions::encrypt(username, None, None))
+             .transpose()?;
+-        let password = crate::actions::encrypt(&password, None)?;
++        let password = crate::actions::encrypt(&password, None, None)?;
+         let uris: Vec<_> = uris
+             .iter()
+             .map(|uri| {
+                 Ok(rbw::db::Uri {
+-                    uri: crate::actions::encrypt(&uri.0, None)?,
++                    uri: crate::actions::encrypt(&uri.0, None, None)?,
+                     match_type: uri.1,
+                 })
+             })
+@@ -1716,7 +1716,7 @@ pub fn generate(
+                 let (new_access_token, id) = rbw::actions::create_folder(
+                     &access_token,
+                     refresh_token,
+-                    &crate::actions::encrypt(folder_name, None)?,
++                    &crate::actions::encrypt(folder_name, None, None)?,
+                 )?;
+                 if let Some(new_access_token) = new_access_token {
+                     access_token.clone_from(&new_access_token);
+@@ -1787,13 +1787,18 @@ pub fn edit(
+                 .map(|password| {
+                     crate::actions::encrypt(
+                         &password,
++                        entry.key.as_deref(),
+                         entry.org_id.as_deref(),
+                     )
+                 })
+                 .transpose()?;
+             let notes = notes
+                 .map(|notes| {
+-                    crate::actions::encrypt(&notes, entry.org_id.as_deref())
++                    crate::actions::encrypt(
++                        &notes,
++                        entry.key.as_deref(),
++                        entry.org_id.as_deref(),
++                    )
+                 })
+                 .transpose()?;
+             let mut history = entry.history.clone();
+@@ -1842,7 +1847,11 @@ pub fn edit(
+ 
+             let notes = notes
+                 .map(|notes| {
+-                    crate::actions::encrypt(&notes, entry.org_id.as_deref())
++                    crate::actions::encrypt(
++                        &notes,
++                        entry.key.as_deref(),
++                        entry.org_id.as_deref(),
++                    )
+                 })
+                 .transpose()?;
+ 
+@@ -1866,6 +1875,7 @@ pub fn edit(
+         notes.as_deref(),
+         entry.folder_id.as_deref(),
+         &history,
++        entry.key.as_deref(),
+     )? {
+         db.access_token = Some(access_token);
+         save_db(&db)?;
+diff --git a/src/protocol.rs b/src/protocol.rs
+index ec0c06e..95020ea 100644
+--- a/src/protocol.rs
++++ b/src/protocol.rs
+@@ -181,6 +181,7 @@ pub enum Action {
+     },
+     Encrypt {
+         plaintext: String,
++        entry_key: Option<String>,
+         org_id: Option<String>,
+     },
+     ClipboardStore {
+-- 
+2.55.0
+
