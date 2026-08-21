@@ -28,6 +28,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-N/s1flB+s2HwEeLsf7YlJG+5TJgP8Wu7PHNPWmVfpIo=";
   };
 
+  patches = [
+    # rbw edit corrupts entries that have an individual item key
+    # https://github.com/doy/rbw/issues/364
+    ./item-key-edit.patch
+  ];
+
   cargoHash = "sha256-N4IxnAXDvD+vp3LUB9CKYM+1C5i1Flihk+Pfb2c5IWY=";
 
   nativeBuildInputs = [
