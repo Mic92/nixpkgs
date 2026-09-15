@@ -1,6 +1,6 @@
 {
   baseConfig =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     let
       trivialJob = pkgs.writeTextDir "trivial.nix" ''
         { trivial = derivation {
@@ -39,9 +39,21 @@
         hydraURL = "example.com";
         notificationSender = "example@example.com";
         extraConfig = ''
-          email_notification = 1
+          <email_notifications>
+            build = 1
+          </email_notifications>
         '';
       };
+
+      # Since the queue runner was rewritten in Rust it no longer drives build
+      # machines over SSH: they run an agent that dials its gRPC endpoint. Run
+      # one on the same machine so that builds actually get executed.
+      services.hydra-builder = {
+        enable = true;
+        queueRunnerAddr = "http://[::1]:${toString config.services.hydra.queueRunner.grpc.port}";
+      };
+      systemd.services.hydra-builder.after = [ "hydra-queue-runner.service" ];
+
       services.postfix.enable = true;
       nix.settings.substituters = [ ];
       nix.enable = true; # disabled by default. See all-tests.nix / tag(no-nix-by-default)
