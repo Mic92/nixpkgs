@@ -45,9 +45,7 @@
         '';
       };
 
-      # Since the queue runner was rewritten in Rust it no longer drives build
-      # machines over SSH: they run an agent that dials its gRPC endpoint. Run
-      # one on the same machine so that builds actually get executed.
+      # Local build agent so that queued builds actually get executed.
       services.hydra-builder = {
         enable = true;
         queueRunnerAddr = "http://[::1]:${toString config.services.hydra.queueRunner.grpc.port}";

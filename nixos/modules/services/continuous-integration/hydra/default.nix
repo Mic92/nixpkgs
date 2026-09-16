@@ -21,14 +21,10 @@ let
     HYDRA_DATA = "${baseDir}";
   };
 
-  # The database URL with an `application_name` query parameter added, to tell
-  # apart where queries come from in PostgreSQL's statistics.
-  #
-  # `%` is doubled because these end up in a systemd `Environment=`, where a
-  # bare `%` starts a specifier: the percent-encoded socket directory of the
-  # default URL (`%2Frun%2Fpostgresql`) would otherwise make systemd drop the
-  # whole assignment and the services would silently connect as their own Unix
-  # user instead.
+  # Appends `application_name` so queries can be attributed in pg_stat_activity.
+  # `%` is doubled because the value lands in systemd `Environment=`, where the
+  # percent-encoded socket path (`%2Frun%2Fpostgresql`) would be parsed as a
+  # specifier.
   dbUrlWithAppName =
     name:
     lib.replaceStrings [ "%" ] [ "%%" ] (
@@ -98,9 +94,7 @@ in
 {
   imports = [
     (lib.mkRemovedOptionModule [ "services" "hydra" "dbi" ] ''
-      Hydra now reads `HYDRA_DATABASE_URL` instead of `HYDRA_DBI`. Use
-      `services.hydra.dbUrl`, which takes a libpq URL such as
-      `postgres://hydra@localhost:5432/hydra` rather than a DBI string.
+      Use `services.hydra.dbUrl`, which takes a postgres:// URL instead of a DBI string.
     '')
     (lib.mkRemovedOptionModule [ "services" "hydra" "buildMachinesFiles" ] ''
       The queue runner no longer reads Nix build machines files. Builders now
@@ -126,13 +120,10 @@ in
         default = localDbUrl;
         example = "postgres://foo@postgres.example.org:5432/hydra";
         description = ''
-          libpq URL of the Hydra database, passed to every Hydra service as
-          `HYDRA_DATABASE_URL`. Both the Perl and the Rust components read it.
+          `postgres://` URL of the Hydra database.
 
-          NOTE: attempts to set `application_name` are overridden with
-          `hydra-TYPE` (where TYPE is e.g. `evaluator`, `queue-runner`, etc.)
-          in all Hydra services, to more easily distinguish where queries are
-          coming from.
+          An `application_name` query parameter is appended per service
+          (e.g. `hydra-evaluator`), so do not set one here.
         '';
       };
 
@@ -160,9 +151,7 @@ in
 
       ws = {
         enable =
-          lib.mkEnableOption ''
-            the WebSocket server streaming live build logs to the web
-            interface''
+          lib.mkEnableOption "the WebSocket server streaming live build logs to the web interface"
           // {
             default = true;
             example = false;
@@ -607,9 +596,8 @@ in
             type = lib.types.singleLineStr;
             default = "[::1]";
             description = ''
-              Address the gRPC listener binds to. This is what
-              {option}`services.hydra-builder.queueRunnerAddr` points at, so it
-              has to be reachable from the build machines.
+              Address the gRPC listener binds to. Must be reachable from
+              machines running {option}`services.hydra-builder`.
             '';
           };
 
@@ -663,10 +651,8 @@ in
           type = lib.types.nullOr lib.types.path;
           default = null;
           description = ''
-            Path to an AWS credentials file. When set,
-            `AWS_SHARED_CREDENTIALS_FILE` is passed to the queue runner so that
-            the AWS SDK finds credentials without relying on the EC2 instance
-            metadata service.
+            Path to an AWS credentials file, exported as
+            `AWS_SHARED_CREDENTIALS_FILE` to the queue runner.
           '';
         };
       };
@@ -705,7 +691,7 @@ in
       description = "Hydra queue runner";
       group = "hydra";
       useDefaultShell = true;
-      home = "${baseDir}/queue-runner"; # really only to keep SSH happy
+      home = "${baseDir}/queue-runner";
       uid = config.ids.uids.hydra-queue-runner;
     };
 
@@ -858,9 +844,7 @@ in
         "hydra-queue-runner-grpc.socket"
       ];
       after = [
-        # Sets up the database; the queue runner exits if the schema is stale.
         "hydra-init.service"
-        # The queue runner may need to reach other machines.
         "network.target"
       ];
       reloadTriggers = [ config.environment.etc."hydra/queue-runner.toml".source ];
@@ -868,9 +852,7 @@ in
       environment = {
         NIX_REMOTE = "daemon";
         RUST_BACKTRACE = "1";
-
-        # nix-store uses $HOME for its temporary cache directory and fails in
-        # bizarre ways when it is unset.
+        # nix-store wants $HOME for its cache dir.
         HOME = "/run/hydra-queue-runner";
       }
       // lib.optionalAttrs (queueRunnerCfg.awsCredentialsFile != null) {
@@ -883,8 +865,7 @@ in
         RestartSec = "5s";
         Slice = "system-hydra.slice";
 
-        # The runner holds a gRPC stream per builder plus a database pool and
-        # HTTP connections; the default 1024 soft limit is easily exhausted.
+        # One gRPC stream per builder plus DB pool. 1024 is easily exhausted.
         LimitNOFILE = 65536;
 
         ExecStart = lib.escapeShellArgs (
@@ -914,9 +895,7 @@ in
         RuntimeDirectory = "hydra-queue-runner";
         WorkingDirectory = "${baseDir}/queue-runner";
 
-        # `hydra-init` is what creates and owns these, so they are listed here
-        # rather than pulled in through `StateDirectory=`, which would also
-        # take ownership of ${baseDir} itself.
+        # Created by hydra-init. StateDirectory= would chown ${baseDir}.
         ReadWritePaths = [
           "/nix/var/nix/gcroots/"
           "/nix/var/nix/daemon-socket/socket"
@@ -1072,8 +1051,7 @@ in
       path = [
         pkgs.hostname-debian
         pkgs.jq
-        # `hydra-evaluator` shells out to `hydra-eval-jobset`.
-        hydra-package
+        hydra-package # hydra-eval-jobset
       ];
       restartTriggers = [
         hydraConf
@@ -1089,8 +1067,6 @@ in
           "--config-path"
           "/etc/hydra/evaluator.toml"
         ];
-        # `--unlock` goes through the same argument parsing, so it needs the
-        # config path too.
         ExecStopPost = lib.escapeShellArgs [
           (lib.getExe cfg.evaluatorPackage)
           "--config-path"

@@ -13,12 +13,7 @@ let
 in
 {
   options.services.hydra-builder = {
-    enable = lib.mkEnableOption ''
-      the Hydra build agent. Since Hydra's queue runner was rewritten in Rust,
-      build machines no longer get driven over SSH from an `/etc/nix/machines`
-      file: they run this agent, which dials the queue runner's gRPC endpoint
-      and advertises what it can build
-    '';
+    enable = lib.mkEnableOption "the Hydra build agent, which connects to the queue runner over gRPC and executes builds";
 
     package = lib.mkPackageOption pkgs "hydra-builder" { };
 
@@ -204,15 +199,12 @@ in
       requires = [ "nix-daemon.socket" ];
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      # The builder has no hot reload, so restart it when the config changes.
       restartTriggers = [ config.environment.etc."hydra/builder.toml".source ];
 
       environment = {
         NIX_REMOTE = "daemon";
         RUST_BACKTRACE = "1";
-
-        # nix-store uses $HOME for its temporary cache directory and fails in
-        # bizarre ways when it is unset.
+        # nix-store wants $HOME for its cache dir.
         HOME = "/run/hydra-builder";
       };
 
