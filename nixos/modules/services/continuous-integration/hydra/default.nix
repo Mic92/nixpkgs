@@ -674,66 +674,6 @@ in
             metadata service.
           '';
         };
-
-        otel = {
-          enable = lib.mkEnableOption ''
-            OpenTelemetry tracing. Requires a queue runner built with the `otel`
-            feature, so {option}`services.hydra.queueRunner.package` has to be
-            overridden with `hydra-queue-runner.override { withOtel = true; }`
-          '';
-
-          endpoint = lib.mkOption {
-            type = lib.types.nullOr lib.types.singleLineStr;
-            default = null;
-            example = "http://127.0.0.1:4317";
-            description = ''
-              OTLP collector endpoint (`OTEL_EXPORTER_OTLP_ENDPOINT`). The
-              exporter uses gRPC, so point this at the gRPC port.
-            '';
-          };
-
-          protocol = lib.mkOption {
-            type = lib.types.nullOr (
-              lib.types.enum [
-                "grpc"
-                "http/protobuf"
-                "http/json"
-              ]
-            );
-            default = null;
-            description = "OTLP protocol (`OTEL_EXPORTER_OTLP_PROTOCOL`).";
-          };
-
-          headers = lib.mkOption {
-            type = lib.types.nullOr lib.types.singleLineStr;
-            default = null;
-            example = "authorization=Bearer token";
-            description = ''
-              Headers sent to the collector (`OTEL_EXPORTER_OTLP_HEADERS`). This
-              ends up in the world-readable systemd unit, so do not put secrets
-              here.
-            '';
-          };
-
-          serviceName = lib.mkOption {
-            type = lib.types.nullOr lib.types.singleLineStr;
-            default = null;
-            description = ''
-              Service name reported to the collector (`OTEL_SERVICE_NAME`).
-              Defaults to the binary name.
-            '';
-          };
-
-          extraEnv = lib.mkOption {
-            type = lib.types.attrsOf lib.types.singleLineStr;
-            default = { };
-            example = {
-              OTEL_TRACES_SAMPLER = "parentbased_traceidratio";
-              OTEL_TRACES_SAMPLER_ARG = "0.1";
-            };
-            description = "Additional `OTEL_*` environment variables.";
-          };
-        };
       };
     };
 
@@ -940,16 +880,7 @@ in
       }
       // lib.optionalAttrs (queueRunnerCfg.awsCredentialsFile != null) {
         AWS_SHARED_CREDENTIALS_FILE = queueRunnerCfg.awsCredentialsFile;
-      }
-      // lib.optionalAttrs queueRunnerCfg.otel.enable (
-        lib.filterAttrs (_: v: v != null) {
-          OTEL_EXPORTER_OTLP_ENDPOINT = queueRunnerCfg.otel.endpoint;
-          OTEL_EXPORTER_OTLP_PROTOCOL = queueRunnerCfg.otel.protocol;
-          OTEL_EXPORTER_OTLP_HEADERS = queueRunnerCfg.otel.headers;
-          OTEL_SERVICE_NAME = queueRunnerCfg.otel.serviceName;
-        }
-        // queueRunnerCfg.otel.extraEnv
-      );
+      };
 
       serviceConfig = {
         Type = "notify";
