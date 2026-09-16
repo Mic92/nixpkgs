@@ -40,7 +40,6 @@ let
   env = {
     NIX_REMOTE = "daemon";
     PGPASSFILE = "${baseDir}/pgpass";
-    NIX_REMOTE_SYSTEMS = lib.concatStringsSep ":" cfg.buildMachinesFiles;
   }
   // lib.optionalAttrs (cfg.smtpHost != null) {
     EMAIL_SENDER_TRANSPORT = "SMTP";
@@ -104,6 +103,10 @@ in
       Hydra now reads `HYDRA_DATABASE_URL` instead of `HYDRA_DBI`. Use
       `services.hydra.dbUrl`, which takes a libpq URL such as
       `postgres://hydra@localhost:5432/hydra` rather than a DBI string.
+    '')
+    (lib.mkRemovedOptionModule [ "services" "hydra" "buildMachinesFiles" ] ''
+      The queue runner no longer reads Nix build machines files. Builders now
+      connect to it via gRPC, see `services.hydra-builder`.
     '')
   ];
 
@@ -336,24 +339,6 @@ in
         type = lib.types.path;
         default = "/nix/var/nix/gcroots/hydra";
         description = "Directory that holds Hydra garbage collector roots.";
-      };
-
-      buildMachinesFiles = lib.mkOption {
-        type = lib.types.listOf lib.types.path;
-        default = lib.optional (config.nix.buildMachines != [ ]) "/etc/nix/machines";
-        defaultText = lib.literalExpression ''lib.optional (config.nix.buildMachines != []) "/etc/nix/machines"'';
-        example = [
-          "/etc/nix/machines"
-          "/var/lib/hydra/provisioner/machines"
-        ];
-        description = ''
-          List of files containing build machines.
-
-          Only consumed by the evaluator: since Hydra's queue runner was
-          rewritten in Rust it no longer reads this file, and build machines
-          instead register themselves by connecting to its gRPC endpoint. See
-          {option}`services.hydra-builder`.
-        '';
       };
 
       useSubstitutes = lib.mkOption {
