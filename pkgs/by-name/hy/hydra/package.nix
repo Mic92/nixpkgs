@@ -42,8 +42,7 @@
 }:
 
 let
-  # Hydra tracks Nix closely and only builds against the version it pins in its
-  # flake: https://github.com/NixOS/hydra/blob/master/flake.nix
+  # Keep in sync with the nix input of https://github.com/NixOS/hydra/blob/master/flake.nix
   nixComponents = nixVersions.nixComponents_2_35;
 
   version = "0-unstable-2026-09-09";
@@ -203,12 +202,11 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs .
   '';
 
-  # The test suite lives in the `hydra-tests` subproject, which needs a running
-  # PostgreSQL and the Rust components, so it is not run here.
+  # Tests live in subprojects/hydra-tests and need PostgreSQL plus the Rust
+  # daemons. Covered by nixosTests.hydra instead.
   doCheck = false;
 
-  # Upstream builds the manual as its own `hydra-manual` subproject, but keeping
-  # it in the `doc` output here saves nixpkgs a second derivation.
+  # subprojects/hydra-manual is a separate meson project upstream.
   postBuild = ''
     mdbook build ../../hydra-manual -d "$NIX_BUILD_TOP/manual"
   '';
@@ -217,8 +215,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $doc/share/doc/hydra $out/nix-support
     cp -r $NIX_BUILD_TOP/manual/. $doc/share/doc/hydra
     echo "doc manual $doc/share/doc/hydra" >> $out/nix-support/hydra-build-products
-  ''
-  + ''
+
     for i in $out/bin/*; do
         read -n 4 chars < $i
         if [[ $chars =~ ELF ]]; then continue; fi
