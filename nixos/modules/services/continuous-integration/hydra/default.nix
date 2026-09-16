@@ -939,7 +939,6 @@ in
         NoNewPrivileges = true;
         PrivateDevices = true;
         PrivateMounts = true;
-        PrivateNetwork = false;
         PrivateTmp = true;
         PrivateUsers = true;
         ProtectClock = true;
@@ -951,7 +950,6 @@ in
         ProtectKernelTunables = true;
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = "";
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -1029,7 +1027,6 @@ in
         NoNewPrivileges = true;
         PrivateDevices = true;
         PrivateMounts = true;
-        PrivateNetwork = false;
         PrivateTmp = true;
         PrivateUsers = true;
         ProtectClock = true;
@@ -1041,7 +1038,6 @@ in
         ProtectKernelTunables = true;
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = "";
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
