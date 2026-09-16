@@ -9,9 +9,7 @@ let
   cfg = config.services.hydra;
   queueRunnerCfg = cfg.queueRunner;
 
-  queueRunnerFormat = pkgs.formats.toml { };
-  evaluatorFormat = pkgs.formats.toml { };
-  wsFormat = pkgs.formats.toml { };
+  toml = pkgs.formats.toml { };
 
   baseDir = "/var/lib/hydra";
 
@@ -146,13 +144,10 @@ in
         description = ''
           Settings for the evaluator, written to
           {file}`/etc/hydra/evaluator.toml`.
-
-          Each of Hydra's Rust services has its own TOML file holding just the
-          settings it needs.
         '';
         default = { };
         type = lib.types.submodule {
-          freeformType = evaluatorFormat.type;
+          freeformType = toml.type;
           options = {
             max_concurrent_evals = lib.mkOption {
               type = lib.types.ints.positive;
@@ -983,7 +978,7 @@ in
       };
     };
 
-    environment.etc."hydra/queue-runner.toml".source = queueRunnerFormat.generate "queue-runner.toml" (
+    environment.etc."hydra/queue-runner.toml".source = toml.generate "queue-runner.toml" (
       lib.filterAttrsRecursive (_: v: v != null) queueRunnerCfg.settings
     );
 
@@ -1062,7 +1057,7 @@ in
     };
 
     environment.etc."hydra/ws.toml" = lib.mkIf cfg.ws.enable {
-      source = wsFormat.generate "ws.toml" (lib.filterAttrsRecursive (_: v: v != null) cfg.ws.settings);
+      source = toml.generate "ws.toml" (lib.filterAttrsRecursive (_: v: v != null) cfg.ws.settings);
     };
 
     systemd.services.hydra-evaluator = {
@@ -1110,7 +1105,7 @@ in
     };
 
     environment.etc."hydra/evaluator.toml".source =
-      evaluatorFormat.generate "evaluator.toml" cfg.evaluatorSettings;
+      toml.generate "evaluator.toml" cfg.evaluatorSettings;
 
     systemd.services.hydra-update-gc-roots = {
       requires = [ "hydra-init.service" ];
