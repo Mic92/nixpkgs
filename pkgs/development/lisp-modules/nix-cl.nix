@@ -373,9 +373,12 @@ let
             --set ASDF "${o.asdfFasl}/asdf.${o.faslExt}"
           )
           if [ -n "$CL_SOURCE_REGISTRY" ]; then
+            # The trailing separator makes ASDF inherit its default configuration.
             wrapperArgs+=(
-              --prefix CL_SOURCE_REGISTRY : "$CL_SOURCE_REGISTRY:"
-              --prefix ASDF_OUTPUT_TRANSLATIONS : "$(echo $CL_SOURCE_REGISTRY | sed s,//:,::,g):"
+              --set-default CL_SOURCE_REGISTRY ""
+              --prefix CL_SOURCE_REGISTRY : "$CL_SOURCE_REGISTRY"
+              --set-default ASDF_OUTPUT_TRANSLATIONS ""
+              --prefix ASDF_OUTPUT_TRANSLATIONS : "$(echo "$CL_SOURCE_REGISTRY:" | sed -E 's,([^:]+)//:,\1:\1:,g; s,:$,,')"
             )
           fi
           if [ -n "$LD_LIBRARY_PATH" ]; then
