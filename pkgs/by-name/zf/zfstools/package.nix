@@ -22,7 +22,10 @@ python3Packages.buildPythonApplication {
   build-system = [ python3Packages.hatchling ];
 
   makeWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ (if stdenv.hostPlatform.isFreeBSD then freebsd.zfs else zfs) ]}"
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [ (if stdenv.hostPlatform.isFreeBSD then freebsd.zfs else zfs) ])
   ];
 
   nativeCheckInputs = [ python3Packages.pytestCheckHook ];
