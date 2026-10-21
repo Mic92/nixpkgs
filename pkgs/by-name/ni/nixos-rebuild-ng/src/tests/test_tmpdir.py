@@ -9,7 +9,6 @@ from nixos_rebuild.tmpdir import MAX_TMPDIR_LENGTH, make_tmpdir
 
 @contextlib.contextmanager
 def tempfile_tempdir(path: str) -> typing.Generator[None]:
-    Path(path).mkdir(exist_ok=True)
     og_tmpdir = tempfile.tempdir
     try:
         tempfile.tempdir = path
@@ -32,7 +31,8 @@ def test_make_tmpdir() -> None:
     assert_tmpdir(tmp)
 
     # Test with a short system temp dir. We should use it unmodified.
-    short_tempdir = "/tmp/not-too-long"
+    # /tmp is shared between builds on darwin, so use unique names.
+    short_tempdir = tempfile.mkdtemp(prefix="short.", dir="/tmp")
     with tempfile_tempdir(short_tempdir):
         tmpdir = make_tmpdir()
         tmp = Path(tmpdir.name)
@@ -43,7 +43,10 @@ def test_make_tmpdir() -> None:
     # Test with a long system temp dir. We should ignore
     # it and fall back to something short enough for OpenSSH to
     # create sockets in.
-    with tempfile_tempdir("/tmp/long" + ("g" * MAX_TMPDIR_LENGTH)):
+    long_tempdir = tempfile.mkdtemp(
+        prefix="long" + ("g" * MAX_TMPDIR_LENGTH), dir="/tmp"
+    )
+    with tempfile_tempdir(long_tempdir):
         tmpdir = make_tmpdir()
         tmp = Path(tmpdir.name)
 
