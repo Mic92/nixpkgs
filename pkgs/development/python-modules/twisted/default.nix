@@ -188,6 +188,7 @@ buildPythonPackage rec {
         "src/twisted/internet/test/test_tcp.py" = [
           # flaky on macOS, suspected kernel bug in socket notifications
           # https://github.com/twisted/twisted/issues/12151
+          "AbortConnectionTests_AsyncioSelectorReactorTests.test_fullWriteBuffer"
           "AbortConnectionTests_AsyncioSelectorReactorTests.test_fullWriteBufferAfterByteExchange"
           "AbortConnectionTests_AsyncioSelectorReactorTests.test_resumeProducingAbort"
           "AbortConnectionTests_AsyncioSelectorReactorTests.test_resumeProducingAbortLater"
