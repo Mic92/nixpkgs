@@ -30,9 +30,8 @@ buildSphinxPhase() {
         exit 1
     fi
 
-    if [ -n "${sphinxBuilders-}" ]; then
-        eval "__sphinxBuilders=($sphinxBuilders)"
-    else
+    concatTo __sphinxBuilders sphinxBuilders
+    if [ ${#__sphinxBuilders[@]} -eq 0 ]; then
         __sphinxBuilders=(html)
     fi
 
