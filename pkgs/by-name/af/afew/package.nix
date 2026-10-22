@@ -26,8 +26,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ];
 
   sphinxBuilders = [
-    "html"
-    "man"
+    # sphinxHook only reads the first entry with __structuredAttrs
+    "html man"
   ];
 
   dependencies = [
