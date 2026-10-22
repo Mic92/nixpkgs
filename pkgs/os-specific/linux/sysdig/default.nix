@@ -26,6 +26,7 @@
   clang,
   libbpf,
   bpftools,
+  buildPackages,
 }:
 
 let
@@ -165,13 +166,16 @@ stdenv.mkDerivation {
       kernel_dev=${kernel.dev}
       kernel_dev=''${kernel_dev#${builtins.storeDir}/}
       kernel_dev=''${kernel_dev%%-linux*dev*}
+      # sign after patching; aggregateModules needs scap.ko.cer
       if test -f "$out/lib/modules/${kernel.modDirVersion}/extra/scap.ko"; then
           sed -i "s#$kernel_dev#................................#g" $out/lib/modules/${kernel.modDirVersion}/extra/scap.ko
+          ${lib.getExe buildPackages.kmodigest} $out/lib/modules/${kernel.modDirVersion}/extra/scap.ko
       else
           for i in $out/lib/modules/${kernel.modDirVersion}/{extra,updates}/scap.ko.xz; do
             if test -f "$i"; then
               xz -d $i
               sed -i "s#$kernel_dev#................................#g" ''${i%.xz}
+              ${lib.getExe buildPackages.kmodigest} ''${i%.xz}
               xz -9 ''${i%.xz}
             fi
           done
