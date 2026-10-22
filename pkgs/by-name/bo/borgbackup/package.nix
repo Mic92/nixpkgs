@@ -36,6 +36,10 @@ python.pkgs.buildPythonApplication (finalAttrs: {
     # sandbox does not support setuid/setgid/sticky bits
     substituteInPlace src/borg/testsuite/archiver.py \
       --replace-fail "0o4755" "0o0755"
+    # the ACL probe uses uid 9999, which is unmapped in user-namespaced
+    # sandboxes and makes acl_set fail with EINVAL instead of ENOTSUP
+    substituteInPlace src/borg/testsuite/platform.py \
+      --replace-fail "(errno.ENOTSUP, )" "(errno.ENOTSUP, errno.EINVAL)"
   '';
 
   build-system = with python.pkgs; [
