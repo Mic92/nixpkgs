@@ -78,6 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     libtool
     itstool
     texinfo
+    python3Packages.python
     python3Packages.wrapPython
   ];
 
