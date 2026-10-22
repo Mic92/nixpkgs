@@ -86,6 +86,11 @@ buildPythonPackage (finalAttrs: {
     "tests/test_tsqyomi_regression.py"
   ];
 
+  disabledTests = [
+    # matches an older Cython TypeError message
+    "test_run_njd_from_mecab_invalid_input_should_not_break_next_call"
+  ];
+
   pythonImportsCheck = [ "pyopenjtalk" ];
 
   meta = {
