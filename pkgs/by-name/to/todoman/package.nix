@@ -62,8 +62,8 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   ];
 
   sphinxBuilders = [
-    "singlehtml"
-    "man"
+    # sphinxHook only reads the first entry with __structuredAttrs
+    "singlehtml man"
   ];
 
   preInstallSphinx = ''

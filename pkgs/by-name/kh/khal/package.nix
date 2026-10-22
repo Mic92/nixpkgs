@@ -64,8 +64,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     "man"
   ];
   sphinxBuilders = [
-    "html"
-    "man"
+    # sphinxHook only reads the first entry with __structuredAttrs
+    "html man"
   ];
 
   postInstall = ''

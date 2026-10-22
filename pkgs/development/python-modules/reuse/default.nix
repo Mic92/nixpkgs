@@ -75,8 +75,8 @@ buildPythonPackage (finalAttrs: {
   ];
 
   sphinxBuilders = [
-    "html"
-    "man"
+    # sphinxHook only reads the first entry with __structuredAttrs
+    "html man"
   ];
   sphinxRoot = "docs";
 
