@@ -10,13 +10,43 @@
   rust-bindgen,
   testers,
   nix-update-script,
+  aws-lc,
   writableTmpDirAsHomeHook,
+  runCommand,
   useSharedLibraries ? !stdenv.hostPlatform.isStatic,
   withRustBindings ? true,
+  symbolPrefix ? "AWS_LC",
 }:
+
+let
+  aws-lc' = aws-lc.override {
+    useSharedLibraries = false;
+    symbolPrefix = null;
+  };
+  symbols =
+    runCommand "aws-lc-symbols"
+      {
+        inherit (aws-lc) src;
+        nativeBuildInputs = [
+          writableTmpDirAsHomeHook
+          go
+        ];
+      }
+      ''
+        cd "$src"
+        go run ./util/read_symbols.go -out "$TMPDIR/symbols_crypto.txt" ${aws-lc'}/lib/libcrypto-awslc.a
+        go run ./util/read_symbols.go -out "$TMPDIR/symbols_ssl.txt" ${aws-lc'}/lib/libssl-awslc.a
+        cat "$TMPDIR"/symbols_{crypto,ssl}.txt > $out
+      '';
+in
+
 stdenv.mkDerivation (finalAttrs: {
   pname = "aws-lc";
   version = "5.12.0";
+
+  patches = [
+    ./fix-dynamic-loading-test.patch
+  ];
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -51,6 +81,13 @@ stdenv.mkDerivation (finalAttrs: {
       vendorHash = "sha256-495bUr3Cuo7kuhuNLMVhrVg9NXTAXyFmnXRmBrCHovA=";
     }).goModules;
 
+  # it seems that ENABLE_DIST_PKG rejects apple because of symbol versioning,
+  # but we disable symbol versioning ourselves.
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace-fail "if(NOT UNIX OR APPLE)" "if(NOT UNIX)"
+  '';
+
   preConfigure = ''
     ln -s ${finalAttrs.goDeps} vendor
   '';
@@ -58,10 +95,16 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = [
     (lib.cmakeBool "BUILD_SHARED_LIBS" useSharedLibraries)
     (lib.cmakeBool "GENERATE_RUST_BINDINGS" withRustBindings)
+    (lib.cmakeBool "ENABLE_DIST_PKG" true)
+    (lib.cmakeBool "ENABLE_SYMBOL_VERSIONING" false)
   ]
   ++ lib.optionals stdenv.cc.isGNU [
     # Needed with gcc but breaks with clang
     (lib.cmakeFeature "CMAKE_C_FLAGS" "-Wno-error=stringop-overflow")
+  ]
+  ++ lib.optionals (symbolPrefix != null) [
+    (lib.cmakeFeature "BORINGSSL_PREFIX" symbolPrefix)
+    (lib.cmakeFeature "BORINGSSL_PREFIX_SYMBOLS" (toString symbols))
   ];
 
   doCheck = true;
@@ -93,9 +136,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests = {
+      unprefixed = aws-lc.override { symbolPrefix = null; };
       version = testers.testVersion {
         package = finalAttrs.finalPackage;
-        command = "bssl version";
+        command = "aws-lc-bssl version";
       };
       pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
     };
@@ -115,15 +159,14 @@ stdenv.mkDerivation (finalAttrs: {
         asl20
         isc
       ];
-    mainProgram = "bssl";
+    mainProgram = "aws-lc-bssl";
     maintainers = with lib.maintainers; [
       whispersofthedawn
     ];
     pkgConfigModules = [
       "aws-lc"
-      "libcrypto"
-      "libssl"
-      "openssl"
+      "libcrypto-awslc"
+      "libssl-awslc"
     ];
     platforms = lib.platforms.unix;
   };
