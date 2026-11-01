@@ -4,7 +4,6 @@
   rustPlatform,
   fetchFromGitHub,
   pkg-config,
-  aws-lc,
   zstd,
   nix-update-script,
 }:
@@ -24,12 +23,22 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ./no-dtrace-macos.patch
   ];
 
+  # Replace nextest-workspace-hack, otherwise we would still depend on aws-lc
+  postPatch = ''
+    cat > workspace-hack/Cargo.toml <<EOF
+    [package]
+    name = "nextest-workspace-hack"
+    version = "0.1.0"
+    edition.workspace = true
+    publish = false
+    EOF
+  '';
+
   cargoHash = "sha256-Qss1AxTNR68C0F/OT8qLHhKdxwzr+b/TeIIQQRfHdfQ=";
 
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
-    aws-lc
     zstd
   ];
 
