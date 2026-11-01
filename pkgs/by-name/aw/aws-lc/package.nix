@@ -16,6 +16,8 @@
   useSharedLibraries ? !stdenv.hostPlatform.isStatic,
   withRustBindings ? true,
   symbolPrefix ? "AWS_LC",
+  # This option might lead to OpenSSL being silently swapped to AWS-LC. Only use it if you know what you are doing.
+  withOpenSSLShim ? false,
 }:
 
 let
@@ -46,6 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     ./fix-dynamic-loading-test.patch
+    ./fix-openssl-shim-symlinks.patch
   ];
 
   __structuredAttrs = true;
@@ -96,6 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "BUILD_SHARED_LIBS" useSharedLibraries)
     (lib.cmakeBool "GENERATE_RUST_BINDINGS" withRustBindings)
     (lib.cmakeBool "ENABLE_DIST_PKG" true)
+    (lib.cmakeBool "ENABLE_DIST_PKG_OPENSSL_SHIM" withOpenSSLShim)
     (lib.cmakeBool "ENABLE_SYMBOL_VERSIONING" false)
   ]
   ++ lib.optionals stdenv.cc.isGNU [
@@ -136,7 +140,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests = {
-      unprefixed = aws-lc.override { symbolPrefix = null; };
       version = testers.testVersion {
         package = finalAttrs.finalPackage;
         command = "aws-lc-bssl version";
