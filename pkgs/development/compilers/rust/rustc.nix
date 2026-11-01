@@ -326,6 +326,21 @@ stdenv.mkDerivation (finalAttrs: {
     else
       null;
 
+  # The bundled profiler runtime follows rust's LLVM (#576588).
+  preConfigure =
+    lib.optionalString
+      (
+        !withBundledLLVM && ((stdenv.targetPlatform.isLinux && !useLLVM) || stdenv.targetPlatform.isDarwin)
+      )
+      ''
+        profilerRt=(${targetPackages.llvmPackages.compiler-rt}/lib/*/libclang_rt.profile[-_]*.a)
+        if [[ ''${#profilerRt[@]} -ne 1 || ! -f ''${profilerRt[0]} ]]; then
+          echo "expected exactly one profiler runtime, found: ''${profilerRt[*]}" >&2
+          exit 1
+        fi
+        appendToVar configureFlags '--set=target."${stdenv.targetPlatform.rust.rustcTargetSpec}".profiler='"''${profilerRt[0]}"
+      '';
+
   # the rust build system complains that nix alters the checksums
   dontFixLibtool = true;
 
