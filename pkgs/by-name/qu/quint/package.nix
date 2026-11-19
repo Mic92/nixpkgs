@@ -15,10 +15,11 @@
   nix-update,
   common-updater-scripts,
   libiconv,
+  tlx,
 }:
 
 let
-  version = "0.33.1";
+  version = "0.33.1-unstable-2026-11-19";
   apalacheVersion = "0.62.4";
   evaluatorVersion = "0.7.1";
 
@@ -31,10 +32,11 @@ let
   };
 
   src = fetchFromGitHub {
-    owner = "quint-co";
+    # Fork that adds `quint verify --backend tlx`
+    owner = "Mic92";
     repo = "quint";
-    tag = "v${version}";
-    hash = "sha256-F0Yj9e+qTOlj6RzspvkEhilXC6pFHvISBRLgvJmon7I=";
+    rev = "0dec099d06c5c2c6daa8489e920286433fd701d1";
+    hash = "sha256-GvFsVwUo4CtwhYEK/2yNn6aw50wnqx5dxzNHpwYMN1A=";
   };
 
   # Build the Quint CLI from source
@@ -110,7 +112,12 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper ${nodejs}/bin/node $out/bin/quint \
       --add-flags "${quint-cli}/share/quint/dist/src/cli.js" \
       --set QUINT_HOME "$out/share/quint" \
-      --prefix PATH : ${lib.makeBinPath [ jre ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          jre
+          tlx
+        ]
+      }
 
     install -Dm755 ${quint-evaluator}/bin/quint_evaluator -t $out/share/quint/rust-evaluator-v${evaluatorVersion}/
 
